@@ -6,6 +6,7 @@ setopt hist_ignore_dups
 . ~/.zsh/dj_aliases
 . ~/.zsh/git_aliases
 . ~/.zsh/functions
+. ~/.bin/zsh-syntax-highlighting//zsh-syntax-highlighting.zsh
 
 if [ $(uname -s) = 'Darwin' ]; then
   export LANG="en_AU.UTF-8"
@@ -51,3 +52,6 @@ function self-insert-backslash() { LBUFFER+='\'; zle .self-insert }
 zle -N self-insert-backslash
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+if [ -f $HOME/.venvburrito/startup.sh ]; then
+    . $HOME/.venvburrito/startup.sh
+fi
