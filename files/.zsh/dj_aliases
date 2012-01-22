@@ -1,0 +1,4 @@
+alias dj='django-admin.py'
+alias djr='django-admin.py runserver_plus'
+alias djs='django-admin.py syncdb'
+alias djm='django-admin.py migrate'
