@@ -1,0 +1,18 @@
+[user]
+	name = Justin Morris
+        email = justin@pixelbloom.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[core]
+	excludesfile = /Users/justin/.gitignore
+	quotepath = false
+[github]
+	user = plasticine
+[difftool "Kaleidoscope"]
+	cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[diff]
+	tool = Kaleidoscope
