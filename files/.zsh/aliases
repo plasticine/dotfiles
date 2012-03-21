@@ -20,6 +20,7 @@ alias be='bundle exec $argv'
 alias df='df -kh $argv'
 
 alias TOPGUN="open 'http://www.youtube.com/watch?v=NEOem7U2LPE'"
+alias IGNITION="open 'http://pixelbloom.com/ride-of-the-valkyries'"
 
 alias add_alias='mate -w ~/.zsh/aliases; cd ~/.dot-files; ga files/.zsh/aliases; gc'
 alias git_alias='mate -w ~/.zsh/git_aliases; cd ~/.dot-files; ga files/.zsh/git_aliases; gc'
