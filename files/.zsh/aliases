@@ -14,6 +14,7 @@ alias lal='ls -lah'
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 alias m='mate . $argv'
+alias ksdiff='git difftool'
 
 alias be='bundle exec $argv'
 
