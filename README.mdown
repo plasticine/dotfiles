@@ -5,6 +5,6 @@
 3. `git submodule init && git submodule update`
 4. run `sh ~/.dotfiles/clone_and_link.sh`
 
-You can then install `virtualenvburrito` and `pythonbrew`.
+You should create a new shell session and then install `virtualenvburrito` and `pythonbrew`.
 
 Done.
