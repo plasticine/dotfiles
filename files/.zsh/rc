@@ -1,17 +1,6 @@
 setopt prompt_subst
 setopt hist_ignore_dups
 
-. ~/.zsh/prompt
-. ~/.zsh/aliases
-. ~/.zsh/dj_aliases
-. ~/.zsh/git_aliases
-. ~/.zsh/functions
-. ~/.bin/zsh-syntax-highlighting//zsh-syntax-highlighting.zsh
-
-
-source /Users/justin/.pythonbrew/etc/bashrc
-
-
 if [ $(uname -s) = 'Darwin' ]; then
   export LANG="en_AU.UTF-8"
   export EDITOR='subl --wait --new-window'
@@ -20,6 +9,21 @@ if [ $(uname -s) = 'Darwin' ]; then
 else
   export PATH="$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 fi
+
+# set up pythonbrew
+. ~/.pythonbrew/etc/bashrc
+
+# define a default virtualenv to use
+# needs to be above the prompt setup so we dont get a munged prompt
+# all the time...
+. ~/.virtualenvs/_default/bin/activate
+
+. ~/.zsh/prompt
+. ~/.zsh/aliases
+. ~/.zsh/dj_aliases
+. ~/.zsh/git_aliases
+. ~/.zsh/functions
+. ~/.bin/zsh-syntax-highlighting//zsh-syntax-highlighting.zsh
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zsh_history
@@ -46,6 +50,7 @@ export WORDCHARS='*?[]~=&;!#$%^(){}'
 export WORKON_HOME=$HOME/.virtualenvs
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_REQUIRE_VIRTUALENV=true
+export VIRTUALENV_DISTRIBUTE=true
 
 # mappings for Ctrl/Option-left-arrow and Ctrl/Option-right-arrow for word moving
 bindkey "\e\e[C"  forward-word
