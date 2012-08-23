@@ -6,6 +6,8 @@ if [ $(uname -s) = 'Darwin' ]; then
   export EDITOR='subl --wait --new-window'
   export PATH="$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/X11/bin:/usr/local/share/python"
   export MANPATH="/usr/local/share/man:/usr/X11/man:/usr/share/man"
+  precmd () {print -Pn "\e]2; %~/ \a"}
+  preexec () {print -Pn "\e]2; %~/ \a"}
 else
   export PATH="$HOME/.bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 fi
