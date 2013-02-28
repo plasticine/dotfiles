@@ -4,7 +4,7 @@
 # The methods that get called more than once are memoized.
 
 def git_repo_path
-  @git_repo_path ||= `git rev-parse --git-dir 2>/dev/null`.strip
+  @git_repo_path ||= `command git rev-parse --git-dir 2>/dev/null`.strip
 end
 
 def in_git_repo
@@ -18,11 +18,11 @@ def git_parse_branch
 end
 
 def git_head_commit_id
-  `git rev-parse --short HEAD 2>/dev/null`.strip
+  `command git rev-parse --short HEAD 2>/dev/null`.strip
 end
 
 def git_cwd_dirty
-  ' ✗' unless git_repo_path == '.' || `git ls-files -m`.strip.empty?
+  ' 🚫' unless git_repo_path == '.' || `command git ls-files -m`.strip.empty?
 end
 
 if in_git_repo
