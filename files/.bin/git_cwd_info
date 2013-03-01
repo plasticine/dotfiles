@@ -3,9 +3,6 @@
 
 # The methods that get called more than once are memoized.
 
-GIT_PROMPT_DIRTY = ": %{$fg[red]%}✗"
-GIT_PROMPT_CLEAN = ": %{$fg[cyan]%}✔"
-
 def git_repo_path
   @git_repo_path ||= `command git rev-parse --git-dir 2>/dev/null`.strip
 end
