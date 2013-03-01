@@ -29,9 +29,6 @@ fi
 . ~/.bin/zsh_hub_completion
 . ~/.bin/zsh-syntax-highlighting//zsh-syntax-highlighting.zsh
 
-# bring in functions for `hub` (brew install hub)
-. /usr/local/share/zsh/site-functions
-
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
@@ -69,9 +66,7 @@ zle -N self-insert-backslash
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
-if [ -f $HOME/.venvburrito/startup.sh ]; then
-    . $HOME/.venvburrito/startup.sh
-fi
-if [ -f $HOME/.pythonbrew/etc/bashrc ]; then
-	. $HOME/.pythonbrew/etc/bashrc
-fi
+
+[ -f $HOME/.pythonbrew/etc/bashrc ] && . $HOME/.pythonbrew/etc/bashrc
+[ -f $HOME/.venvburrito/startup.sh ] && . $HOME/.venvburrito/startup.sh
+[ -f /opt/boxen/env.sh ] && . /opt/boxen/env.sh

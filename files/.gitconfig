@@ -6,7 +6,7 @@
 	status = auto
 	branch = auto
 [core]
-	excludesfile = /Users/justin/.gitignore
+	excludesfile = /opt/boxen/config/git/gitignore
 	quotepath = false
 [github]
 	user = plasticine
@@ -27,3 +27,9 @@
 	account = personal
 [push]
 	default = upstream
+
+[hub]
+protocol = https
+
+[credential]
+helper = /opt/boxen/bin/boxen-git-credential
