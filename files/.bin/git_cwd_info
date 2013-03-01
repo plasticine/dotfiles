@@ -3,6 +3,9 @@
 
 # The methods that get called more than once are memoized.
 
+GIT_PROMPT_DIRTY = ": %{$fg[red]%}✗"
+GIT_PROMPT_CLEAN = ": %{$fg[cyan]%}✔"
+
 def git_repo_path
   @git_repo_path ||= `command git rev-parse --git-dir 2>/dev/null`.strip
 end
@@ -22,9 +25,13 @@ def git_head_commit_id
 end
 
 def git_cwd_dirty
-  ' 🚫' unless git_repo_path == '.' || `command git ls-files -m`.strip.empty?
+  if git_repo_path == '.' || `command git ls-files -m`.strip.empty?
+    " %{\e[32m%}✔%{\e[0m%}"
+  else
+    " %{\e[31m%}✗%{\e[0m%}"
+  end
 end
 
 if in_git_repo
-  puts " %{\e[0;90m%}#{git_parse_branch}%{\e[0m%}@%{\e[0;90m%}#{git_head_commit_id}#{git_cwd_dirty}%{\e[0m%}"
+  puts " %{\e[34m%}#{git_parse_branch}%{\e[0m%}%{\e[0;140m%}@%{\e[0m%}%{\e[33m%}#{git_head_commit_id}#{git_cwd_dirty}%{\e[0m%}"
 end
