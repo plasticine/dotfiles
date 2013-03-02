@@ -1,4 +1,6 @@
-# Dot files.
+# plasticine flavoured dotfiles
+
+
 
 1. clone into `~/.dotfiles`
 2. `cd ~/.dotfiles`

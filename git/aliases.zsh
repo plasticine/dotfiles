@@ -1,3 +1,9 @@
+hub_path=$(which hub)
+if (( $+commands[hub] ))
+then
+  alias git=$hub_path
+fi
+
 export git_concise_log_format='--pretty=format:%Cblue%h%d%Creset %ar %Cgreen%an%Creset %s'
 
 git_current_branch() {
@@ -28,11 +34,6 @@ alias glog='git log $git_concise_log_format'
 alias gl='glog --graph'
 alias gla='gl --all'
 alias gl_absolute='git log --graph --pretty=format:"%Cblue%h%d%Creset %ad %Cgreen%an%Creset %s"'
-gls() {
-  query="$1"
-  shift
-  glog --pickaxe-regex "-S$query" "$@"
-}
 alias gm='git merge --no-ff'
 alias gp='git push'
 alias gpthis='git push origin HEAD:$(git_current_branch)'

@@ -1,0 +1,48 @@
+# Sample gitconfig
+#
+
+[hub]
+        protocol = https
+[user]
+        name = Justin Morris
+        email = justin@pixelbloom.com
+        helper = osxkeychain
+[color]
+        diff = auto
+        status = auto
+        branch = auto
+        ui = true
+[core]
+        excludesfile = ~/.gitignore
+        editor = subl
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[difftool]
+        prompt = false
+[help]
+        autocorrect = 1
+[push]
+        # See `git help config` (search for push.default)
+        # for more information on different options of the below setting.
+        #
+        # Setting to git 2.0 default to surpress warning message
+        default = upstream
+[credential]
+        helper = /opt/boxen/bin/boxen-git-credential
+[heroku]
+        account = personal
+[difftool "Kaleidoscope"]
+        cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+        prompt = false
+[diff]
+        tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+        cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+        trustExitCode = true
+[mergetool]
+        prompt = false
+[merge]
+        tool = Kaleidoscope
