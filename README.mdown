@@ -1,12 +1,8 @@
 # plasticine flavoured dotfiles
 
-
-
 1. clone into `~/.dotfiles`
-2. `cd ~/.dotfiles`
-3. `git submodule init && git submodule update`
-4. run `sh ~/.dotfiles/clone_and_link.sh`
-
-You should create a new shell session and then install `virtualenvburrito` and `pythonbrew`.
+2. `git clone git://github.com/zsh-users/zsh-syntax-highlighting.git /usr/local`
+3. `sh ./script/bootstrap`
+3. `sh ./bin/osx`
 
 Done.

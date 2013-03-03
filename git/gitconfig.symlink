@@ -13,12 +13,12 @@
         branch = auto
         ui = true
 [core]
-        excludesfile = ~/.gitignore
+        excludesfile = /opt/boxen/config/git/gitignore
         editor = subl
 [apply]
         whitespace = nowarn
 [mergetool]
-        keepBackup = false
+        prompt = false
 [difftool]
         prompt = false
 [help]
