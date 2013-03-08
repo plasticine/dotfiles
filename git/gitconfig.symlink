@@ -14,7 +14,7 @@
         ui = true
 [core]
         excludesfile = /opt/boxen/config/git/gitignore
-        editor = subl
+        editor = subl --wait
 [apply]
         whitespace = nowarn
 [mergetool]

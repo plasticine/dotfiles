@@ -1,3 +1,3 @@
 cd() {
-  builtin cd "$@" && ls
+  builtin cd "$@" && ll
 }
