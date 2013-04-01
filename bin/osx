@@ -24,6 +24,9 @@ defaults write com.apple.menuextra.battery ShowTime -string "YES"
 # Always show scrollbars
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
+# Disable delay for showing and hiding the dock
+defaults write com.apple.Dock autohide-delay -float 0 && killall Dock
+
 # Disable opening and closing window animations
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 

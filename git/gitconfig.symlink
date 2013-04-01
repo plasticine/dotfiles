@@ -4,8 +4,8 @@
 [hub]
         protocol = https
 [user]
-        name = Justin Morris
-        email = justin@pixelbloom.com
+	name = Justin Morris
+	email = justin@pixelbloom.com
         helper = osxkeychain
 [color]
         diff = auto
@@ -15,6 +15,7 @@
 [core]
         excludesfile = /opt/boxen/config/git/gitignore
         editor = subl --wait
+	quotepath = false
 [apply]
         whitespace = nowarn
 [mergetool]
