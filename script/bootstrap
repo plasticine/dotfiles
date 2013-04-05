@@ -99,19 +99,5 @@ install_dotfiles () {
 
 install_dotfiles
 
-# If we are on a mac, lets install and setup homebrew
-if [ "$(uname -s)" == "Darwin" ]
-then
-  if test ! $(which brew)
-  then
-    echo "  x You should probably install Homebrew first:"
-    echo "    https://github.com/mxcl/homebrew/wiki/installation"
-    exit
-  fi
-
-  # Install homebrew packages
-  brew install grc coreutils
-fi
-
 echo ''
 echo '  All installed!'
