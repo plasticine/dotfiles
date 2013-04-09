@@ -50,22 +50,21 @@ need_push () {
   fi
 }
 
-# This keeps the number of todos always available the right hand side of my
-# command line. I filter it to only count those tagged as "+next", so it's more
-# of a motivation to clear out the list.
-todo(){
-  if (( $+commands[todo.sh] ))
-  then
-    num=$(echo $(todo.sh ls +next | wc -l))
-    let todos=num-2
-    if [ $todos != 0 ]
-    then
-      echo "$todos"
-    else
-      echo ""
-    fi
+function notes_count() {
+  if [[ -z $1 ]]; then
+    local NOTES_PATTERN="TODO|FIXME|HACK";
   else
-    echo ""
+    local NOTES_PATTERN=$1;
+  fi
+  grep -ERn "\b($NOTES_PATTERN)\b" {app,config,lib,spec,test} 2>/dev/null | wc -l | sed 's/ //g'
+}
+
+function notes_prompt() {
+  local COUNT=$(notes_count $1);
+  if [ $COUNT != 0 ]; then
+    echo "%{$fg[black]%}[$1: $COUNT]%{$reset_color%}";
+  else
+    echo "";
   fi
 }
 
@@ -73,10 +72,11 @@ directory_name(){
   echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(directory_name)\n%{$fg_bold[yellow]%}⚡ %{$reset_color%}'
+export PROMPT=$'$(directory_name) \
+%{$fg_bold[yellow]%}⚡ %{$reset_color%}'
 
 set_prompt () {
-  export RPROMPT="$(git_dirty)$(need_push)"
+  export RPROMPT=$'$(git_dirty)$(need_push)$(notes_prompt TODO)'
 }
 
 precmd() {

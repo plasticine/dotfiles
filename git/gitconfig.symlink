@@ -13,7 +13,7 @@
         branch = auto
         ui = true
 [core]
-        excludesfile = /opt/boxen/config/git/gitignore
+	excludesfile = ~/.gitignore
         editor = subl --wait
 	quotepath = false
 [apply]

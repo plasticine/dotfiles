@@ -1,0 +1,3 @@
+#!/bin/sh
+
+image_optim -r $(find $1 -type f -iname '*.png' -o -iname '*.jpg' -o -iname '*.gif')
