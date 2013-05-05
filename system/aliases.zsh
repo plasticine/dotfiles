@@ -14,6 +14,7 @@ alias be='bundle exec $argv'
 alias dotfiles='subl ~/.dotfiles;'
 
 alias reboot='reboot_safely'
+alias boxen='boxen_unlocked'
 
 alias TOPGUN="open 'http://www.youtube.com/watch?v=NEOem7U2LPE'"
 alias IGNITION="open 'http://pixelbloom.com/ride-of-the-valkyries'"
