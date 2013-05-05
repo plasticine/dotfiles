@@ -10,3 +10,19 @@ setup_ssh_key() {
   SSH_PUB_FILE="~/.ssh/id_rsa.pub"
   scp $SSH_PUB_FILE $1:.ssh/authorized_keys 'chown -R `whoami`:`whoami` ~/.ssh; chmod 700 ~/.ssh; chmod 600 ~/.ssh/authorized_keys;'
 }
+
+reboot_safely() {
+  if [[ $(hostname) != "Doppio.local" ]]
+  then
+    fdesetup authrestart
+  fi
+  reboot
+}
+
+boxen_unlocked() {
+  if [[ $(hostname) != "Doppio.local" ]]
+  then
+    security unlock-keychain
+  fi
+  boxen
+}
