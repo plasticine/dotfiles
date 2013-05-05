@@ -9,6 +9,16 @@ else
   git="/usr/bin/git"
 fi
 
+get_hostname() {
+  hostname=$(hostname)
+  if [[ $hostname == "Doppio.local" ]]
+  then
+    echo ""
+  else
+    echo "%{$fg_bold[magenta]%}[$hostname]%{$reset_color%}"
+  fi
+}
+
 git_head_id(){
   echo "$($git rev-parse --short HEAD 2>/dev/null)"
 }
@@ -73,7 +83,7 @@ directory_name(){
 }
 
 export PROMPT=$'$(directory_name) \
-%{$fg_bold[yellow]%}⚡ %{$reset_color%}'
+$(get_hostname) %{$fg_bold[yellow]%}⚡ %{$reset_color%}'
 
 set_prompt () {
   export RPROMPT=$'$(git_dirty)$(need_push)$(notes_prompt TODO)'
