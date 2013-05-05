@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOTFILES_ROOT="`pwd`"
+DOTFILES_ROOT="`pwd`/"
 
 set -e
 

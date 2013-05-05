@@ -18,10 +18,6 @@
 	quotepath = false
 [apply]
         whitespace = nowarn
-[mergetool]
-        prompt = false
-[difftool]
-        prompt = false
 [help]
         autocorrect = 1
 [push]
