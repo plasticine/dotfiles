@@ -15,8 +15,9 @@ reboot_safely() {
   if [[ $(hostname) != "Doppio.local" ]]
   then
     fdesetup authrestart
+  else
+    /sbin/reboot
   fi
-  reboot
 }
 
 boxen_unlocked() {
@@ -24,5 +25,4 @@ boxen_unlocked() {
   then
     security unlock-keychain
   fi
-  boxen
 }
