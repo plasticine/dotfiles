@@ -26,3 +26,8 @@ boxen_unlocked() {
     security unlock-keychain
   fi
 }
+
+
+git_stats() {
+  git log --shortstat --author "Justin Morris" --since "52 weeks ago" | grep "files changed" | awk '{files+=$1; inserted+=$4; deleted+=$6} END {print "files changed", files, "lines inserted:", inserted, "lines deleted:", deleted}'
+}

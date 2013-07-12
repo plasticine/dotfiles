@@ -1,10 +1,8 @@
 # Sample gitconfig
 #
 
-[hub]
-        protocol = https
 [user]
-	name = Justin Morris
+	name = plasticine
 	email = justin@pixelbloom.com
         helper = osxkeychain
 [color]
