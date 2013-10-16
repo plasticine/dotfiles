@@ -1,1 +1,1 @@
-fortune | cowsay
+tracker current | cowsay

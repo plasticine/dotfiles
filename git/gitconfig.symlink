@@ -2,7 +2,7 @@
 #
 
 [user]
-	name = plasticine
+	name = Justin Morris
 	email = justin@pixelbloom.com
         helper = osxkeychain
 [color]
@@ -34,6 +34,7 @@
         prompt = false
 [diff]
         tool = Kaleidoscope
+	submodule = log
 [mergetool "Kaleidoscope"]
         cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
         trustExitCode = true

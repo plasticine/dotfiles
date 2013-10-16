@@ -13,6 +13,10 @@ alias be='bundle exec $argv'
 
 alias dotfiles='subl ~/.dotfiles;'
 
+alias trs='tracker start'
+alias tre='tracker stop'
+alias trc='tracker continue'
+
 alias reboot='reboot_safely'
 alias boxen='boxen_unlocked; boxen'
 

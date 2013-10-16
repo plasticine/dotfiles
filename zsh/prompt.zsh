@@ -19,11 +19,11 @@ get_hostname() {
   fi
 }
 
-git_head_id(){
+git_head_id () {
   echo "$($git rev-parse --short HEAD 2>/dev/null)"
 }
 
-git_branch() {
+git_branch () {
   echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
@@ -47,7 +47,35 @@ git_dirty() {
   fi
 }
 
-unpushed () {
+work_timer_total() {
+  working_time_file='/Users/justin/.working_time'
+  if [[ -s $working_time_file ]]
+  then
+    local WORKING_TIME=$(cat $working_time_file)
+    if [[ $WORKING_TIME == "0" ]]
+    then
+      local WORKING_TIME="00:00:00"
+    fi
+  else
+    local WORKING_TIME="--:--:--"
+  fi
+  echo "$WORKING_TIME"
+}
+
+working_on() {
+  current_working_file='/Users/justin/.TimeTracker/current.txt'
+  if [[ -s $current_working_file ]]
+  then
+    local WORKING_ON="$(cat $current_working_file)"
+    echo " $WORKING_ON"
+  fi
+}
+
+work_prompt() {
+  echo "[$(work_timer_total)$(working_on)]%{$reset_color%}"
+}
+
+unpushed() {
   $git cherry -v @{upstream} 2>/dev/null
 }
 
@@ -56,7 +84,7 @@ need_push () {
   then
     echo " "
   else
-    echo " (with %{$fg_bold[magenta]%}unpushed%{$reset_color%})"
+    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
   fi
 }
 
@@ -82,8 +110,7 @@ directory_name(){
   echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'$(directory_name) \
-$(get_hostname) %{$fg_bold[yellow]%}⚡ %{$reset_color%}'
+export PROMPT=$'$(get_hostname) $(work_prompt): $(directory_name) %{$fg_bold[yellow]%}⚡ %{$reset_color%}'
 
 set_prompt () {
   export RPROMPT=$'$(git_dirty)$(need_push)$(notes_prompt TODO)'
