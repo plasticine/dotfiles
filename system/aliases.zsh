@@ -17,6 +17,8 @@ alias trs='tracker start'
 alias tre='tracker stop'
 alias trc='tracker continue'
 
+proj() { cd $(find ~/code ~/projects -type d -maxdepth 1 | selecta) }
+
 alias reboot='reboot_safely'
 alias boxen='boxen_unlocked; boxen'
 
