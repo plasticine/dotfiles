@@ -17,10 +17,13 @@ alias trs='tracker start'
 alias tre='tracker stop'
 alias trc='tracker continue'
 
-proj() { cd $(find ~/src -iname $1 -type d -maxdepth 5 | selecta) }
+proj() {
+  [ $1 ] && filter="-iname ${1}"
+  cd $(find ~/src ${filter} -type d -maxdepth 5 | selecta)
+}
 
 alias reboot='reboot_safely'
 alias boxen='boxen_unlocked; boxen'
 
-alias TOPGUN="open 'http://www.youtube.com/watch?v=NEOem7U2LPE'"
+alias TOPGUN="open 'http://www.youtube.com/watch?v=vwBbrngafl0'"
 alias IGNITION="open 'http://pixelbloom.com/ride-of-the-valkyries'"

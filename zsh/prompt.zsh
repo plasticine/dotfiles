@@ -13,7 +13,7 @@ get_hostname() {
   hostname=$(hostname)
   if [[ $hostname == "Doppio.local" ]]
   then
-    echo ""
+    echo "%{$fg_bold[blue]%}[doppio]%{$reset_color%}"
   else
     echo "%{$fg_bold[magenta]%}[$hostname]%{$reset_color%}"
   fi
@@ -45,34 +45,6 @@ git_dirty() {
       echo "%{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
     fi
   fi
-}
-
-work_timer_total() {
-  working_time_file='/Users/justin/.working_time'
-  if [[ -s $working_time_file ]]
-  then
-    local WORKING_TIME=$(cat $working_time_file)
-    if [[ $WORKING_TIME == "0" ]]
-    then
-      local WORKING_TIME="00:00:00"
-    fi
-  else
-    local WORKING_TIME="--:--:--"
-  fi
-  echo "$WORKING_TIME"
-}
-
-working_on() {
-  current_working_file='/Users/justin/.TimeTracker/current.txt'
-  if [[ -s $current_working_file ]]
-  then
-    local WORKING_ON="$(cat $current_working_file)"
-    echo " $WORKING_ON"
-  fi
-}
-
-work_prompt() {
-  echo "[$(work_timer_total)$(working_on)]%{$reset_color%}"
 }
 
 unpushed() {
@@ -110,7 +82,7 @@ directory_name(){
   echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'$(get_hostname) $(work_prompt): $(directory_name) %{$fg_bold[yellow]%}⚡ %{$reset_color%}'
+export PROMPT=$'$(get_hostname) $(directory_name) %{$fg_bold[yellow]%}⚡ %{$reset_color%}'
 
 set_prompt () {
   export RPROMPT=$'$(git_dirty)$(need_push)$(notes_prompt TODO)'

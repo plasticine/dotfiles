@@ -15,6 +15,9 @@ alias gcf='git config -l'
 alias gch='git cherry-pick'
 alias gcm='gc --amend'
 alias gco='git checkout'
+
+gcob() { gco $(git branch | selecta) }
+
 alias gcop='gco -p'
 alias gd='git difftool'
 alias gd.='git diff -M --color-words="."'
