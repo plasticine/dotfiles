@@ -11,11 +11,9 @@ fi
 
 get_hostname() {
   hostname=$(hostname)
-  if [[ $hostname == "Doppio.local" ]]
+  if [[ "$SSH_CONNECTION" != '' ]]
   then
-    echo "%{$fg_bold[blue]%}[doppio]%{$reset_color%}"
-  else
-    echo "%{$fg_bold[magenta]%}[$hostname]%{$reset_color%}"
+    echo "%{$fg_bold[magenta]%}[$hostname] %{$reset_color%}"
   fi
 }
 
@@ -33,19 +31,20 @@ git_prompt_info () {
 }
 
 git_dirty() {
-  st=$($git status 2>/dev/null | tail -n 1)
-  if [[ $st == "" ]]
+  # check if we're in a git repo
+  command git rev-parse --is-inside-work-tree &>/dev/null || return
+  # check if it's dirty
+  command git diff --quiet --ignore-submodules HEAD &>/dev/null
+
+  if [[ $? == 1 ]]
   then
-    echo ""
+    echo "%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
   else
-    if [[ "$st" =~ ^nothing ]]
-    then
-      echo "%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
-    else
-      echo "%{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
-    fi
+    echo "%{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
   fi
 }
+
+
 
 unpushed() {
   $git cherry -v @{upstream} 2>/dev/null
@@ -66,13 +65,13 @@ function notes_count() {
   else
     local NOTES_PATTERN=$1;
   fi
-  grep -ERn "\b($NOTES_PATTERN)\b" {app,config,lib,spec,test} 2>/dev/null | wc -l | sed 's/ //g'
+  grep -ERn "\b($NOTES_PATTERN)\b" {app,config,lib,spec,test,source} 2>/dev/null | wc -l | sed 's/ //g'
 }
 
 function notes_prompt() {
   local COUNT=$(notes_count $1);
   if [ $COUNT != 0 ]; then
-    echo "%{$fg[black]%}[$1: $COUNT]%{$reset_color%}";
+    echo " %{$fg[black]%}[$1: $COUNT]%{$reset_color%}";
   else
     echo "";
   fi
@@ -82,10 +81,10 @@ directory_name(){
   echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-export PROMPT=$'$(get_hostname) $(directory_name) %{$fg_bold[yellow]%}⚡ %{$reset_color%}'
+export PROMPT=$'$(get_hostname)$(directory_name) %{$fg_bold[yellow]%}❯ %{$reset_color%}'
 
 set_prompt () {
-  export RPROMPT=$'$(git_dirty)$(need_push)$(notes_prompt TODO)'
+  export RPROMPT=$'$(git_dirty)$(need_push)$(notes_prompt REORDERTODO)'
 }
 
 precmd() {

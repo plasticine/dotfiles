@@ -9,13 +9,12 @@ alias la='gls -A --color'
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 
+alias ws='wercker status'
+alias wb='wercker builds'
+
 alias be='bundle exec $argv'
 
 alias dotfiles='subl ~/.dotfiles;'
-
-alias trs='tracker start'
-alias tre='tracker stop'
-alias trc='tracker continue'
 
 proj() {
   [ $1 ] && filter="-iname ${1}"
