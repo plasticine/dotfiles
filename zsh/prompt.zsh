@@ -44,8 +44,6 @@ git_dirty() {
   fi
 }
 
-
-
 unpushed() {
   $git cherry -v @{upstream} 2>/dev/null
 }

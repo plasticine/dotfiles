@@ -1,6 +1,9 @@
+[init]
+    templatedir = ~/.git_template
+
 [user]
 	name = Justin Morris
-	email = justin@pixelbloom.com
+	email = desk@pixelbloom.com
     helper = osxkeychain
 
 [color]
@@ -55,3 +58,10 @@
 
 [hub]
     protocol = https
+
+[github]
+user = plasticine
+[ghi "highlight"]
+	style = colorful
+[ghi]
+	token = !security find-internet-password -a plasticine -s github.com -l 'ghi token' -w
