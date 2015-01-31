@@ -5,6 +5,7 @@ export ZSH=$HOME/.dotfiles
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
 
+
 # load the path files
 for file in ${(M)config_files:#*/path.zsh}
 do
@@ -32,5 +33,3 @@ do
 done
 
 unset config_files
-# added by travis gem
-[ -f /Users/justin/.travis/travis.sh ] && source /Users/justin/.travis/travis.sh

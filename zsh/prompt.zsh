@@ -14,6 +14,8 @@ get_hostname() {
   if [[ "$SSH_CONNECTION" != '' ]]
   then
     echo "%{$fg_bold[magenta]%}[$hostname] %{$reset_color%}"
+  else
+    echo "doppio"
   fi
 }
 
@@ -34,13 +36,18 @@ git_dirty() {
   # check if we're in a git repo
   command git rev-parse --is-inside-work-tree &>/dev/null || return
   # check if it's dirty
-  command git diff --quiet --ignore-submodules HEAD &>/dev/null
+  st=$($git status 2>/dev/null | tail -n 1)
 
-  if [[ $? == 1 ]]
+  if [[ $st == "" ]]
   then
-    echo "%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+    echo ""
   else
-    echo "%{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+    if [[ "$st" =~ ^nothing ]]
+    then
+      echo "%{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+    else
+      echo "%{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+    fi
   fi
 }
 
@@ -57,32 +64,14 @@ need_push () {
   fi
 }
 
-function notes_count() {
-  if [[ -z $1 ]]; then
-    local NOTES_PATTERN="TODO|FIXME|HACK";
-  else
-    local NOTES_PATTERN=$1;
-  fi
-  grep -ERn "\b($NOTES_PATTERN)\b" {app,config,lib,spec,test,source} 2>/dev/null | wc -l | sed 's/ //g'
-}
-
-function notes_prompt() {
-  local COUNT=$(notes_count $1);
-  if [ $COUNT != 0 ]; then
-    echo " %{$fg[black]%}[$1: $COUNT]%{$reset_color%}";
-  else
-    echo "";
-  fi
-}
-
 directory_name(){
-  echo "%{$fg[cyan]%}%1/%\/%{$reset_color%}"
+  echo "%{$fg[cyan]%}%2/%{$reset_color%}"
 }
 
-export PROMPT=$'$(get_hostname)$(directory_name) %{$fg_bold[yellow]%}❯ %{$reset_color%}'
+export PROMPT=$'%{$fg_bold[yellow]%}$(get_hostname) ❯%{$reset_color%} $(directory_name) '
 
 set_prompt () {
-  export RPROMPT=$'$(git_dirty)$(need_push)$(notes_prompt REORDERTODO)'
+  export RPROMPT=$'$(git_dirty)$(need_push)'
 }
 
 precmd() {

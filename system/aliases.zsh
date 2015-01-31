@@ -16,11 +16,6 @@ alias be='bundle exec $argv'
 
 alias dotfiles='subl ~/.dotfiles;'
 
-proj() {
-  [ $1 ] && filter="-iname ${1}"
-  cd $(find ~/src ${filter} -type d -maxdepth 5 | selecta)
-}
-
 alias reboot='reboot_safely'
 alias boxen='boxen_unlocked; boxen'
 
