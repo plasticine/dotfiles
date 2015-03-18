@@ -1,5 +1,33 @@
 export git_concise_log_format='--pretty=format:%Cblue%h%d%Creset %ar %Cgreen%an%Creset %s'
 
+# Record commits using git-stats
+git() {
+  cmd=$1
+  shift
+  extra=""
+
+  quoted_args=""
+  whitespace="[[:space:]]"
+  for i in "$@"
+  do
+      quoted_args="$quoted_args \"$i\""
+  done
+
+  cmdToRun="`which git` "$cmd" $quoted_args"
+  cmdToRun=`echo $cmdToRun | sed -e 's/^ *//' -e 's/ *$//'`
+  bash -c "$cmdToRun"
+  if [ $? -eq 0 ]; then
+    # Commit stats
+    if [ "$cmd" == "commit" ]; then
+      commit_hash=`git rev-parse HEAD`
+      repo_url=`git config --get remote.origin.url`
+      commit_date=`git log -1 --format=%cd`
+      commit_data="\"{ \"date\": \"$commit_date\", \"url\": \"$repo_url\", \"hash\": \"$commit_hash\" }\""
+      git-stats --record "$commit_data"
+    fi
+  fi
+}
+
 git_current_branch() {
   command git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
 }
@@ -16,7 +44,9 @@ alias gch='git cherry-pick'
 alias gcm='gc --amend'
 alias gco='git checkout'
 
-gcob() { gco $(git branch | selecta) }
+gcob() {
+  git checkout $(git branch -v | cut -c 3- | pick -d)
+}
 
 alias gcop='gco -p'
 alias gd='git difftool'

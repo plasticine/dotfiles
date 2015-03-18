@@ -1,4 +1,19 @@
-autoload colors && colors
+function welcome() {
+  echo "$(tput setaf 2)
+`date +"%A, %e %B %Y, %r"`
+`uname -srm`
+
+Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
+Load Averages: `uptime | sed -e 's/^.*load averages: //g'`
+Processes:     `ps ax | wc -l | tr -d ' '`
+$(tput sgr0)
+`git-stats`
+
+`kickboxen`
+"
+}
+
+welcome
 
 local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 

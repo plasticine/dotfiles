@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+#
+# Keeps track of how often you run boxen
+
+set -e
+
+timestamp_file=$HOME/.boxen_timestamp
+timestamp_format="%Y-%m-%d %H:%M:%S"
+now="$(/bin/date -ju "+$timestamp_format")"
+
+one_week_ago() {
+  /bin/date -juf "$timestamp_format" "$now" "+$timestamp_format" -v-7d
+}
+
+to_timestamp() {
+  /bin/date -j -f "$timestamp_format" "$1" "+%s"
+}
+
+update_boxen_last_executed() {
+  local boxen_exit_code="$1"
+
+  printf "updating boxen last run date"
+  echo "$now" > "$timestamp_file"
+  printf " [ \033[00;32mOK \033[0m]"
+  echo ""
+}
+
+boxen_last_executed() {
+  to_timestamp "$(cat "$timestamp_file")"
+}
+
+handle_skip() {
+  local last_run=$(distance_of_time_in_words "$(boxen_last_executed)" "$(date -u +%s)")
+  echo "Boxen last invoked $last_run"
+  exit 0
+}
+
+run_boxen() {
+  printf "\033[0;33mInvoking Boxen...\033[0m\n\n"
+  ls -al
+  update_boxen_last_executed $?
+}
+
+handle_never_run() {
+  printf "\033[0;33mOK, I'm not sure when you last ran Boxen (maybe you never have?), so I'm Just gonna go ahead and take care of that for you! :)\033[0m\n\n"
+}
+
+handle_needs_run() {
+  "It has been quite a while since you last ran boxen"
+}
+
+distance_of_time_in_words() {
+  local start_timestamp="$1"
+  local end_timestamp="$2"
+  local diff=$(expr $end_timestamp - $start_timestamp)
+  local seconds=$((diff % 60))
+  local diff=$((diff / 60))
+  local minutes=$((diff % 60))
+  local diff=$((diff / 60))
+  local hours=$((diff % 24))
+  local diff=$((diff / 24))
+  local days=$diff
+
+  echo $days days, $hours hours ago
+}
+
+main() {
+  local last_run=$(boxen_last_executed)
+  local threshold=$(to_timestamp "$(one_week_ago)")
+
+  if [ ! -f "$timestamp_file" ]; then
+    handle_never_run
+  elif [ "$last_run" -lt "$threshold" ]; then
+    handle_skip
+  elif [ "$last_run" -gt "$threshold" ]; then
+    handle_needs_run
+  fi
+  run_boxen
+}
+
+main

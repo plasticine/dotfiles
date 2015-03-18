@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOTFILES_ROOT="`pwd`/"
+DOTFILES_ROOT="`pwd`"
 
 set -e
 
@@ -30,7 +30,7 @@ link_files () {
 }
 
 install_dotfiles () {
-  info 'installing dotfiles'
+  info 'installing dotfiles...'
 
   overwrite_all=false
   backup_all=false

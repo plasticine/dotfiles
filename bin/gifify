@@ -1,4 +1,4 @@
-#!/usr/bin/env bash +x
+#!/usr/bin/env bash
 #
 # Compress video files into GIFs.
 #
@@ -31,6 +31,13 @@ convert() {
   $convert_bin -verbose +dither -layers Optimize -resize 800x800 "$tmpdir/frame*.png" "$tmpdir/output.gif"
 }
 
+optimize() {
+  local filters="fps=60,scale=1024:-1:flags=lanczos"
+
+  $ffmpeg_bin -v warning -i "$tmpdir/output.gif" -vf "$filters,palettegen" -y "$tmpdir/palette.png"
+  $ffmpeg_bin -v warning -i "$tmpdir/output.gif" -i "$tmpdir/palette.png" -lavfi "$filters [x]; [x][1:v] paletteuse" -y "$tmpdir/output.gif"
+}
+
 compress() {
   $gifsicle_bin --colors 128 --delay=5 --loop --optimize=4 --output="$tmpdir/output.gif" "$tmpdir/output.gif"
 }
@@ -49,6 +56,7 @@ main() {
       notify "Converting to GIF..." "$input_path"
       dump $input_path
       convert
+      optimize
       compress
       notify "All done!" "$input_path"
       mv "$tmpdir/output.gif" "$output_path"

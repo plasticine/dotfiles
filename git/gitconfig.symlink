@@ -16,6 +16,7 @@
 	excludesfile = /opt/boxen/config/git/gitignore
     editor = subl --wait
 	quotepath = false
+    ignorecase = false
 
 [apply]
     whitespace = nowarn
@@ -60,11 +61,14 @@
     protocol = https
 
 [github]
-user = plasticine
+    user = plasticine
+
 [ghi "highlight"]
 	style = colorful
+
 [ghi]
 	token = !security find-internet-password -a plasticine -s github.com -l 'ghi token' -w
+
 [filter "media"]
 	clean = git media clean %f
 	smudge = git media smudge %f

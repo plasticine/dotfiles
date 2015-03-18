@@ -9,15 +9,9 @@ alias la='gls -A --color'
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 
-alias ws='wercker status'
-alias wb='wercker builds'
-
 alias be='bundle exec $argv'
 
 alias dotfiles='subl ~/.dotfiles;'
-
-alias reboot='reboot_safely'
-alias boxen='boxen_unlocked; boxen'
 
 alias TOPGUN="open 'http://www.youtube.com/watch?v=vwBbrngafl0'"
 alias IGNITION="open 'http://pixelbloom.com/ride-of-the-valkyries'"
