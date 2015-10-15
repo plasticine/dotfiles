@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+main() {
+  /Users/justin/bin/p wait && terminal-notifier -title "Focus\!" -message "Completed!"
+}
+
+main "$@"

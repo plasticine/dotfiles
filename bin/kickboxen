@@ -4,9 +4,31 @@
 
 set -e
 
+red=`tput setaf 1`
+yellow=`tput setaf 3`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
 timestamp_file=$HOME/.boxen_timestamp
 timestamp_format="%Y-%m-%d %H:%M:%S"
 now="$(/bin/date -ju "+$timestamp_format")"
+
+info() {
+  printf "$@"
+}
+
+ok() {
+  printf "${green}$@${reset}"
+}
+
+
+warn() {
+  printf "${yellow}$@${reset}"
+}
+
+error() {
+  printf "${red}$@${reset}"
+}
 
 one_week_ago() {
   /bin/date -juf "$timestamp_format" "$now" "+$timestamp_format" -v-7d
@@ -19,9 +41,9 @@ to_timestamp() {
 update_boxen_last_executed() {
   local boxen_exit_code="$1"
 
-  printf "updating boxen last run date"
+  info "Updating boxen last run date"
   echo "$now" > "$timestamp_file"
-  printf " [ \033[00;32mOK \033[0m]"
+  ok " [OK]"
   echo ""
 }
 
@@ -31,22 +53,27 @@ boxen_last_executed() {
 
 handle_skip() {
   local last_run=$(distance_of_time_in_words "$(boxen_last_executed)" "$(date -u +%s)")
-  echo "Boxen last invoked $last_run"
+  info "Boxen last invoked $last_run"
   exit 0
 }
 
 run_boxen() {
-  printf "\033[0;33mInvoking Boxen...\033[0m\n\n"
-  ls -al
+  boxen --stealth
   update_boxen_last_executed $?
 }
 
 handle_never_run() {
-  printf "\033[0;33mOK, I'm not sure when you last ran Boxen (maybe you never have?), so I'm Just gonna go ahead and take care of that for you! :)\033[0m\n\n"
+  warn "OK, I'm not sure when you last ran Boxen (maybe you never have?), so I'm Just gonna go ahead and take care of that for you! :)"
 }
 
 handle_needs_run() {
-  "It has been quite a while since you last ran boxen"
+  warn "It looks like it has been quite a while since you last ran boxen!\n"
+  read -p "Do you want to run it now (y/n)? " -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo
+    run_boxen
+  fi
 }
 
 distance_of_time_in_words() {
@@ -61,7 +88,7 @@ distance_of_time_in_words() {
   local diff=$((diff / 24))
   local days=$diff
 
-  echo $days days, $hours hours ago
+  echo "$days days, $hours hours ago...\n"
 }
 
 main() {
@@ -70,12 +97,11 @@ main() {
 
   if [ ! -f "$timestamp_file" ]; then
     handle_never_run
-  elif [ "$last_run" -lt "$threshold" ]; then
+  elif [ "$threshold" -lt "$last_run" ]; then
     handle_skip
-  elif [ "$last_run" -gt "$threshold" ]; then
+  elif [ "$threshold" -gt "$last_run" ]; then
     handle_needs_run
   fi
-  run_boxen
 }
 
 main
