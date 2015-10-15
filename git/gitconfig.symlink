@@ -62,6 +62,7 @@
 
 [github]
     user = plasticine
+    token = 
 
 [ghi "highlight"]
 	style = colorful
