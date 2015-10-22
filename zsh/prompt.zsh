@@ -1,14 +1,12 @@
 function welcome() {
   echo "
-`fortune $HOME/src/plasticine/programmers_oblique_strategies | cowsay`
-
-$(tput setaf 2)
-`date +"%A, %e %B %Y, %r"`
+$(tput setaf 2)`date +"%A, %e %B %Y, %r"`
 `uname -srm`
 
 Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
 Load Averages: `uptime | sed -e 's/^.*load averages: //g'`
 Processes:     `ps ax | wc -l | tr -d ' '`
+Docker Host:   $DOCKER_IP
 $(tput sgr0)"
 }
 
@@ -24,12 +22,12 @@ else
 fi
 
 get_hostname() {
-  hostname=$(hostname)
+  hostname=$(hostname -f)
   if [[ "$SSH_CONNECTION" != '' ]]
   then
     echo "%{$fg_bold[magenta]%}[$hostname] %{$reset_color%}"
   else
-    echo "doppio"
+    echo "@$hostname"
   fi
 }
 
