@@ -23,7 +23,7 @@ checkout_next_commit() {
 }
 
 gcob() {
-  git checkout $(git branch -v | cut -c 3- | pick -d)
+  git checkout $(git branch | fzf)
 }
 
 alias gd='git difftool'

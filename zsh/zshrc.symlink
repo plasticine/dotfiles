@@ -33,3 +33,6 @@ do
 done
 
 unset config_files
+
+# https://github.com/junegunn/fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
