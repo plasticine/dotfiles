@@ -23,7 +23,11 @@ checkout_next_commit() {
 }
 
 gcob() {
-  git checkout $(git branch | fzf)
+  local format branch branches
+  format="%(committerdate:relative),%(refname:short),%(objectname:short) %(upstream:track),%(contents:subject)"
+  branches=$(git for-each-ref --format="$format" --sort=-committerdate refs/heads/ | column -t -s ",") &&
+  branch=$(echo "$branches" | fzf) &&
+  git checkout $(echo "$branch" | awk '{print $4}')
 }
 
 alias gd='git difftool'
