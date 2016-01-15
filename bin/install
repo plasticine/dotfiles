@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+readonly DOTFILES_ROOT="$(pwd)"
+declare red yellow gray reset
+
+# red=$(tput setaf 1)
+gray=$(tput setaf 7)
+yellow=$(tput setaf 3)
+reset=$(tput sgr0)
+
+banner() {
+  echo -e "${gray}"
+  echo '     __          __       ___      ___'
+  echo '    /\ \        /\ \__  /|___\ __ /\_ \'
+  echo '    \_\ \    ___\ \  _\/\ \__//\_\\//\ \      __    ____'
+  echo '    / _  \  / __ \ \ \/\ \  __\/\ \ \ \ \   / __ \ /  __\'
+  echo ' __/\ \_\ \/\ \_\ \ \ \_\ \ \_/\ \ \ \_\ \_/\  __//\__   \'
+  echo '/\_\ \_____\ \____/\ \__\\ \_\  \ \_\/\____\ \____\/\____/'
+  echo '\/_/\/_____/\/___/  \/__/ \/_/   \/_/\/____/\/____/\/___/'
+  echo -e "${reset}"
+}
+
+sync_dotfiles() {
+  for source in $(find "$DOTFILES_ROOT" -maxdepth 5 -name \*.symlink)
+  do
+    local destination source_filename
+
+    source_filename=$(basename "${source%.*}")
+    destination="$HOME/.${source_filename}"
+
+    echo "$source - $destination"
+
+    if [ -f "$destination" ] || [ -d "$destination" ]
+    then
+      echo "EXISTS"
+    fi
+  done
+}
+
+main() {
+  banner
+  echo -e "${yellow}This may overwrite existing files in your home directory.${reset}"
+  read -p "${yellow}Are you sure? (y/n) ${reset}" -n 1;
+  echo "";
+  if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+    echo ""
+    sync_dotfiles;
+  fi;
+}
+
+main
