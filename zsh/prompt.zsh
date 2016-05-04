@@ -6,7 +6,6 @@ $(tput setaf 2)`date +"%A, %e %B %Y, %r"`
 Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
 Load Averages: `uptime | sed -e 's/^.*load averages: //g'`
 Processes:     `ps ax | wc -l | tr -d ' '`
-Docker Host:   $DOCKER_IP
 $(tput sgr0)"
 }
 
