@@ -6,13 +6,10 @@ $(tput setaf 2)`date +"%A, %e %B %Y, %r"`
 Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
 Load Averages: `uptime | sed -e 's/^.*load averages: //g'`
 Processes:     `ps ax | wc -l | tr -d ' '`
-Docker Host:   $DOCKER_IP
 $(tput sgr0)"
 }
 
 welcome
-
-local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
 if (( $+commands[git] ))
 then
@@ -64,15 +61,17 @@ git_dirty() {
 }
 
 unpushed() {
-  $git cherry -v @{upstream} 2>/dev/null
+  unpushed_count=$($git cherry -v @{upstream} | wc -l)
+  echo "${unpushed_count##*( )}"
 }
 
 need_push () {
-  if [[ $(unpushed) == "" ]]
+  unpushed_count="$(unpushed)"
+  if [[ "$unpushed_count" == "0" ]]
   then
-    echo " "
+    echo ""
   else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
+    echo "[ahead %{$fg_bold[green]%}${unpushed_count}%{$reset_color%}] "
   fi
 }
 
@@ -80,12 +79,8 @@ directory_name(){
   echo "%{$fg[cyan]%}%2/%{$reset_color%}"
 }
 
-export PROMPT=$'%{$fg_bold[yellow]%}$(get_hostname) ❯%{$reset_color%} $(directory_name) '
+export PROMPT=$'%{$fg_bold[yellow]%}$(get_hostname)%{$reset_color%} $(directory_name) %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯%{$reset_color%} '
 
-set_prompt () {
-  export RPROMPT=$'$(git_dirty)$(need_push)'
-}
-
-precmd() {
-  set_prompt
+precmd () {
+  export RPROMPT=$'$(need_push)$(git_dirty)'
 }
