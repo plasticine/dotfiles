@@ -11,8 +11,6 @@ $(tput sgr0)"
 
 welcome
 
-local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
-
 if (( $+commands[git] ))
 then
   git="$commands[git]"
@@ -79,12 +77,8 @@ directory_name(){
   echo "%{$fg[cyan]%}%2/%{$reset_color%}"
 }
 
-export PROMPT=$'%{$fg_bold[yellow]%}$(get_hostname) ❯%{$reset_color%} $(directory_name) '
+export PROMPT=$'%{$fg_bold[yellow]%}$(get_hostname)%{$reset_color%} $(directory_name) %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯%{$reset_color%} '
 
-set_prompt () {
+precmd () {
   export RPROMPT=$'$(git_dirty)$(need_push)'
-}
-
-precmd() {
-  set_prompt
 }
