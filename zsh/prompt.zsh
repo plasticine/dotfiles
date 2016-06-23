@@ -67,9 +67,9 @@ unpushed() {
 need_push () {
   if [[ $(unpushed) == "" ]]
   then
-    echo " "
+    echo ""
   else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%}"
+    echo "%{$fg_bold[magenta]%}unpushed%{$reset_color%} "
   fi
 }
 
@@ -80,5 +80,5 @@ directory_name(){
 export PROMPT=$'%{$fg_bold[yellow]%}$(get_hostname)%{$reset_color%} $(directory_name) %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯%{$reset_color%} '
 
 precmd () {
-  export RPROMPT=$'$(git_dirty)$(need_push)'
+  export RPROMPT=$'$(need_push)$(git_dirty)'
 }
