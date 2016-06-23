@@ -67,7 +67,7 @@ unpushed() {
 
 need_push () {
   unpushed_count="$(unpushed)"
-  if [[ "$unpushed_count" == "" ]]
+  if [[ "$unpushed_count" == "0" ]]
   then
     echo ""
   else
