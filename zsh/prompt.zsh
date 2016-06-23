@@ -61,15 +61,17 @@ git_dirty() {
 }
 
 unpushed() {
-  $git cherry -v @{upstream} 2>/dev/null
+  unpushed_count=$($git cherry -v @{upstream} | wc -l)
+  echo "${unpushed_count##*( )}"
 }
 
 need_push () {
-  if [[ $(unpushed) == "" ]]
+  unpushed_count="$(unpushed)"
+  if [[ "$unpushed_count" == "" ]]
   then
     echo ""
   else
-    echo "%{$fg_bold[magenta]%}unpushed%{$reset_color%} "
+    echo "[ahead %{$fg_bold[green]%}${unpushed_count}%{$reset_color%}] "
   fi
 }
 
