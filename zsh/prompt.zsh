@@ -42,8 +42,6 @@ git_prompt_info () {
 }
 
 git_dirty() {
-  # check if we're in a git repo
-  command git rev-parse --is-inside-work-tree &>/dev/null || return
   # check if it's dirty
   st=$($git status 2>/dev/null | tail -n 1)
 
@@ -82,5 +80,7 @@ directory_name(){
 export PROMPT=$'%{$fg_bold[yellow]%}$(get_hostname)%{$reset_color%} $(directory_name) %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯%{$reset_color%} '
 
 precmd () {
+  # check if we're in a git repo
+  command git rev-parse --is-inside-work-tree &>/dev/null || return
   export RPROMPT=$'$(need_push)$(git_dirty)'
 }
