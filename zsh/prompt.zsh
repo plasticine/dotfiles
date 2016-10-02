@@ -23,10 +23,10 @@ GIT_PROMPT_AHEAD="%{$fg_bold[green]%}️A:NUM%{$reset_color%}"
 GIT_PROMPT_BEHIND="%{$fg_bold[red]%}B:NUM%{$reset_color%}"
 GIT_PROMPT_NO_UPSTREAM="%{$fg_bold[red]%}no upstream%{$reset_color%}"
 GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}★%{$reset_color%}"
-GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
-GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}●%{$reset_color%}"
-GIT_PROMPT_STAGED="%{$fg_bold[green]%}●%{$reset_color%}"
-GIT_PROMPT_NULL_STATE="%{$fg_bold[white]%}○%{$reset_color%}"
+GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}◉%{$reset_color%}"
+GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}◉%{$reset_color%}"
+GIT_PROMPT_STAGED="%{$fg_bold[green]%}◉%{$reset_color%}"
+GIT_PROMPT_NULL_STATE="%{$fg[white]%}◎%{$reset_color%}"
 
 function git_branch() {
   ($git symbolic-ref -q HEAD || $git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
@@ -88,9 +88,13 @@ function git_staged_files() {
   fi
 }
 
+function git_traffic_light() {
+  echo "$(git_untracked_files) $(git_modified_files) $(git_staged_files) "
+}
+
 function git_prompt_status() {
   local branch="$(git_branch)"
-  [ -n "$branch" ] && echo "$(git_untracked_files)$(git_modified_files)$(git_staged_files) [%{$fg_bold[blue]%}${branch#(refs/heads/|tags/)}@$(git_commit)%{$reset_color%} $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)]"
+  [ -n "$branch" ] && echo "$(git_traffic_light) %{$fg_bold[blue]%}${branch#(refs/heads/|tags/)}@$(git_commit)%{$reset_color%} $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
 }
 
 DEFAULT_PROMPT="%{$fg_bold[magenta]%}%n%{$reset_color%}@%{$fg_bold[yellow]%}%m%{$reset_color%} %{$fg[white]%}%2/%{$reset_color%} %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯%{$reset_color%} "
