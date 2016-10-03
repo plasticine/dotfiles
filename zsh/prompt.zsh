@@ -37,7 +37,7 @@ function git_commit() {
 }
 
 function git_has_tracking_branch() {
-  $git log --oneline @{u}.. 2> /dev/null
+  $git log --oneline @{u}.. > /dev/null
   if [[ x$? == x128 ]]; then
     echo $GIT_PROMPT_NO_UPSTREAM
   fi
@@ -97,7 +97,7 @@ function git_prompt_status() {
   [ -n "$branch" ] && echo "$(git_traffic_light) %{$fg_bold[blue]%}${branch#(refs/heads/|tags/)}@$(git_commit)%{$reset_color%} $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
 }
 
-DEFAULT_PROMPT="%{$fg_bold[magenta]%}%n%{$reset_color%}@%{$fg_bold[yellow]%}%m%{$reset_color%} %{$fg[white]%}%2/%{$reset_color%} %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯%{$reset_color%} "
+DEFAULT_PROMPT="%{$fg_bold[magenta]%}%n%{$reset_color%}@%{$fg_bold[yellow]%}%m%{$reset_color%} %{$fg[white]%}%2/%{$reset_color%} %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯ %{$reset_color%}"
 DEFAULT_RPROMPT=""
 
 export PROMPT="$DEFAULT_PROMPT"
@@ -115,10 +115,10 @@ function prompt_precmd() {
   command_exit="$?"
 
   function async_prompt() {
-    echo -n $DEFAULT_PROMPT > $ASYNC_PROMPT_FILE
+    echo -n "$DEFAULT_PROMPT" > $ASYNC_PROMPT_FILE
     echo -n $DEFAULT_RPROMPT$' '$(git_prompt_status) > $ASYNC_RPROMPT_FILE
     if [[ x$command_exit != x0 ]]; then
-      echo -n " exited %{$fg_bold[red]%}$command_exit%{$reset_color%}" >> $ASYNC_RPROMPT_FILE
+      echo -n ' [\$?:'"%{$fg_bold[red]%}$command_exit%{$reset_color%}]" >> $ASYNC_RPROMPT_FILE
     fi
 
     # signal parent
@@ -142,7 +142,7 @@ function prompt_precmd() {
 # so that we can reuse the last prompt for successive commands
 function prompt_trapusr1() {
   RPROMPT="$(cat $ASYNC_RPROMPT_FILE)"
-  PROMPT="$(cat $ASYNC_PROMPT_FILE)"
+  PROMPT="$(cat $ASYNC_PROMPT_FILE) "
   ASYNC_PROMPT=0
   zle && zle reset-prompt
 }
