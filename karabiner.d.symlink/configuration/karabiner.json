@@ -1,0 +1,12 @@
+{
+  "profiles": [
+    {
+      "name": "Varmilo",
+      "selected": true,
+      "simple_modifications": {
+        "left_command": "left_option",
+        "left_option": "left_command"
+      }
+    }
+  ]
+}

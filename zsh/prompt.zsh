@@ -33,11 +33,11 @@ function git_branch() {
 }
 
 function git_commit() {
-  ($git rev-parse --short HEAD) 2>/dev/null
+  ($git rev-parse --short HEAD) 2> /dev/null
 }
 
 function git_has_tracking_branch() {
-  $git log --oneline @{u}.. > /dev/null
+  $git log --oneline @{u}.. &> /dev/null
   if [[ x$? == x128 ]]; then
     echo $GIT_PROMPT_NO_UPSTREAM
   fi

@@ -43,3 +43,5 @@ unset config_files
 
 # iterm integration
 [ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
+
+export PATH="$HOME/.yarn/bin:$PATH"
