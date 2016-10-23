@@ -142,7 +142,7 @@ function prompt_precmd() {
 # so that we can reuse the last prompt for successive commands
 function prompt_trapusr1() {
   RPROMPT="$(cat $ASYNC_RPROMPT_FILE)"
-  PROMPT="$(cat $ASYNC_PROMPT_FILE) "
+  PROMPT="$(cat $ASYNC_PROMPT_FILE)"
   ASYNC_PROMPT=0
   zle && zle reset-prompt
 }
