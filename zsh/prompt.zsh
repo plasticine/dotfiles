@@ -23,7 +23,7 @@ fi
 
 GIT_PROMPT_AHEAD="%K{green}%F{black}%B A:AHEAD_COUNT %b%f%k"
 GIT_PROMPT_BEHIND="%K{yellow}%F{black}%B B:BEHIND_COUNT %b%f%k"
-GIT_PROMPT_NO_UPSTREAM="K{yellow}%F{black}%B !UPSTREAM %b%f%k"
+GIT_PROMPT_NO_UPSTREAM="%K{yellow}%F{black}%B !UPSTREAM %b%f%k"
 GIT_PROMPT_MERGING="%F{magenta}★%f"
 GIT_PROMPT_UNTRACKED="%F{red}◉%f"
 GIT_PROMPT_MODIFIED="%F{yellow}◉%f"
