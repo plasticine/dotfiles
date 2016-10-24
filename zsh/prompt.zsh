@@ -1,13 +1,15 @@
 setopt prompt_subst
+setopt prompt_percent
 
 function welcome() {
   echo "
 $(tput setaf 2)`date +"%A, %e %B %Y, %r"`
 `uname -srm`
+`zsh --version`
 
-Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
-Load Averages: `uptime | sed -e 's/^.*load averages: //g'`
-Processes:     `ps ax | wc -l | tr -d ' '`
+* Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
+* Load Averages: `uptime | sed -e 's/^.*load averages: //g'`
+* Processes:     `ps ax | wc -l | tr -d ' '`
 $(tput sgr0)"
 }
 
@@ -19,14 +21,14 @@ else
   git="/usr/bin/git"
 fi
 
-GIT_PROMPT_AHEAD="%{$fg_bold[green]%}️A:NUM%{$reset_color%}"
-GIT_PROMPT_BEHIND="%{$fg_bold[red]%}B:NUM%{$reset_color%}"
-GIT_PROMPT_NO_UPSTREAM="%{$fg_bold[red]%}no upstream%{$reset_color%}"
-GIT_PROMPT_MERGING="%{$fg_bold[magenta]%}★%{$reset_color%}"
-GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}◉%{$reset_color%}"
-GIT_PROMPT_MODIFIED="%{$fg_bold[yellow]%}◉%{$reset_color%}"
-GIT_PROMPT_STAGED="%{$fg_bold[green]%}◉%{$reset_color%}"
-GIT_PROMPT_NULL_STATE="%{$fg[white]%}◎%{$reset_color%}"
+GIT_PROMPT_AHEAD="%K{green}%F{black}%B A:AHEAD_COUNT %b%f%k"
+GIT_PROMPT_BEHIND="%K{yellow}%F{black}%B B:BEHIND_COUNT %b%f%k"
+GIT_PROMPT_NO_UPSTREAM="K{yellow}%F{black}%B !UPSTREAM %b%f%k"
+GIT_PROMPT_MERGING="%F{magenta}★%f"
+GIT_PROMPT_UNTRACKED="%F{red}◉%f"
+GIT_PROMPT_MODIFIED="%F{yellow}◉%f"
+GIT_PROMPT_STAGED="%F{green}◉%f"
+GIT_PROMPT_NULL_STATE="%F{white}◎%f"
 
 function git_branch() {
   ($git symbolic-ref -q HEAD || $git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
@@ -46,14 +48,14 @@ function git_has_tracking_branch() {
 function git_num_commits_ahead() {
   local commits_ahead="$($git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
   if [ "$commits_ahead" -gt 0 ]; then
-    echo ${GIT_PROMPT_AHEAD//NUM/$commits_ahead}
+    echo ${GIT_PROMPT_AHEAD//AHEAD_COUNT/$commits_ahead}
   fi
 }
 
 function git_num_commits_behind() {
   local commits_behind="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
   if [ "$commits_behind" -gt 0 ]; then
-    echo ${GIT_PROMPT_BEHIND//NUM/$commits_behind}
+    echo ${GIT_PROMPT_BEHIND//BEHIND_COUNT/$commits_behind}
   fi
 }
 
@@ -94,12 +96,14 @@ function git_traffic_light() {
 
 function git_prompt_status() {
   local branch="$(git_branch)"
-  [ -n "$branch" ] && echo "$(git_traffic_light) %{$fg_bold[blue]%}${branch#(refs/heads/|tags/)}@$(git_commit)%{$reset_color%} $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
+  [ -n "$branch" ] && echo -n "$(git_traffic_light)%B%F{blue}${branch#(refs/heads/|tags/)}@$(git_commit)%f%b $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
 }
 
-DEFAULT_PROMPT="%{$fg_bold[magenta]%}%n%{$reset_color%}@%{$fg_bold[yellow]%}%m%{$reset_color%} %{$fg[white]%}%2/%{$reset_color%} %{$fg_bold[red]%}❯%{$reset_color%}%{$fg_bold[yellow]%}❯%{$reset_color%}%{$fg_bold[green]%}❯ %{$reset_color%}"
+DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f %F{red}❯%f%F{yellow}❯%f%F{green}❯%f %G"
 DEFAULT_RPROMPT=""
 
+export ZLE_RPROMPT_INDENT=0
+export ZLE_PROMPT_INDENT=0
 export PROMPT="$DEFAULT_PROMPT"
 export RPROMPT="$DEFAULT_RPROMPT"
 
@@ -116,9 +120,11 @@ function prompt_precmd() {
 
   function async_prompt() {
     echo -n "$DEFAULT_PROMPT" > $ASYNC_PROMPT_FILE
-    echo -n $DEFAULT_RPROMPT$' '$(git_prompt_status) > $ASYNC_RPROMPT_FILE
+    echo -n "$DEFAULT_RPROMPT" > $ASYNC_RPROMPT_FILE
+
+    echo -n "$(git_prompt_status)" >> $ASYNC_RPROMPT_FILE
     if [[ x$command_exit != x0 ]]; then
-      echo -n ' [\$?:'"%{$fg_bold[red]%}$command_exit%{$reset_color%}]" >> $ASYNC_RPROMPT_FILE
+      echo -n ' %K{red}%B%F{white} \$?:$command_exit %b%f%k' >> $ASYNC_RPROMPT_FILE
     fi
 
     # signal parent
