@@ -42,6 +42,9 @@ setopt extendedglob
 
 setopt complete_aliases
 
+setopt prompt_subst
+setopt prompt_percent
+
 zle -N newtab
 
 export WORDCHARS='*?[]~=&;!#$%^(){}'

@@ -1,6 +1,12 @@
 # Assumes that zsh-history-substring-search is being provided via homebrew/boxen
-source /usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh
+plugin="$(brew --prefix)/opt/zsh-history-substring-search/zsh-history-substring-search.zsh"
 
-# bind UP and DOWN arrow keys
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+if [ -f $plugin ]; then
+  source $plugin
+
+  # bind UP and DOWN arrow keys
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+else
+  echo "WARNING: zsh-history-substring-search not found, skipping."
+fi
