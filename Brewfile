@@ -10,9 +10,9 @@ brew "rbenv"
 # Useful system stuff
 brew "bash"
 brew "binutils"
-brew "moreutils"
 brew "coreutils"
 brew "findutils", args: ['with-default-names']
+brew "fzf"
 brew "gawk"
 brew "gnu-indent", args: ['with-default-names']
 brew "gnu-sed", args: ['with-default-names']
@@ -21,14 +21,16 @@ brew "gnu-which", args: ['with-default-names']
 brew "gnutls"
 brew "htop"
 brew "httpie"
+brew "moreutils"
+brew "ssh-copy-id"
+brew "tree"
 brew "watch"
 brew "wdiff", args: ['with-gettext']
 brew "wget"
 brew "zsh"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
-brew "ssh-copy-id"
-brew "tree"
+brew "zsh-autosuggestions"
 
 # Casks
 cask "1password"
