@@ -14,6 +14,7 @@ brew "vault"
 brew "bash"
 brew "binutils"
 brew "coreutils"
+brew "docker-machine-driver-xhyve"
 brew "findutils", args: ['with-default-names']
 brew "fzf"
 brew "gawk"
@@ -22,6 +23,7 @@ brew "gnu-sed", args: ['with-default-names']
 brew "gnu-tar", args: ['with-default-names']
 brew "gnu-which", args: ['with-default-names']
 brew "gnutls"
+brew "gpg"
 brew "grc"
 brew "htop"
 brew "httpie"
@@ -31,13 +33,12 @@ brew "tree"
 brew "watch"
 brew "wdiff", args: ['with-gettext']
 brew "wget"
+brew "yubikey-personalization"
 brew "zsh"
 brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
-brew "docker-machine-driver-xhyve"
-brew "yubikey-personalization"
 
 # Casks
 cask "yubikey-personalization-gui"

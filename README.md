@@ -10,6 +10,7 @@
 bash -c "$(curl -fsSL raw.github.com/plasticine/dotfiles/master/bin/dotfiles)"
 ```
 
+
 ## Installing with Git
 
 1. clone the repo to wherever makes sense on your system, say `~/Projects/plasticine/dotfiles`, for example.

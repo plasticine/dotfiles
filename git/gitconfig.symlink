@@ -5,6 +5,7 @@
 	name = Justin Morris
 	email = desk@pixelbloom.com
     helper = osxkeychain
+	signingkey = 5A0709738412B428
 
 [color]
     diff = auto
@@ -30,9 +31,6 @@
     #
     # Setting to git 2.0 default to surpress warning message
     default = upstream
-
-[heroku]
-    account = personal
 
 [difftool "Kaleidoscope"]
     cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
@@ -64,12 +62,6 @@
     user = plasticine
     token =
 
-[ghi "highlight"]
-	style = colorful
-
-[ghi]
-	token = !security find-internet-password -a plasticine -s github.com -l 'ghi token' -w
-
 [filter "media"]
 	clean = git media clean %f
 	smudge = git media smudge %f
@@ -79,3 +71,9 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
+[gpg]
+	program = gpg2
+
+[commit]
+	gpgsign = true
