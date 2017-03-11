@@ -6,6 +6,9 @@ brew "redis", restart_service: :changed
 brew "dnsmasq", restart_service: :changed
 brew "nodenv"
 brew "rbenv"
+brew "packer"
+brew "terraform"
+brew "vault"
 
 # Useful system stuff
 brew "bash"
@@ -19,6 +22,7 @@ brew "gnu-sed", args: ['with-default-names']
 brew "gnu-tar", args: ['with-default-names']
 brew "gnu-which", args: ['with-default-names']
 brew "gnutls"
+brew "grc"
 brew "htop"
 brew "httpie"
 brew "moreutils"
@@ -28,9 +32,11 @@ brew "watch"
 brew "wdiff", args: ['with-gettext']
 brew "wget"
 brew "zsh"
+brew "zsh-autosuggestions"
+brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
-brew "zsh-autosuggestions"
+brew "docker-machine-driver-xhyve"
 
 # Casks
 cask "1password"
@@ -62,3 +68,6 @@ cask "gpgtools"
 cask "imagealpha"
 cask "imageoptim"
 cask "licecap"
+cask "virtualbox"
+cask "virtualbox-extension-pack"
+cask "vmware-fusion"

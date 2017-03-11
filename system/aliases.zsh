@@ -10,8 +10,3 @@ alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 
 alias be='bundle exec $argv'
-
-alias dotfiles='subl ~/.dotfiles;'
-
-alias TOPGUN="open 'http://www.youtube.com/watch?v=vwBbrngafl0'"
-alias IGNITION="open 'http://pixelbloom.com/ride-of-the-valkyries'"
