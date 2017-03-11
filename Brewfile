@@ -37,11 +37,15 @@ brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 brew "docker-machine-driver-xhyve"
+brew "yubikey-personalization"
 
 # Casks
+cask "yubikey-personalization-gui"
+cask "keybase"
+
 cask "1password"
 cask "alfred"
-cask "alfred"
+cask "paste"
 cask "arq"
 cask "aws-vault"
 cask "caffeine"

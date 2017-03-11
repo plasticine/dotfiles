@@ -31,9 +31,6 @@
     # Setting to git 2.0 default to surpress warning message
     default = upstream
 
-[credential]
-    helper = /opt/boxen/bin/boxen-git-credential
-
 [heroku]
     account = personal
 
