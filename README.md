@@ -17,3 +17,4 @@ bash -c "$(curl -fsSL raw.github.com/plasticine/dotfiles/master/bin/dotfiles)"
 1. clone into `~/.dotfiles`
 2. `sh ./script/bootstrap`
 3. Done!
+
