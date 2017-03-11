@@ -5,7 +5,7 @@
 	name = Justin Morris
 	email = desk@pixelbloom.com
     helper = osxkeychain
-	signingkey = 5A0709738412B428
+	signingkey = 9690366C
 
 [color]
     diff = auto
@@ -73,7 +73,7 @@
 	required = true
 
 [gpg]
-	program = gpg2
+	program = /usr/local/bin/gpg
 
 [commit]
 	gpgsign = true
