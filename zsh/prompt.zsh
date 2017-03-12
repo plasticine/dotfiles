@@ -99,18 +99,16 @@ function git_prompt_status() {
   [ -n "$branch" ] && echo -n "$(git_traffic_light)%B%F{blue}${branch#(refs/heads/|tags/)}@$(git_commit)%f%b $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
 }
 
-DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f %F{red}❯%f%F{yellow}❯%f%F{green}❯%f %G"
+DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f %F{red}❯%f%F{yellow}❯%f%F{green}❯ %f"
 DEFAULT_RPROMPT=""
 
-export ZLE_RPROMPT_INDENT=0
-export ZLE_PROMPT_INDENT=0
 export PROMPT="$DEFAULT_PROMPT"
 export RPROMPT="$DEFAULT_RPROMPT"
 
 # The pid of the async prompt process and the communication file
 ASYNC_PROMPT=0
-ASYNC_PROMPT_FILE="/tmp/.zsh_tmp_prompt_$$"
-ASYNC_RPROMPT_FILE="/tmp/.zsh_tmp_rprompt_$$"
+ASYNC_PROMPT_FILE="/tmp/zsh_tmp_prompt_$$"
+ASYNC_RPROMPT_FILE="/tmp/zsh_tmp_rprompt_$$"
 
 # This here implements the async handling of the prompt.  It
 # runs the expensive git parts in a subprocess and passes the
