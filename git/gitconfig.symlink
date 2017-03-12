@@ -14,7 +14,6 @@
     ui = true
 
 [core]
-	excludesfile = /opt/boxen/config/git/gitignore
     editor = subl --wait
 	quotepath = false
     ignorecase = false
