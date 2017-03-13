@@ -17,6 +17,7 @@
 	editor = subl --wait
 	quotepath = false
 	ignorecase = false
+	excludesfile = /Users/justin/.gitignore
 
 [apply]
 	whitespace = nowarn
