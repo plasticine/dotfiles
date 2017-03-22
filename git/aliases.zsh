@@ -25,9 +25,9 @@ checkout_next_commit() {
 
 gcob() {
   local format branch branches
-  format="%(committerdate:relative),%(refname:short),%(objectname:short) %(upstream:track),%(contents:subject)"
-  branches=$(git for-each-ref --format="$format" --sort=-committerdate refs/heads/ | column -t -s ",") &&
-  branch=$(echo "$branches" | fzf) &&
+  format="%(committerdate:relative)\\%(color:green)%(refname:short)%(color:reset)\\%(HEAD)\\%(color:yellow)%(objectname:short)%(color:reset) %(upstream:trackshort)\\%(contents:subject)"
+  branches=$(git for-each-ref --format="$format" --sort=-committerdate refs/heads/ | column -t -s "\\") &&
+  branch=$(echo "$branches" | fzf --ansi --height=15) &&
   git checkout $(echo "$branch" | awk '{print $4}')
 }
 

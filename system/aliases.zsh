@@ -9,4 +9,6 @@ alias la='gls -A --color'
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 
+alias jest='nocorrect jest'
+
 alias be='bundle exec $argv'

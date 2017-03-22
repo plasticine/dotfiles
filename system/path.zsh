@@ -7,3 +7,6 @@ export PATH="$PATH:.bin"
 
 # local node_modules
 export PATH="$PATH:./node_modules/.bin"
+
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
