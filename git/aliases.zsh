@@ -15,7 +15,6 @@ alias gcam='gca --amend'
 alias gcf='git config -l'
 alias gch='git cherry-pick'
 alias gcm='gc --amend'
-alias gco='git checkout'
 alias gcop='gco "HEAD^1"'
 alias gcon='checkout_next_commit'
 
@@ -29,6 +28,14 @@ gcob() {
   branches=$(git for-each-ref --format="$format" --sort=-committerdate refs/heads/ | column -t -s "\\") &&
   branch=$(echo "$branches" | fzf --ansi --height=15) &&
   git checkout $(echo "$branch" | awk '{print $4}')
+}
+
+gco() {
+  if [ $# -eq 0 ]; then
+    gcob
+  else
+    git checkout "$@"
+  fi
 }
 
 alias gd='git difftool'
