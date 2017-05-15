@@ -21,6 +21,8 @@ else
   git="/usr/bin/git"
 fi
 
+command_exit="$?"
+
 GIT_PROMPT_AHEAD="%K{green}%F{black}%B A:AHEAD_COUNT %b%f%k"
 GIT_PROMPT_BEHIND="%K{yellow}%F{black}%B B:BEHIND_COUNT %b%f%k"
 GIT_PROMPT_NO_UPSTREAM="%K{yellow}%F{black}%B !UPSTREAM %b%f%k"
@@ -107,7 +109,7 @@ function gpg_prompt_status() {
   fi
 }
 
-DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f %F{red}❯%f%F{yellow}❯%f%F{green}❯ %f"
+DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f"
 DEFAULT_RPROMPT=""
 
 export PROMPT="$DEFAULT_PROMPT"
@@ -124,16 +126,20 @@ ASYNC_RPROMPT_FILE="/tmp/zsh_tmp_rprompt_$$"
 function prompt_precmd() {
   command_exit="$?"
 
+  function command_exit() {
+    if [[ x$command_exit != x0 ]]; then
+      echo -n '%K{red}%B%F{white} \$?=$command_exit %b%f%k '
+    fi
+  }
+
+  DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f $(command_exit)%F{red}❯%f%F{yellow}❯%f%F{green}❯ %f"
+
   function async_prompt() {
     echo -n "$DEFAULT_PROMPT" > $ASYNC_PROMPT_FILE
     echo -n "$DEFAULT_RPROMPT" > $ASYNC_RPROMPT_FILE
 
     echo -n "$(git_prompt_status)" >> $ASYNC_RPROMPT_FILE
     echo -n "$(gpg_prompt_status)" >> $ASYNC_RPROMPT_FILE
-
-    if [[ x$command_exit != x0 ]]; then
-      echo -n '%K{red}%B%F{white} \$? : $command_exit %b%f%k' >> $ASYNC_RPROMPT_FILE
-    fi
 
     # signal parent
     kill -s USR1 $$
