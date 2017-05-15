@@ -24,7 +24,7 @@ brew "gnu-sed", args: ['with-default-names']
 brew "gnu-tar", args: ['with-default-names']
 brew "gnu-which", args: ['with-default-names']
 brew "gnutls"
-brew "gpg"
+brew "gpg2"
 brew "gpg-agent"
 brew "graphviz"
 brew "grc"
