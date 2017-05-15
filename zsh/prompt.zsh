@@ -99,6 +99,14 @@ function git_prompt_status() {
   [ -n "$branch" ] && echo -n "$(git_traffic_light)%B%F{blue}${branch#(refs/heads/|tags/)}@$(git_commit)%f%b $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
 }
 
+function gpg_prompt_status() {
+  if [[ -n $(gpg2 --card-status 2> /dev/null) ]]; then
+    echo "%K{green}%F{black}%B GPG %b%f%k"
+  else
+    echo "%K{yellow}%F{black}%B GPG %b%f%k"
+  fi
+}
+
 DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f %F{red}❯%f%F{yellow}❯%f%F{green}❯ %f"
 DEFAULT_RPROMPT=""
 
@@ -121,8 +129,10 @@ function prompt_precmd() {
     echo -n "$DEFAULT_RPROMPT" > $ASYNC_RPROMPT_FILE
 
     echo -n "$(git_prompt_status)" >> $ASYNC_RPROMPT_FILE
+    echo -n "$(gpg_prompt_status)" >> $ASYNC_RPROMPT_FILE
+
     if [[ x$command_exit != x0 ]]; then
-      echo -n ' %K{red}%B%F{white} \$?:$command_exit %b%f%k' >> $ASYNC_RPROMPT_FILE
+      echo -n '%K{red}%B%F{white} \$? : $command_exit %b%f%k' >> $ASYNC_RPROMPT_FILE
     fi
 
     # signal parent
