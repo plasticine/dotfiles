@@ -8,5 +8,9 @@ export PATH="$PATH:.bin"
 # local node_modules
 export PATH="$PATH:./node_modules/.bin"
 
+# iterm2 path
+export PATH="$PATH:.iterm2"
+
+# Setup nodenv and rbenv
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"

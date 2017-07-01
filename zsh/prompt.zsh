@@ -97,8 +97,18 @@ function git_traffic_light() {
 }
 
 function git_prompt_status() {
+  local git_branch_raw="$(git_branch_raw)"
+  [ -n "$git_branch_raw" ] && echo -n "$(git_traffic_light)%B%F{blue}%f%b${git_branch_raw}@$(git_commit) $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
+}
+
+function git_branch_raw() {
   local branch="$(git_branch)"
-  [ -n "$branch" ] && echo -n "$(git_traffic_light)%B%F{blue}${branch#(refs/heads/|tags/)}@$(git_commit)%f%b $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
+  echo "${branch#(refs/heads/|tags/)}"
+}
+
+function git_plain_text_status() {
+  local git_branch_raw="$(git_branch_raw)"
+  [ -n "$git_branch_raw" ] && echo -n "👻 ${git_branch_raw}@$(git_commit)"
 }
 
 function gpg_prompt_status() {
@@ -140,6 +150,8 @@ function prompt_precmd() {
 
     echo -n "$(git_prompt_status)" >> $ASYNC_RPROMPT_FILE
     echo -n "$(gpg_prompt_status)" >> $ASYNC_RPROMPT_FILE
+
+    /Users/justin/.iterm2/it2setkeylabel set "status" "$(git_plain_text_status)"
 
     # signal parent
     kill -s USR1 $$

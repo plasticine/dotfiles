@@ -1,5 +1,8 @@
 cask_args appdir: '/Applications'
 
+tap "caskroom/fonts"
+tap "caskroom/versions"
+
 brew "git"
 brew "postgres", restart_service: :changed
 brew "redis", restart_service: :changed
@@ -11,6 +14,7 @@ brew "terraform"
 brew "vault"
 
 # Useful system stuff
+brew "mas"
 brew "bash"
 brew "binutils"
 brew "coreutils"
@@ -19,7 +23,7 @@ brew "findutils", args: ['with-default-names']
 brew "freetds", args: ['with-msdblibm', 'enable-krb5', 'with-tdsver=7.4']
 brew "fzf"
 brew "gawk"
-brew "gnu-indent", args: ['with-default-names']
+brew "gnu-indent", args: ['with-default-names”']
 brew "gnu-sed", args: ['with-default-names']
 brew "gnu-tar", args: ['with-default-names']
 brew "gnu-which", args: ['with-default-names']
@@ -52,7 +56,6 @@ brew "zsh-syntax-highlighting"
 cask "1password"
 cask "alfred"
 cask "arq"
-cask "arq"
 cask "aws-vault"
 cask "dash"
 cask "docker"
@@ -60,6 +63,7 @@ cask "dropbox"
 cask "fantastical"
 cask "flux"
 cask "google-chrome"
+cask "google-chrome-canary"
 cask "google-earth"
 cask "gpgtools"
 cask "hazel"
@@ -68,17 +72,25 @@ cask "imageoptim"
 cask "istat-menus"
 cask "iterm2"
 cask "kap"
+cask "karabiner-elements"
 cask "keepingyouawake"
 cask "keybase"
 cask "licecap"
+cask "paste"
 cask "postico"
-# cask "paste"
+cask "sketch"
 cask "slack"
 cask "spectacle"
+cask "sublime-text"
 cask "vagrant"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
 cask "viscosity"
 cask "vlc"
 cask "vmware-fusion"
-cask "yubikey-personalization-gui"
+
+# AppStore stuff
+mas "tweetbot", id: 557168941
+
+# Fonts
+cask "font-source-code-pro"
