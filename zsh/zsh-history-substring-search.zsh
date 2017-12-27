@@ -1,5 +1,5 @@
 # Assumes that zsh-history-substring-search is being provided via homebrew/boxen
-plugin="$(brew --prefix)/opt/zsh-history-substring-search/zsh-history-substring-search.zsh"
+plugin="/usr/local/opt/zsh-history-substring-search/zsh-history-substring-search.zsh"
 
 if [ -f $plugin ]; then
   source $plugin

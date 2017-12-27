@@ -1,5 +1,5 @@
 # Assumes that zsh-syntax-highlighting is being provided via homebrew/boxen
-plugin="$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+plugin="/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 if [ -f $plugin ]; then
   source $plugin

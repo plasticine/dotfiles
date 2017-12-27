@@ -47,5 +47,5 @@ zle -N newtab
 export WORDCHARS='*?[]~=&;!#$%^(){}'
 
 # mappings for Ctrl/Option-left-arrow and Ctrl/Option-right-arrow for word moving
-bindkey "\e\e[C"  forward-word
-bindkey "\e\e[D"  backward-word
+bindkey "\e\e[C" forward-word
+bindkey "\e\e[D" backward-word

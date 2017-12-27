@@ -6,6 +6,7 @@ function welcome() {
 $(tput setaf 2)`date +"%A, %e %B %Y, %r"`
 `uname -srm`
 `zsh --version`
+User `whoami` on `hostname`
 
 * Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
 * Load Averages: `uptime | sed -e 's/^.*load averages: //g'`

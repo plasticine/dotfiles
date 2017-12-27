@@ -3,7 +3,6 @@ alias dcu='dc up'
 alias dcb='dc build'
 alias dcrm='dc rm'
 alias dck='dc kill'
-alias dm='docker-machine'
 
 # Get latest container ID
 alias dl="docker ps -l -q"
