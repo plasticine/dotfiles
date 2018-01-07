@@ -41,6 +41,7 @@
 [diff]
 	tool = Kaleidoscope
 	submodule = log
+	colorMoved = zebra
 
 [mergetool "Kaleidoscope"]
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
