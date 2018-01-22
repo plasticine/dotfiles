@@ -11,9 +11,12 @@ export PATH="$PATH:./node_modules/.bin"
 # iterm2 path
 export PATH="$PATH:.iterm2"
 
-# Android bulllllllllshit.
+# Stupid cask-installed GCP SDK bin path
+export PATH="$PATH:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
+
+### Android Studio for React Native
 if [ -x /usr/libexec/java_home ]; then
-  export JAVA_HOME=`/usr/libexec/java_home`
+  export JAVA_HOME="$(/usr/libexec/java_home)"
   export PATH="$PATH:$JAVA_HOME/bin"
 fi
 export ANDROID_HOME="$HOME/Library/Android/sdk"
