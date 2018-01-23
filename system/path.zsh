@@ -14,7 +14,7 @@ export PATH="$PATH:.iterm2"
 # Stupid cask-installed GCP SDK bin path
 export PATH="$PATH:/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
 
-### Android Studio for React Native
+# Android bulllllllllshit.
 if [ -x /usr/libexec/java_home ]; then
   export JAVA_HOME="$(/usr/libexec/java_home)"
   export PATH="$PATH:$JAVA_HOME/bin"
@@ -22,6 +22,9 @@ fi
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export PATH="$PATH:$ANDROID_HOME/tools"
 export PATH="$PATH:$ANDROID_HOME/platform-tools"
+
+# Go binary path
+export PATH="$PATH:$HOME/go/bin"
 
 # Setup nodenv and rbenv
 eval "$(rbenv init -)"
