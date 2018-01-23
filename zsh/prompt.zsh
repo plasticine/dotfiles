@@ -120,6 +120,10 @@ function gpg_prompt_status() {
   fi
 }
 
+function kube_context() {
+  echo "%K{blue}%F{black}%B \u2388 $(kubectl config current-context | awk '{print toupper($0)}') %b%f%k"
+}
+
 DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f"
 DEFAULT_RPROMPT=""
 
@@ -151,6 +155,7 @@ function prompt_precmd() {
 
     echo -n "$(git_prompt_status)" >> $ASYNC_RPROMPT_FILE
     echo -n "$(gpg_prompt_status)" >> $ASYNC_RPROMPT_FILE
+    echo -n "$(kube_context)" >> $ASYNC_RPROMPT_FILE
 
     /Users/justin/.iterm2/it2setkeylabel set "status" "$(git_plain_text_status)"
 
