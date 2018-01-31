@@ -123,7 +123,7 @@ function gpg_prompt_status() {
 kube_context() {
   context=$(kubectl config current-context | awk '{print toupper($0)}')
   colour="%K{blue}"
-  [[ "$context" =~ "prod" ]] && colour="%K{red}"
+  [[ "$context" =~ "PRODUCTION" ]] && colour="%K{red}"
   echo " $colour%F{black}%B \u2388 $context %b%f%k"
 }
 
