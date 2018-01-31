@@ -120,8 +120,11 @@ function gpg_prompt_status() {
   fi
 }
 
-function kube_context() {
-  echo "%K{blue}%F{black}%B \u2388 $(kubectl config current-context | awk '{print toupper($0)}') %b%f%k"
+kube_context() {
+  context=$(kubectl config current-context | awk '{print toupper($0)}')
+  colour="%K{blue}"
+  [[ "$context" =~ "prod" ]] && colour="%K{red}"
+  echo " $colour%F{black}%B \u2388 $context %b%f%k"
 }
 
 DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f"
