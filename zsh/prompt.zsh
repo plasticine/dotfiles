@@ -112,14 +112,6 @@ function git_plain_text_status() {
   [ -n "$git_branch_raw" ] && echo -n "👻 ${git_branch_raw}@$(git_commit)"
 }
 
-function gpg_prompt_status() {
-  if [[ -n $(gpg2 --card-status 2> /dev/null) ]]; then
-    echo "%K{green}%F{black}%B GPG %b%f%k"
-  else
-    echo "%K{yellow}%F{black}%B GPG %b%f%k"
-  fi
-}
-
 kube_context() {
   context=$(kubectl config current-context | awk '{print toupper($0)}')
   colour="%K{blue}"
@@ -157,10 +149,7 @@ function prompt_precmd() {
     echo -n "$DEFAULT_RPROMPT" > $ASYNC_RPROMPT_FILE
 
     echo -n "$(git_prompt_status)" >> $ASYNC_RPROMPT_FILE
-    echo -n "$(gpg_prompt_status)" >> $ASYNC_RPROMPT_FILE
     echo -n "$(kube_context)" >> $ASYNC_RPROMPT_FILE
-
-    /Users/justin/.iterm2/it2setkeylabel set "status" "$(git_plain_text_status)"
 
     # signal parent
     kill -s USR1 $$

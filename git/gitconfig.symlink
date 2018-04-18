@@ -78,4 +78,7 @@
 	program = /usr/local/bin/gpg2
 
 [commit]
-	gpgsign = false
+	gpgsign = true
+
+[advice]
+	ignoredHook = false
