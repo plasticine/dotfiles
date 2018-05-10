@@ -1,4 +1,3 @@
-source ~/.gnupg/.gpg-agent-info
 export GPG_AGENT_INFO
 AGENT_SOCK=`gpgconf --list-dirs | grep agent-socket | cut -d : -f 2`
 
