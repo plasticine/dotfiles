@@ -4,8 +4,6 @@ tap "caskroom/fonts"
 tap "caskroom/versions"
 
 brew "git"
-brew "postgres", restart_service: :changed
-brew "redis", restart_service: :changed
 brew "dnsmasq", restart_service: :changed
 brew "nodenv"
 brew "rbenv"
@@ -17,9 +15,7 @@ brew "vault"
 brew "bash"
 brew "binutils"
 brew "coreutils"
-brew "docker-machine-driver-xhyve"
 brew "findutils", args: ['with-default-names']
-brew "freetds", args: ['with-msdblibm', 'enable-krb5', 'with-tdsver=7.4']
 brew "fzf"
 brew "gawk"
 brew "gnu-indent", args: ['with-default-names”']
@@ -73,7 +69,6 @@ cask "gpgtools"
 cask "hazel"
 cask "imagealpha"
 cask "imageoptim"
-cask "istat-menus"
 cask "iterm2"
 cask "kap"
 cask "karabiner-elements"
