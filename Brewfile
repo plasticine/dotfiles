@@ -93,3 +93,5 @@ mas "tweetbot", id: 557168941
 
 # Fonts
 cask "font-source-code-pro"
+cask "font-robotomono"
+cask "font-robotomono-nerd-font-mono"

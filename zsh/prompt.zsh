@@ -1,20 +1,23 @@
 setopt prompt_subst
 setopt prompt_percent
+ZLE_RPROMPT_INDENT=0
 
 function welcome() {
-  echo "
-$(tput setaf 2)`date +"%A, %e %B %Y, %r"`
-`uname -srm`
-`zsh --version`
-User `whoami` on `hostname`
+  print -P "%F{white}
+%B%D{%A %f %B %Y, %H:%M:%S %p}%b
 
-* Uptime:        `uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g'`
-* Load Averages: `uptime | sed -e 's/^.*load averages: //g'`
-* Processes:     `ps ax | wc -l | tr -d ' '`
-$(tput sgr0)"
+      \\\/       
+      l'>     uptime %B$(uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g')%b    
+      ll        load %B$(uptime | sed -e 's/^.*load averages: //g')%b
+  ~llama       procs %B$(ps ax | wc -l | tr -d ' ')%b
+   || ||    
+   '' ''    
+%f"
 }
-
+    
 welcome
+
+# -----------------------------------------------------------------------------
 
 if (($+commands[git])); then
   git="$commands[git]"
@@ -22,167 +25,133 @@ else
   git="/usr/bin/git"
 fi
 
-command_exit="$?"
+GIT_PROMPT_NO_UPSTREAM="%K{red}%F{black}%B \U0000f655 UPSTREAM %b%f%k"
+# GIT_PROMPT_UNTRACKED="%F{red}\U0000f0c8%f"
+# GIT_PROMPT_MODIFIED="%F{yellow}\U0000f0c8%f"
+# GIT_PROMPT_STAGED="%F{green}\U0000f0c8%f"
+# GIT_PROMPT_NULL_STATE="%F{black}\U0000f096%f"
 
-GIT_PROMPT_AHEAD="%K{green}%F{black}%B A:AHEAD_COUNT %b%f%k"
-GIT_PROMPT_BEHIND="%K{yellow}%F{black}%B B:BEHIND_COUNT %b%f%k"
-GIT_PROMPT_NO_UPSTREAM="%K{yellow}%F{black}%B !UPSTREAM %b%f%k"
-GIT_PROMPT_MERGING="%F{magenta}★%f"
-GIT_PROMPT_UNTRACKED="%F{red}◉%f"
-GIT_PROMPT_MODIFIED="%F{yellow}◉%f"
-GIT_PROMPT_STAGED="%F{green}◉%f"
-GIT_PROMPT_NULL_STATE="%F{white}◎%f"
+function in_repo() {
+  if $git branch 2>/dev/null; then
+    return 0
+  fi
+  return 1
+}
 
 function git_branch() {
   ($git symbolic-ref -q HEAD || $git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
 }
 
+function git_branch_raw() {
+  echo "${$(git_branch)#(refs/heads/|tags/)}" 2> /dev/null
+}
+
 function git_commit() {
-  ($git rev-parse --short HEAD) 2> /dev/null
+  ($git rev-parse --short HEAD) 2> /dev/null || echo "NONE"
 }
 
 function git_has_tracking_branch() {
   $git log --oneline @{u}.. &> /dev/null
-  if [[ x$? == x128 ]]; then
-    echo $GIT_PROMPT_NO_UPSTREAM
-  fi
+  [[ x$? == x128 ]] && echo "$GIT_PROMPT_NO_UPSTREAM"
 }
 
 function git_num_commits_ahead() {
   local commits_ahead="$($git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
   if [ "$commits_ahead" -gt 0 ]; then
-    echo ${GIT_PROMPT_AHEAD//AHEAD_COUNT/$commits_ahead}
+    echo -ne "\U0000f55c${commits_ahead}"
+  else
+    echo -ne "\U0000f55c${commits_ahead}"
   fi
+  unset commits_ahead
 }
 
 function git_num_commits_behind() {
   local commits_behind="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
   if [ "$commits_behind" -gt 0 ]; then
-    echo ${GIT_PROMPT_BEHIND//BEHIND_COUNT/$commits_behind}
-  fi
-}
-
-function git_requires_merge() {
-  local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
-  if [ -n $GIT_DIR ] && test -r $GIT_DIR/MERGE_HEAD; then
-    echo $GIT_PROMPT_MERGING
-  fi
-}
-
-function git_untracked_files() {
-  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    echo "$GIT_PROMPT_UNTRACKED"
+    echo -ne "\U0000f544${commits_behind}"
   else
-    echo $GIT_PROMPT_NULL_STATE
+    echo -ne "\U0000f544${commits_behind}"
   fi
+  unset commits_behind
 }
 
-function git_modified_files() {
-  if ! git diff --quiet 2> /dev/null; then
-    echo "$GIT_PROMPT_MODIFIED"
-  else
-    echo "$GIT_PROMPT_NULL_STATE"
-  fi
+# function git_untracked_files() {
+#   if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+#     echo -ne "$GIT_PROMPT_UNTRACKED"
+#   else
+#     echo -ne "$GIT_PROMPT_NULL_STATE"
+#   fi
+# }
+
+# function git_modified_files() {
+#   if ! git diff --quiet 2> /dev/null; then
+#     echo -ne "$GIT_PROMPT_MODIFIED"
+#   else
+#     echo -ne "$GIT_PROMPT_NULL_STATE"
+#   fi
+# }
+
+# function git_staged_files() {
+#   if ! git diff --cached --quiet 2> /dev/null; then
+#     echo -ne "$GIT_PROMPT_STAGED"
+#   else
+#     echo -ne "$GIT_PROMPT_NULL_STATE"
+#   fi
+# }
+
+function git_status() {
+  local ref_stats="$(git_branch_raw)@$(git_commit)"
+  local remote_stats="$(git_num_commits_ahead) $(git_num_commits_behind)"
+  # local file_stats="$(git_untracked_files) $(git_modified_files) $(git_staged_files)"
+  local file_stats="?0 !23 @12"
+  local remote_tracking="$(git_has_tracking_branch)"
+
+  echo -ne "%K{white}%F{black} \U0000e727 ${ref_stats}・${file_stats}・${remote_stats} ${remote_tracking}%f %k"
 }
 
-function git_staged_files() {
-  if ! git diff --cached --quiet 2> /dev/null; then
-    echo "$GIT_PROMPT_STAGED"
-  else
-    echo "$GIT_PROMPT_NULL_STATE"
-  fi
-}
-
-function git_traffic_light() {
-  echo "$(git_untracked_files) $(git_modified_files) $(git_staged_files) "
-}
-
-function git_prompt_status() {
-  local git_branch_raw="$(git_branch_raw)"
-  [ -n "$git_branch_raw" ] && echo -n "$(git_traffic_light)%B%F{blue}%f%b${git_branch_raw}@$(git_commit) $(git_has_tracking_branch)$(git_num_commits_ahead)$(git_num_commits_behind)"
-}
-
-function git_branch_raw() {
-  local branch="$(git_branch)"
-  echo "${branch#(refs/heads/|tags/)}"
-}
-
-function git_plain_text_status() {
-  local git_branch_raw="$(git_branch_raw)"
-  [ -n "$git_branch_raw" ] && echo -n "👻 ${git_branch_raw}@$(git_commit)"
-}
-
-kube_context() {
-  context=$(kubectl config current-context | awk '{print toupper($0)}')
-  colour="%K{blue}"
-  [[ "$context" =~ "PRODUCTION" ]] && colour="%K{red}"
-  echo " $colour%F{black}%B \u2388 $context %b%f%k"
-}
-
-DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f"
+DEFAULT_PROMPT="%F{white}%D{%H:%M:%S} %F{magenta}%n%f%F{white}@%f%B%F{yellow}%M%f%b %F{white}%3~%f $(echo -ne '\U0000f423') "
 DEFAULT_RPROMPT=""
+NEXT_PROMPT=""
+NEXT_RPROMPT=""
 
-export PROMPT="$DEFAULT_PROMPT"
-export RPROMPT="$DEFAULT_RPROMPT"
+function async_prompt() {
+  function prompt_complete() {
+    # echo $@
 
-# The pid of the async prompt process and the communication file
-ASYNC_PROMPT=0
-ASYNC_PROMPT_FILE="/tmp/zsh_tmp_prompt_$$"
-ASYNC_RPROMPT_FILE="/tmp/zsh_tmp_rprompt_$$"
+    PROMPT="$DEFAULT_PROMPT"
+    RPROMPT="$DEFAULT_RPROMPT$3"
+    zle reset-prompt
+    async_stop_worker prompt -n
+  }
 
-# This here implements the async handling of the prompt.  It
-# runs the expensive git parts in a subprocess and passes the
-# information back via tempfile.
+  async_init
+  async_start_worker prompt -n
+  async_register_callback prompt prompt_complete
+  async_job prompt prompt_job
+}
+
+function prompt_job() {
+  [[ $(in_repo) ]] && echo -ne "$(git_status)"
+}
+
 function prompt_precmd() {
-  command_exit="$?"
+  local last_command_exit="$?"
 
-  function command_exit() {
-    if [[ x$command_exit != x0 ]]; then
-      echo -n '%K{red}%B%F{white} \$?=$command_exit %b%f%k '
-    fi
-  }
+  NEXT_PROMPT=$DEFAULT_PROMPT
+  NEXT_RPROMPT=$DEFAULT_RPROMPT
 
-  DEFAULT_PROMPT="%B%F{magenta}%n%f@%F{yellow}%M%f%b %F{white}%2/%f $(command_exit)%F{red}❯%f%F{yellow}❯%f%F{green}❯ %f"
+  [[ "x$last_command_exit" != "x0" ]] && NEXT_PROMPT="${NEXT_PROMPT}%K{red}%B%F{white} ${last_command_exit} %b%f%k "
+  unset last_command_exit
 
-  function async_prompt() {
-    echo -n "$DEFAULT_PROMPT" > $ASYNC_PROMPT_FILE
-    echo -n "$DEFAULT_RPROMPT" > $ASYNC_RPROMPT_FILE
+  PROMPT=$NEXT_PROMPT
+  RPROMPT=$NEXT_RPROMPT
 
-    echo -n "$(git_prompt_status)" >> $ASYNC_RPROMPT_FILE
-    echo -n "$(kube_context)" >> $ASYNC_RPROMPT_FILE
-
-    # signal parent
-    kill -s USR1 $$
-  }
-
-  # If we still have a prompt async process we kill it to make sure
-  # we do not backlog with useless prompt things.  This also makes
-  # sure that we do not have prompts interleave in the tempfile.
-  if [[ "${ASYNC_PROMPT}" != 0 ]]; then
-    kill -s HUP $ASYNC_PROMPT >/dev/null 2>&1 || :
-  fi
-
-  # start background computation
-  async_prompt &!
-  ASYNC_PROMPT="$!"
+  async_prompt
 }
 
-# This is the trap for the signal that updates our prompt and
-# redraws it.  We intentionally do not delete the tempfile here
-# so that we can reuse the last prompt for successive commands
-function prompt_trapusr1() {
-  RPROMPT="$(cat $ASYNC_RPROMPT_FILE)"
-  PROMPT="$(cat $ASYNC_PROMPT_FILE)"
-  ASYNC_PROMPT=0
-  zle && zle reset-prompt
+TMOUT=1
+TRAPALRM() {
+  zle reset-prompt
 }
 
-# Make sure we clean up our tempfile on exit
-function prompt_zshexit() {
-  rm -f "$ASYNC_RPROMPT_FILE"
-}
-
-# Hook our precmd and zshexit functions and USR1 trap
 precmd_functions+=(prompt_precmd)
-zshexit_functions+=(prompt_zshexit)
-trap prompt_trapusr1 USR1
