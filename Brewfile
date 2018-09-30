@@ -1,5 +1,3 @@
-cask_args appdir: '/Applications'
-
 tap "caskroom/fonts"
 tap "caskroom/versions"
 
@@ -23,8 +21,6 @@ brew "gnu-sed", args: ['with-default-names']
 brew "gnu-tar", args: ['with-default-names']
 brew "gnu-which", args: ['with-default-names']
 brew "gnutls"
-brew "gpg-agent"
-brew "gpg2"
 brew "graphviz"
 brew "grc"
 brew "htop"
@@ -52,6 +48,11 @@ brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
+
+# GPG Stuff
+brew "gpg-agent"
+brew "gpg2"
+cask "gpg-suite"
 
 # Casks
 cask "1password"

@@ -54,7 +54,7 @@
 	tool = Kaleidoscope
 
 [hub]
-	protocol = https
+	protocol = ssh
 
 [fetch]
 	prune = true
@@ -75,10 +75,10 @@
 	process = git-lfs filter-process
 
 [gpg]
-	program = /usr/local/bin/gpg2
+	program = /usr/local/bin/gpg
 
 [commit]
-	gpgsign = false
+	gpgsign = true
 
 [advice]
 	ignoredHook = false
