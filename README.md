@@ -12,9 +12,7 @@ bash -c "$(curl -fsSL raw.github.com/plasticine/dotfiles/master/bin/dotfiles)"
 
 ## Installing with Git
 
-1. clone the repo to wherever makes sense on your system, say `~/Projects/plasticine/dotfiles`, for example.
-
-1. clone into `~/.dotfiles`
-2. `sh ./script/bootstrap`
+1. clone the repo to wherever makes sense on your system, say `~/Projects/dotfiles` — whatever.
+2. `cd` into the repo and run `sh ./script/bootstrap`.
 3. Done!
 
