@@ -1,0 +1,4 @@
+export AWS_VAULT_PROMPT=osascript
+export AWS_VAULT_BIOMETRICS=true
+export AWS_VAULT_KEYCHAIN_NAME=login
+export AWS_ASSUME_ROLE_TTL=1h

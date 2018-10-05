@@ -33,7 +33,6 @@ brew "mas"
 brew "memcached"
 brew "moreutils"
 brew "openssl"
-brew "phantomjs"
 brew "pinentry-mac"
 brew "roundup"
 brew "ssh-copy-id"
@@ -50,12 +49,10 @@ brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
 
 # GPG Stuff
-brew "gpg-agent"
 brew "gpg2"
 cask "gpg-suite"
 
 # Casks
-cask "1password"
 cask "alfred"
 cask "arq"
 cask "aws-vault"
@@ -67,7 +64,6 @@ cask "flux"
 cask "google-chrome"
 cask "google-chrome-canary"
 cask "gpgtools"
-cask "hazel"
 cask "imagealpha"
 cask "imageoptim"
 cask "iterm2"
@@ -82,6 +78,7 @@ cask "sketch"
 cask "slack"
 cask "spectacle"
 cask "sublime-text"
+cask "visual-studio-code"
 cask "vagrant"
 cask "virtualbox"
 cask "virtualbox-extension-pack"
@@ -89,10 +86,9 @@ cask "viscosity"
 cask "vlc"
 cask "vmware-fusion"
 
-# AppStore stuff
-mas "tweetbot", id: 557168941
 
 # Fonts
+cask "font-hack"
 cask "font-source-code-pro"
 cask "font-robotomono"
 cask "font-robotomono-nerd-font-mono"
