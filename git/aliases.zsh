@@ -17,6 +17,7 @@ alias gch='git cherry-pick'
 alias gcm='gc --amend'
 alias gcop='gco "HEAD^1"'
 alias gcon='checkout_next_commit'
+alias gsu='git submodule update --init --recursive'
 
 checkout_next_commit() {
   git log --reverse --pretty=%H master | awk "/$(git rev-parse HEAD)/{getline;print}" | xargs git checkout
