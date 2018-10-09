@@ -126,9 +126,4 @@ function prompt_precmd() {
   async_prompt
 }
 
-TMOUT=1
-TRAPALRM() {
-  zle reset-prompt
-}
-
 precmd_functions+=(prompt_precmd)
