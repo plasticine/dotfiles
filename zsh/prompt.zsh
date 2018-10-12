@@ -89,14 +89,10 @@ function git_status() {
 
 DEFAULT_PROMPT="%F{magenta}%n%f%F{white}@%f%B%F{yellow}%M%f%b %F{white}%3~%f $(echo -ne '\U0000f054') "
 DEFAULT_RPROMPT=""
-NEXT_PROMPT=""
-NEXT_RPROMPT=""
 
 function async_prompt() {
   function prompt_complete() {
-
-    PROMPT="$DEFAULT_PROMPT"
-    RPROMPT="$DEFAULT_RPROMPT$3"
+    RPROMPT="${RPROMPT}${3}"
     zle reset-prompt
     async_stop_worker prompt -n
   }
@@ -114,15 +110,13 @@ function prompt_job() {
 function prompt_precmd() {
   local last_command_exit="$?"
 
-  NEXT_PROMPT=$DEFAULT_PROMPT
-  NEXT_RPROMPT=$DEFAULT_RPROMPT
+  PROMPT="$DEFAULT_PROMPT"
+  RPROMPT="$DEFAULT_RPROMPT"
 
-  [[ "x$last_command_exit" != "x0" ]] && NEXT_PROMPT="${NEXT_PROMPT}%K{red}%B%F{white} ${last_command_exit} %b%f%k "
+  [[ "x$last_command_exit" != "x0" ]] && PROMPT="${PROMPT}%K{red}%B%F{white} ${last_command_exit} %b%f%k "
   unset last_command_exit
 
-  PROMPT=$NEXT_PROMPT
-  RPROMPT=$NEXT_RPROMPT
-
+  zle && zle reset-prompt
   async_prompt
 }
 

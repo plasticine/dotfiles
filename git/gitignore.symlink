@@ -13,3 +13,4 @@ ehthumbs.db
 \#*\#
 *.sublime-*
 .wercker
+.vscode
