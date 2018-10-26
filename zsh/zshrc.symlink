@@ -13,23 +13,15 @@ __dotfiles::welcome() {
 %f"
 }
 
-__dotfiles::source() {
-  source $1
-  print -P "%F{white}$1%f"
-}
-
 __dotfiles::load() {
-  for file in "$@"
-  do
-    __dotfiles::source $file
-  done
+  for file in "$@"; do source $file; done
 }
 
 __dotfiles::main() {
   # shortcut to this dotfiles path is $DOTFILES
   export DOTFILES=$HOME/.dotfiles
 
-  # all of our zsh files
+  # All of our *.zsh files
   typeset -U config_files
   config_files=($DOTFILES/**/*.zsh)
 
@@ -52,7 +44,6 @@ __dotfiles::main() {
   [[ -a ~/.localrc ]] && source ~/.localrc
 
   __dotfiles::welcome
-  times
 }
 
 __dotfiles::main
