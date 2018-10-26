@@ -2,6 +2,8 @@
 autoload -U colors
 colors
 
+typeset -F SECONDS
+
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 export LC_ALL=en_US.UTF-8
@@ -46,6 +48,3 @@ export WORDCHARS='*?[]~=&;!#$%^(){}'
 # mappings for Ctrl/Option-left-arrow and Ctrl/Option-right-arrow for word moving
 bindkey "\e\e[C" forward-word
 bindkey "\e\e[D" backward-word
-
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"

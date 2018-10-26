@@ -6,7 +6,3 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$ZSH/bin:$PATH"
 export PATH=".bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
-
-# Setup nodenv and rbenv
-# eval "$(rbenv init -)"
-# eval "$(nodenv init -)"

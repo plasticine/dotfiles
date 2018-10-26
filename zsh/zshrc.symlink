@@ -1,5 +1,3 @@
-typeset -F SECONDS
-
 __dotfiles::welcome() {
   print -P "%F{white}
 %B%D{%A %f %B %Y, %H:%M:%S %p}%b
@@ -44,6 +42,7 @@ __dotfiles::main() {
   [[ -a ~/.localrc ]] && source ~/.localrc
 
   __dotfiles::welcome
+  times
 }
 
 __dotfiles::main
