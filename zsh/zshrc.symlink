@@ -1,39 +1,58 @@
-# shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
+typeset -F SECONDS
 
-# all of our zsh files
-typeset -U config_files
-config_files=($ZSH/**/*.zsh)
+__dotfiles::welcome() {
+  print -P "%F{white}
+%B%D{%A %f %B %Y, %H:%M:%S %p}%b
 
-# load the path files
-for file in ${(M)config_files:#*/path.zsh}
-do
-  source $file
-done
+      \\\/       
+      l'>     uptime %B$(uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g')%b    
+      ll        load %B$(uptime | sed -e 's/^.*load averages: //g')%b
+  ~llama       procs %B$(ps ax | wc -l | tr -d ' ')%b
+   || ||    
+   '' ''    
+%f"
+}
 
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
-  source $file
-done
+__dotfiles::source() {
+  source $1
+  print -P "%F{white}$1%f"
+}
 
-# use .localrc for SUPER SECRET CRAP that you don't
-# want in your public, versioned repo.
-[[ -a ~/.localrc ]] && source ~/.localrc
+__dotfiles::load() {
+  for file in "$@"
+  do
+    __dotfiles::source $file
+  done
+}
 
-# initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+__dotfiles::main() {
+  # shortcut to this dotfiles path is $DOTFILES
+  export DOTFILES=$HOME/.dotfiles
 
-# load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
+  # all of our zsh files
+  typeset -U config_files
+  config_files=($DOTFILES/**/*.zsh)
 
-unset config_files
+  # Load path files.
+  __dotfiles::load ${(M)config_files:#*/path.zsh}
 
-# iTerm2 integration
-[ -f ~/.iterm2_shell_integration.zsh ] && source ~/.iterm2_shell_integration.zsh
+  # Load all files that aren't completion or path files
+  __dotfiles::load ${${config_files:#*/path.zsh}:#*/completion.zsh}
 
-export PATH="$HOME/.yarn/bin:$PATH"
+  # Initialize autocomplete here, otherwise functions won't be loaded.
+  autoload -Uz compinit && compinit
+
+  # Load completion files
+  __dotfiles::load ${(M)config_files:#*/completion.zsh}
+
+  unset config_files
+
+  # use .localrc for SUPER SECRET CRAP that you don't
+  # want in your public, versioned repo.
+  [[ -a ~/.localrc ]] && source ~/.localrc
+
+  __dotfiles::welcome
+  times
+}
+
+__dotfiles::main

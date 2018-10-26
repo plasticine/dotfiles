@@ -1,19 +1,12 @@
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$ZSH/bin:$PATH"
-
-# local cwd bin
-export PATH="$PATH:.bin"
-
-# local cwd node_module bin
-export PATH="$PATH:./node_modules/.bin"
-
-# iterm2 path
-export PATH="$PATH:.iterm2"
-
-# Go binary path
-export PATH="$PATH:$HOME/go/bin"
+export PATH="$HOME/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$ZSH/bin:$PATH"
+export PATH=".bin:$PATH"
+export PATH="./node_modules/.bin:$PATH"
 
 # Setup nodenv and rbenv
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
+# eval "$(rbenv init -)"
+# eval "$(nodenv init -)"

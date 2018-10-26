@@ -1,20 +1,3 @@
-function welcome() {
-  print -P "%F{white}
-%B%D{%A %f %B %Y, %H:%M:%S %p}%b
-
-      \\\/       
-      l'>     uptime %B$(uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g')%b    
-      ll        load %B$(uptime | sed -e 's/^.*load averages: //g')%b
-  ~llama       procs %B$(ps ax | wc -l | tr -d ' ')%b
-   || ||    
-   '' ''    
-%f"
-}
-    
-welcome
-
-# -----------------------------------------------------------------------------
-
 if (($+commands[git])); then
   git="$commands[git]"
 else
