@@ -6,3 +6,6 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$ZSH/bin:$PATH"
 export PATH=".bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
+
+# Use gmake as default
+export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"

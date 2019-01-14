@@ -75,7 +75,6 @@ cask "licecap"
 cask "paste"
 cask "postico"
 cask "sketch"
-cask "slack"
 cask "spectacle"
 cask "sublime-text"
 cask "visual-studio-code"
@@ -85,7 +84,6 @@ cask "virtualbox-extension-pack"
 cask "viscosity"
 cask "vlc"
 cask "vmware-fusion"
-
 
 # Fonts
 cask "font-hack"
