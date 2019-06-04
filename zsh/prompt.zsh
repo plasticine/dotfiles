@@ -5,9 +5,9 @@ else
 fi
 
 if [[ -n "$SSH_CONNECTION" ]] ; then
-  ON_SSH=" %K{yellow}%F{black}%B SSH %b%f%k "
+  SSH_NOTICE=" %K{yellow}%F{black}%B SSH %b%f%k "
 else
-  ON_SSH=""
+  SSH_NOTICE=" "
 fi
 
 GIT_PROMPT_NO_UPSTREAM="%K{red}%F{black}%B \U0000f655 UPSTREAM %b%f%k"
@@ -76,7 +76,7 @@ function git_status() {
   unset ref_stats remote_stats file_stats remote_tracking
 }
 
-DEFAULT_PROMPT="%F{magenta}%n%f%F{white}@%f%B%F{yellow}%M%f%b${ON_SSH}%F{white}%3~%f $(echo -ne '\U0000f054') "
+DEFAULT_PROMPT="%F{magenta}%n%f%F{white}@%f%B%F{yellow}%M%f%b${SSH_NOTICE}%F{white}%3~%f $(echo -ne '\U0000f054') "
 DEFAULT_RPROMPT=""
 
 function async_prompt() {
