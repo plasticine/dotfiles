@@ -10,6 +10,12 @@ else
   SSH_NOTICE=" "
 fi
 
+if [[ -n "$AWS_VAULT" ]]; then
+  AWS_VAULT_NOTICE=" %K{yellow}%F{black}%B $AWS_VAULT %b%f%k "
+else
+  AWS_VAULT_NOTICE=" "
+fi
+
 GIT_PROMPT_NO_UPSTREAM="%K{red}%F{black}%B \U0000f655 UPSTREAM %b%f%k"
 
 function in_repo() {
@@ -72,7 +78,7 @@ function git_status() {
   local file_stats="$(diffstat_to_origin_master)"
   local remote_tracking="$(git_has_tracking_branch)"
 
-  echo -ne "%K{white}%F{black} \U0000e727 ${ref_stats}${remote_stats}${file_stats}${remote_tracking}%f%k"
+  echo -ne "%K{white}%F{black} \U0000e727 ${ref_stats}${remote_stats}${remote_tracking}%f%k"
   unset ref_stats remote_stats file_stats remote_tracking
 }
 
