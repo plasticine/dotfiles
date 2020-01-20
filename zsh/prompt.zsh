@@ -25,6 +25,10 @@ function in_repo() {
   return 1
 }
 
+function k8s_context() {
+  echo "%K{blue}%F{black}%B $(kubectl config current-context | awk '{print toupper($0)}') %b%f%k"
+}
+
 function git_branch() {
   ($git symbolic-ref -q HEAD || $git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
 }
@@ -71,7 +75,6 @@ function diffstat_to_origin_master() {
   fi
 }
 
-
 function git_status() {
   local ref_stats="$(git_branch_raw)@$(git_commit)"
   local remote_stats="$(git_num_commits_ahead)$(git_num_commits_behind)"
@@ -99,7 +102,12 @@ function async_prompt() {
 }
 
 function prompt_job() {
+  local content=""
+
   [[ $(in_repo) ]] && echo -ne "$(git_status)"
+  echo -ne "$(k8s_context)"
+
+  echo "$content"
 }
 
 function prompt_precmd() {

@@ -1,62 +1,63 @@
-#!/bin/sh
+#!/bin/bash
+set -euo pipefail
 
-DOTFILES_ROOT="`pwd`/"
+DOTFILES_ROOT="${HOME}/.dotfiles"
 
-set -e
-
-echo ''
-
-info () {
+info() {
   printf "  [ \033[00;34m..\033[0m ] $1"
 }
 
-user () {
+user() {
   printf "\r  [ \033[0;33m?\033[0m ] $1 "
 }
 
-success () {
+success() {
   printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
 }
 
-fail () {
+fail() {
   printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
+  echo ""
   exit
 }
 
-link_files () {
-  ln -s $1 $2
-  success "linked $1 to $2"
+newline() {
+  echo ""
 }
 
-install_dotfiles () {
-  info 'installing dotfiles'
+link_files() {
+  ln -s $1 $2
+  success "Linked $1 to $2"
+}
 
-  overwrite_all=false
-  backup_all=false
-  skip_all=false
+install_dotfiles() {
+  local arg="${1:-}"
+  local overwrite_all=false
+  local backup_all=false
+  local skip_all=false
 
-  case "$1" in
-    '--force' )
+  info "Installing dotfiles..."
+
+  case "${arg}" in
+    "--force" )
       backup_all=true;;
     * )
       ;;
   esac
 
-  for source in `find $DOTFILES_ROOT -maxdepth 5 -name \*.symlink`
+  for source in $(find $DOTFILES_ROOT -maxdepth 5 -name \*.symlink)
   do
-    dest="$HOME/.`basename \"${source%.*}\"`"
+    dest="$HOME/.$(basename \"${source%.*}\")"
 
-    if [ -f $dest ] || [ -d $dest ]
+    if [[ -f $dest || -d $dest ]]
     then
-
       overwrite=false
       backup=false
       skip=false
 
-      if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+      if [[ "$overwrite_all" == "false" && "$backup_all" == "false" && "$skip_all" == "false" ]]
       then
-        user "File already exists: `basename $source`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "File already exists: $(basename $source), what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -n 1 action
 
         case "$action" in
@@ -77,33 +78,50 @@ install_dotfiles () {
         esac
       fi
 
-      if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]
+      if [[ "$overwrite" == "true" || "$overwrite_all" == "true" ]]
       then
         rm -rf $dest
-        success "removed $dest"
+        success "Removed $dest"
       fi
 
-      if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]
+      if [[ "$backup" == "true" || "$backup_all" == "true" ]]
       then
         mv $dest $dest\.backup
-        success "moved $dest to $dest.backup"
+        success "Moved $dest to $dest.backup"
       fi
 
-      if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]
+      if [[ "$skip" == "false" && "$skip_all" == "false" ]]
       then
         link_files $source $dest
       else
-        success "skipped $source"
+        success "Skipped $source"
       fi
 
     else
       link_files $source $dest
     fi
-
   done
+
+  newline && newline
+  echo "  All installed!" && newline
 }
 
-install_dotfiles "$@"
+ensure_dotfiles_link() {
+  # Conditionally configure the install of the dotfiles to $HOME/.dotfiles
+  if [[ $(pwd) != $DOTFILES_ROOT ]]; then
+    # Check that a link exists and is not busted...
+    if [[ ! -L ${DOTFILES_ROOT} || ! -e ${DOTFILES_ROOT} ]]; then
+      link_files "$(pwd)" "${DOTFILES_ROOT}"
+    else
+      info "Dotfiles already linked to ${DOTFILES_ROOT}" && newline
+    fi
+  fi
+}
 
-echo ''
-echo '  All installed!'
+main() {
+  newline
+  ensure_dotfiles_link
+  install_dotfiles "$@"
+}
+
+main

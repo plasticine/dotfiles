@@ -1,6 +1,3 @@
-[init]
-	templatedir = /Users/justin/.git_template
-
 [user]
 	name = Justin Morris
 	email = desk@pixelbloom.com

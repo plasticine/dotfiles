@@ -1,25 +1,29 @@
-tap "caskroom/fonts"
-tap "caskroom/versions"
+cask_args appdir: "/Applications"
 
-brew "git"
-brew "dnsmasq", restart_service: :changed
-brew "nodenv"
-brew "rbenv"
-brew "packer"
-brew "terraform"
-brew "vault"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
 
 # Useful system stuff
+# brew "findutils", args: ['with-default-names']
+# brew "gnu-indent", args: ['with-default-names']
+# brew "gnu-sed", args: ['with-default-names']
+# brew "gnu-tar", args: ['with-default-names']
+# brew "gnu-which", args: ['with-default-names']
+# brew "wdiff", args: ['with-gettext']
+brew "asdf"
+brew "autoconf"
+brew "automake"
 brew "bash"
 brew "binutils"
 brew "coreutils"
-brew "findutils", args: ['with-default-names']
+brew "coreutils"
+brew "curl"
+brew "dnsmasq", restart_service: :changed
+brew "exa"
 brew "fzf"
 brew "gawk"
-brew "gnu-indent", args: ['with-default-names”']
-brew "gnu-sed", args: ['with-default-names']
-brew "gnu-tar", args: ['with-default-names']
-brew "gnu-which", args: ['with-default-names']
+brew "git"
 brew "gnutls"
 brew "graphviz"
 brew "grc"
@@ -27,60 +31,68 @@ brew "htop"
 brew "httpie"
 brew "hub"
 brew "jq"
-brew "exa"
+brew "zlib"
 brew "kubectx"
+brew "libtool"
+brew "libxslt"
+brew "libyaml"
 brew "mas"
 brew "memcached"
 brew "moreutils"
+brew "nodenv"
 brew "openssl"
+brew "packer"
 brew "pinentry-mac"
+brew "rbenv"
+brew "readline"
 brew "roundup"
 brew "ssh-copy-id"
+brew "terraform"
 brew "tree"
+brew "unixodbc"
+brew "unzip"
+brew "vault"
 brew "watch"
-brew "wdiff", args: ['with-gettext']
+brew "wdiff"
 brew "wget"
 brew "yarn"
+brew "wxmac"
+brew "fop"
+cask "java"
 brew "yubikey-personalization"
+
+# ZSH Stuff
 brew "zsh"
-brew "zsh-autosuggestions"
-brew "zsh-completions"
-brew "zsh-history-substring-search"
-brew "zsh-syntax-highlighting"
+brew "zplug"
 
 # GPG Stuff
 brew "gpg2"
 cask "gpg-suite"
 
-# Casks
+# Browsers
+cask "firefox"
+cask "google-chrome"
+cask "google-chrome-canary"
+cask "microsoft-edge"
+cask "microsoft-edge-dev"
+
+# Useful apps
 cask "alfred"
-cask "arq"
 cask "aws-vault"
 cask "dash"
 cask "docker"
-cask "dropbox"
 cask "fantastical"
-cask "flux"
-cask "google-chrome"
-cask "google-chrome-canary"
-cask "gpgtools"
+# cask "gpgtools"
 cask "imagealpha"
 cask "imageoptim"
 cask "iterm2"
-cask "kap"
 cask "karabiner-elements"
-cask "keepingyouawake"
-cask "keybase"
 cask "licecap"
-cask "paste"
 cask "postico"
 cask "sketch"
-cask "spectacle"
 cask "sublime-text"
 cask "visual-studio-code"
 cask "vagrant"
-cask "virtualbox"
-cask "virtualbox-extension-pack"
 cask "viscosity"
 cask "vlc"
 cask "vmware-fusion"
@@ -88,5 +100,5 @@ cask "vmware-fusion"
 # Fonts
 cask "font-hack"
 cask "font-source-code-pro"
-cask "font-robotomono"
+cask "font-roboto-mono"
 cask "font-robotomono-nerd-font-mono"
