@@ -15,5 +15,22 @@ alias be='bundle exec $argv'
 alias jest='nocorrect jest'
 alias flow='nocorrect flow'
 
-alias kc='kubectl $argv'
-alias kcctx='kubectl config current-context'
+# Kubernetes stuff
+alias k='kubectl $argv'
+
+alias kccc='k config current-context'
+
+function kcsns() {
+    [[ -z "$1" ]] && echo "Error: namespace is a required argument." && return 1
+    kubectl config set-context --current --namespace=$1
+}
+
+# Get
+alias kg='k get'
+alias kgpo='kg po'
+alias kgde='kg deploy'
+alias kgrs='kg rs'
+alias kgs='kg service'
+
+# Describe
+alias kd='k describe'

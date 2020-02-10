@@ -25,8 +25,31 @@ function in_repo() {
   return 1
 }
 
-function k8s_context() {
-  echo "%K{blue}%F{black}%B $(kubectl config current-context | awk '{print toupper($0)}') %b%f%k"
+function k8s_status() {
+  local context namespace user
+
+  # Set context
+  if ! context="$(kubectl --request-timeout=1s config current-context 2>/dev/null)"; then
+    echo ""
+    return 1
+  fi
+  ZSH_KUBECTL_CONTEXT="${context}"
+
+  # Set namespace
+  namespace="$(kubectl --request-timeout=1s config view -o "jsonpath={.contexts[?(@.name==\"$context\")].context.namespace}")"
+  [[ -z "$namespace" ]] && namespace="default"
+  ZSH_KUBECTL_NAMESPACE="${namespace}"
+
+  [[ "$ZSH_KUBECTL_CONTEXT" =~ "production" ]] && color=red || color=blue
+  echo "%{$fg[$color]%}${user} ${context}/${namespace}%{$reset_color%}"
+
+  # if [[ $content =~ "PRODUCTION" ]]; then
+  #   # echo -e "\033]6;1;bg;red;brightness;255\a"
+  # else
+  #   # echo -e "\033]6;1;bg;*;default\a"
+  # fi
+
+  # echo $content
 }
 
 function git_branch() {
@@ -81,7 +104,7 @@ function git_status() {
   local file_stats="$(diffstat_to_origin_master)"
   local remote_tracking="$(git_has_tracking_branch)"
 
-  echo -ne "%K{white}%F{black} \U0000e727 ${ref_stats}${remote_stats}${remote_tracking}%f%k"
+  echo -ne "%K{white}%F{black} ${ref_stats}${remote_stats}${remote_tracking} %f%k"
   unset ref_stats remote_stats file_stats remote_tracking
 }
 
@@ -102,12 +125,8 @@ function async_prompt() {
 }
 
 function prompt_job() {
-  local content=""
-
-  [[ $(in_repo) ]] && echo -ne "$(git_status)"
-  echo -ne "$(k8s_context)"
-
-  echo "$content"
+  [[ $(in_repo) ]] && echo -ne "$(git_status) "
+  # echo -ne "$(k8s_status)"
 }
 
 function prompt_precmd() {

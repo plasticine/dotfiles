@@ -6,8 +6,9 @@ zplug "zsh-users/zsh-history-substring-search", defer:3  # Should be loaded last
 zplug "zsh-users/zsh-autosuggestions"
 zplug "chrissicool/zsh-256color", from:"github", use:"zsh-256color.plugin.zsh"
 zplug "mafredri/zsh-async", defer:0
+zplug "superbrothers/zsh-kubectl-prompt", lazy:true
 
-# Periodically check for zplug stuff to install. If we’ve never run the install, or 
+# Periodically check for zplug stuff to install. If we’ve never run the install, or
 # it’s been a while then we need to do an install...
 ZPLUG_LAST_RUN_FILE="$HOME/.lastrun/zplug"
 ONE_WEEK_IN_SECONDS=604800
