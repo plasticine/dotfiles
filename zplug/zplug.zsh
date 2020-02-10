@@ -20,9 +20,7 @@ if [[ ! -f $ZPLUG_LAST_RUN_FILE || $(($(date +%s) - $(date -r $ZPLUG_LAST_RUN_FI
 		zplug install
 	fi
 	# Touch our last run file
-	set -x
 	mkdir -p $(dirname $ZPLUG_LAST_RUN_FILE) && touch $ZPLUG_LAST_RUN_FILE
-	set +x
 fi
 
 # Load everything!

@@ -18,7 +18,5 @@ if [[ ! -f $LAST_RUN_FILE || $(($(date +%s) - $(date -r $LAST_RUN_FILE +%s))) -g
 	asdf plugin update --all
 
 	# Touch our last run file
-	set -x
 	mkdir -p $(dirname $LAST_RUN_FILE) && touch $LAST_RUN_FILE
-	set +x
 fi
