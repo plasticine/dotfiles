@@ -3,6 +3,6 @@ elixir 1.9.4
 nodejs 12.14.1
 ruby 2.7.0
 golang 1.13.6
-postgres 12.1 11.6 10.11
+postgres 9.6.17
 python 3.8.1
 redis 5.0.7

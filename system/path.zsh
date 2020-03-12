@@ -6,6 +6,9 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH=".bin:$PATH"
 export PATH="./node_modules/.bin:$PATH"
 export PATH="/usr/local/opt/make/libexec/gnubin:$PATH" # Use gmake as default
+export PATH="$HOME/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
 
 # Configure MANPATH
 export MANPATH="/usr/local/man:$MANPATH"

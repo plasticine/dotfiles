@@ -54,6 +54,7 @@ alias gl_absolute='git log --graph --pretty=format:"%Cblue%h%d%Creset %ad %Cgree
 alias gm='git merge --no-ff'
 alias gp='git push'
 alias gp!='gp --set-upstream origin $(git_current_branch)'
+alias gpf='gp --force-with-lease'
 alias gpthis='git push origin HEAD:$(git_current_branch)'
 alias gpb='git push banana'
 alias gpd='gp deploy deploy'

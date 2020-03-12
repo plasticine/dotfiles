@@ -1,6 +1,6 @@
 source "/usr/local/opt/asdf/asdf.sh"
 
-# Periodically check for zplug stuff to install. If we’ve never run the install, or 
+# Periodically check for zplug stuff to install. If we’ve never run the install, or
 # it’s been a while then we need to do an install...
 LAST_RUN_FILE="$HOME/.lastrun/asdf"
 ONE_WEEK_IN_SECONDS=604800
