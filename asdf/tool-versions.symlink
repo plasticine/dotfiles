@@ -1,6 +1,6 @@
 erlang 22.2.2
 elixir 1.9.4
-nodejs 12.14.1
+nodejs 10.13.0
 ruby 2.7.0
 golang 1.13.6
 postgres 9.6.17

@@ -18,14 +18,14 @@ fi
 
 GIT_PROMPT_NO_UPSTREAM="%K{red}%F{black}%B \U0000f655 UPSTREAM %b%f%k"
 
-function in_repo() {
+in_repo() {
   if $git branch 2>/dev/null; then
     return 0
   fi
   return 1
 }
 
-function k8s_status() {
+k8s_status() {
   local context namespace user
 
   # Set context
@@ -43,33 +43,33 @@ function k8s_status() {
   [[ "$ZSH_KUBECTL_CONTEXT" =~ "production" ]] && color=red || color=blue
   echo "%{$fg[$color]%}${user} ${context}/${namespace}%{$reset_color%}"
 
-  # if [[ $content =~ "PRODUCTION" ]]; then
-  #   # echo -e "\033]6;1;bg;red;brightness;255\a"
-  # else
-  #   # echo -e "\033]6;1;bg;*;default\a"
-  # fi
+  if [[ $content =~ "PRODUCTION" ]]; then
+    echo -e "\033]6;1;bg;red;brightness;255\a"
+  else
+    echo -e "\033]6;1;bg;*;default\a"
+  fi
 
-  # echo $content
+  echo $content
 }
 
-function git_branch() {
+git_branch() {
   ($git symbolic-ref -q HEAD || $git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
 }
 
-function git_branch_raw() {
+git_branch_raw() {
   echo "${$(git_branch)#(refs/heads/|tags/)}" 2> /dev/null
 }
 
-function git_commit() {
+git_commit() {
   ($git rev-parse --short HEAD) 2> /dev/null || echo "NONE"
 }
 
-function git_has_tracking_branch() {
+git_has_tracking_branch() {
   $git log --oneline @{u}.. &> /dev/null
   [[ x$? == x128 ]] && echo " $GIT_PROMPT_NO_UPSTREAM"
 }
 
-function git_num_commits_ahead() {
+git_num_commits_ahead() {
   local commits_ahead="$($git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
   if [ "$commits_ahead" -gt 0 ]; then
     echo -ne " \U0000f55c${commits_ahead}"
@@ -77,7 +77,7 @@ function git_num_commits_ahead() {
   unset commits_ahead
 }
 
-function git_num_commits_behind() {
+git_num_commits_behind() {
   local commits_behind="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
   if [ "$commits_behind" -gt 0 ]; then
     echo -ne " \U0000f544${commits_behind}"
@@ -85,7 +85,7 @@ function git_num_commits_behind() {
   unset commits_behind
 }
 
-function diffstat_to_origin_master() {
+diffstat_to_origin_master() {
   $git log --oneline @{u}.. &> /dev/null
   if [[ x$? == x0 ]]; then
     local diff="$($git diff --cached --shortstat origin/master)"
@@ -98,7 +98,7 @@ function diffstat_to_origin_master() {
   fi
 }
 
-function git_status() {
+git_status() {
   local ref_stats="$(git_branch_raw)@$(git_commit)"
   local remote_stats="$(git_num_commits_ahead)$(git_num_commits_behind)"
   local file_stats="$(diffstat_to_origin_master)"
@@ -111,8 +111,8 @@ function git_status() {
 DEFAULT_PROMPT="%F{magenta}%n%f%F{white}@%f%B%F{yellow}%M%f%b${SSH_NOTICE}%F{white}%3~%f $(echo -ne '\U0000f054') "
 DEFAULT_RPROMPT=""
 
-function async_prompt() {
-  function prompt_complete() {
+async_prompt() {
+  prompt_complete() {
     RPROMPT="${RPROMPT}${3}"
     zle reset-prompt
     async_stop_worker prompt -n
@@ -124,12 +124,12 @@ function async_prompt() {
   async_job prompt prompt_job
 }
 
-function prompt_job() {
+prompt_job() {
   [[ $(in_repo) ]] && echo -ne "$(git_status) "
   # echo -ne "$(k8s_status)"
 }
 
-function prompt_precmd() {
+prompt_precmd() {
   local last_command_exit="$?"
 
   PROMPT="$DEFAULT_PROMPT"
