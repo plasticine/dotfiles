@@ -30,18 +30,25 @@
 	default = upstream
 
 [difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [difftool]
+	prompt = false
 
 [diff]
 	submodule = log
 	colorMoved = zebra
+	tool = Kaleidoscope
 
 [mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
 
 [mergetool]
+	prompt = false
 
 [merge]
+	tool = Kaleidoscope
 
 [hub]
 	protocol = ssh

@@ -3677,6 +3677,10 @@
 	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
+	<key>DisableWindowShadowWhenTransparencyOnMojave</key>
+	<false/>
+	<key>DisableWindowShadowWhenTransparencyPreMojave</key>
+	<false/>
 	<key>EliminateCloseButtons</key>
 	<true/>
 	<key>EnableDivisionView</key>
@@ -3920,7 +3924,7 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>3865 2294 592 584 3840 346 1440 2560 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>505 880 730 483 0 0 3840 2137 </string>
+	<string>320 704 1882 1299 0 0 3840 2160 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>321 573 730 479 0 0 3840 2160 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -4157,13 +4161,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.20000000298023224</real>
+				<real>0.18823529411764706</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.15294118225574493</real>
+				<real>0.14117647058823529</real>
 				<key>Red Component</key>
-				<real>0.12941177189350128</real>
+				<real>0.12156862745098039</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -4298,7 +4302,7 @@
 			<key>Initial Text</key>
 			<string></string>
 			<key>Initial Use Transparency</key>
-			<true/>
+			<false/>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -4801,7 +4805,7 @@
 			<key>Thin Strokes</key>
 			<integer>4</integer>
 			<key>Transparency</key>
-			<real>0.054750951776649751</real>
+			<real>0.0</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Underline Color</key>
@@ -5616,7 +5620,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>52610707-AAE4-4CD7-BB4A-2C16C2EC7607</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>185</integer>
+	<integer>189</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -6437,7 +6441,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-04-25T01:53:22Z</date>
+	<date>2020-04-30T01:53:31Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>

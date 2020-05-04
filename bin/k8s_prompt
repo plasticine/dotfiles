@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+set -euo pipefail
+
+main() {
+    autoload -U colors && colors
+
+    local kube_config;
+    local current_context;
+
+    kube_config="${KUBECONFIG:-${HOME}/.kube/config}"
+    current_context=$(grep "current-context:" ${kube_config} | sed "s/current-context: //") && {
+        if [[ "${current_context}" == *"prod"* ]]; then
+            echo "%{$bg[red]%}%{$fg[black]%} ${current_context} %{$reset_color%}"
+        else
+            echo "%{$bg[white]%}%{$fg[black]%} ${current_context} %{$reset_color%}"
+        fi
+    } || exit 0
+}
+
+main
