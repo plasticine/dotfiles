@@ -1,9 +1,9 @@
 erlang 22.2.2
-elixir 1.9.4
+elixir 1.10.0
 nodejs 12.18.4
-ruby 2.7.0
+ruby 2.7.1
 golang 1.13.6
-postgres 9.6.17
+postgres 11.7
 python 3.8.1
 redis 5.0.7
 terraform 0.13.5
