@@ -34,3 +34,6 @@ alias kgs='kg service'
 
 # Describe
 alias kd='k describe'
+
+# Always select context on start
+alias k9s='k9s -c ctx'
