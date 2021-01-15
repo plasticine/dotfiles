@@ -15,6 +15,7 @@
 	quotepath = false
 	ignorecase = false
 	excludesfile = /Users/justin/.gitignore
+	pager = delta
 
 [apply]
 	whitespace = nowarn
@@ -30,18 +31,25 @@
 	default = upstream
 
 [difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 
 [difftool]
+	prompt = false
 
 [diff]
 	submodule = log
 	colorMoved = zebra
+	tool = Kaleidoscope
 
 [mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
 
 [mergetool]
+	prompt = false
 
 [merge]
+	tool = Kaleidoscope
 
 [hub]
 	protocol = ssh
@@ -69,5 +77,20 @@
 
 [advice]
 	ignoredHook = false
+
 [credential]
 	helper = osxkeychain
+
+[delta]
+    features = decorations
+    whitespace-error-style = 22 reverse
+    line-numbers = true
+    # side-by-side = true
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+
+[interactive]
+    diffFilter = delta --color-only

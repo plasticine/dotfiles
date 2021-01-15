@@ -1,19 +1,11 @@
-__dotfiles::welcome() {
-  print -P "%F{white}
-%B%D{%A %f %B %Y, %H:%M:%S %p}%b
-
-    uptime %B$(uptime | sed -e "s/^.* up/up/g" | sed -e 's/,.*//g')%b
-      load %B$(uptime | sed -e 's/^.*load averages: //g')%b
-     procs %B$(ps ax | wc -l | tr -d ' ')%b
-%f"
-}
-
 __dotfiles::load() {
-  for file in "$@"; do source $file; done
+  for file in "$@"; do
+    source $file;
+  done
 }
 
 __dotfiles::main() {
-  # shortcut to this dotfiles path is $DOTFILES
+  # Shortcut to this dotfiles path is $DOTFILES
   export DOTFILES=$HOME/.dotfiles
 
   # All of our *.zsh files
@@ -38,7 +30,6 @@ __dotfiles::main() {
   # want in your public, versioned repo.
   [[ -a ~/.localrc ]] && source ~/.localrc
 
-  __dotfiles::welcome
   times
 }
 
