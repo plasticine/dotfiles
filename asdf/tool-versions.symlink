@@ -6,3 +6,4 @@ golang 1.13.6
 postgres 11.7
 python 3.8.1
 redis 5.0.7
+terraform 0.13.5
