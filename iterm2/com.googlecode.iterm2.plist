@@ -3676,6 +3676,10 @@
 	<key>DimOnlyText</key>
 	<false/>
 	<key>DisableFullscreenTransparency</key>
+	<true/>
+	<key>DisableWindowShadowWhenTransparencyOnMojave</key>
+	<false/>
+	<key>DisableWindowShadowWhenTransparencyPreMojave</key>
 	<false/>
 	<key>EliminateCloseButtons</key>
 	<true/>
@@ -3910,9 +3914,9 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>2321 693 845 424 0 0 3840 2137 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>1720 1506 400 129 0 0 3840 2137 </string>
+	<string>4720 2311 400 129 3840 -472 2160 3840 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>4570 1924 700 622 3840 -472 2160 3817 </string>
+	<string>1026 1039 700 622 0 0 3840 2137 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 126 606 469 0 0 3840 2160 </string>
 	<key>NSWindow Frame SharedPreferences</key>
@@ -3920,7 +3924,7 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>3865 2294 592 584 3840 346 1440 2560 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>3840 -464 2160 1834 3840 -472 2160 3817 </string>
+	<string>320 704 1882 1299 0 0 3840 2160 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>321 573 730 479 0 0 3840 2160 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -4157,13 +4161,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.20000000298023224</real>
+				<real>0.18823529411764706</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.15294118225574493</real>
+				<real>0.14117647058823529</real>
 				<key>Red Component</key>
-				<real>0.12941177189350128</real>
+				<real>0.12156862745098039</real>
 			</dict>
 			<key>Background Image Is Tiled</key>
 			<false/>
@@ -4193,7 +4197,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>5.5218448638916016</real>
+			<real>9.4953101240438862</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -4623,6 +4627,10 @@
 			<true/>
 			<key>Normal Font</key>
 			<string>RobotoMonoNerdFontCompleteM-Regular 14</string>
+			<key>Only The Default BG Color Uses Transparency</key>
+			<false/>
+			<key>Open Toolbelt</key>
+			<false/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -5575,6 +5583,7 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
+		<string>3.3.10beta3</string>
 		<string>3.3.0beta10</string>
 		<string>3.3.7beta1</string>
 		<string>3.3.0beta11</string>
@@ -5589,6 +5598,7 @@
 		<string>3.3.9beta1</string>
 		<string>3.3.4beta1</string>
 		<string>3.3.2beta2</string>
+		<string>3.3.10beta2</string>
 		<string>3.3.0</string>
 		<string>3.3.8beta1</string>
 	</array>
@@ -5599,7 +5609,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {3840, 2160}}</string>
 		<key>topLeft</key>
-		<string>{1253, 872}</string>
+		<string>{1328, 1115}</string>
 	</dict>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
@@ -5610,7 +5620,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>52610707-AAE4-4CD7-BB4A-2C16C2EC7607</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>160</integer>
+	<integer>189</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -6351,6 +6361,10 @@
 			</dict>
 		</array>
 	</dict>
+	<key>NoSyncSuppressDownloadConfirmation</key>
+	<true/>
+	<key>NoSyncSuppressDownloadConfirmation_selection</key>
+	<integer>0</integer>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>554862062.64165199</real>
 	<key>OnlyWhenMoreTabs</key>
@@ -6427,11 +6441,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-03-06T03:56:10Z</date>
+	<date>2020-04-30T01:53:31Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
-	<integer>2211281733</integer>
+	<integer>2536346696</integer>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -6523,7 +6537,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.3.9beta1</string>
+	<string>3.3.10beta3</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
