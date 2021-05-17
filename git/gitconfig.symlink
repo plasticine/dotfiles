@@ -81,11 +81,15 @@
 [credential]
 	helper = osxkeychain
 
+[core]
+    pager = delta
+
 [delta]
-    features = decorations
-    whitespace-error-style = 22 reverse
+	features = decorations
+    plus-color = "#012800"
+    minus-color = "#340001"
+    syntax-theme = Monokai Extended
     line-numbers = true
-    # side-by-side = true
 
 [delta "decorations"]
     commit-decoration-style = bold yellow box ul

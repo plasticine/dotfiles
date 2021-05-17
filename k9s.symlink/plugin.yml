@@ -1,12 +1,12 @@
 plugin:
-  stern:
+  stern-pods:
     shortCut: Ctrl-L
     confirm: false
     description: "Logs <Stern>"
     scopes:
       - pods
-    command: stern
     background: false
+    command: stern
     args:
       - --tail
       - 50

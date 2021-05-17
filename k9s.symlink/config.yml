@@ -1,4 +1,171 @@
 k9s:
   refreshRate: 1
   maxConnRetry: 10
-  headless: true
+  enableMouse: false
+  headless: false
+  logoless: false
+  crumbsless: false
+  readOnly: false
+  noIcons: false
+  logger:
+    tail: 100
+    buffer: 5000
+    sinceSeconds: 60
+    fullScreenLogs: false
+    textWrap: false
+    showTime: false
+  currentContext: up-production-486e
+  currentCluster: gke_up-production-486e_australia-southeast1_core-486e
+  clusters:
+    gke_up-integration-63fc_australia-southeast1-a_native-63fc:
+      namespace:
+        active: ""
+        favorites:
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-plant-fb59_australia-southeast1-a_core-fb59:
+      namespace:
+        active: ""
+        favorites:
+        - pgbouncer
+        - app
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-production-486e_australia-southeast1_core-486e:
+      namespace:
+        active: ""
+        favorites:
+        - pgbouncer
+        - app
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-qa-36a6_australia-southeast1-a_core-36a6:
+      namespace:
+        active: ""
+        favorites:
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-staging-2e6d_australia-southeast1_core-2e6d:
+      namespace:
+        active: pgbouncer
+        favorites:
+        - app
+        - pgbouncer
+        - datadog
+        - web
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-workshop-274c_australia-southeast1-a_core-274c:
+      namespace:
+        active: web
+        favorites:
+        - web
+        - datadog
+        - read
+        - pgbouncer
+        - app
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-workshop-f5b8_australia-southeast1-a_core-f5b8:
+      namespace:
+        active: default
+        favorites:
+        - default
+      view:
+        active: ctx
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.31
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+  thresholds:
+    cpu:
+      critical: 90
+      warn: 70
+    memory:
+      critical: 90
+      warn: 70
