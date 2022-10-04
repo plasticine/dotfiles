@@ -1,11 +1,6 @@
 SHELL := bash
 .SHELLFLAGS := -eu -o pipefail -c
 
-DOTFILES_TARGET := $(addsuffix "/", $(basename $(HOME)))
-DOTFILES_ROOT := $(shell git rev-parse --show-toplevel)
-DOTFILES_SYMLINKS := $(shell find $(DOTFILES_ROOT) -maxdepth 5 -name \*.symlink)
-DOTFILES_ORPHANS := $(shell find $(DOTFILES_ROOT) -type l -maxdepth 1 ! -exec test -e {} \; -print)
-
 define BANNER
 
 ╔═════════════════════════════════════════════════╗
@@ -20,20 +15,12 @@ define BANNER
 
 endef
 
-Brewfile:
-	brew bundle
-
-$(HOME)/.tool-versions:
-	awk '{print $1}' < ~/.tool-versions | xargs -n1 asdf plugin add
-	awk '{print $1}' < ~/.tool-versions | xargs -n1 asdf install
-
-.PHONY: $(DOTFILES_SYMLINKS)
-$(DOTFILES_SYMLINKS):
-	@echo "$@ → $(join $(DOTFILES_TARGET), $(addprefix ".", $(notdir $(basename $@))))"
-	@ln -snf "$@" "$(join $(DOTFILES_TARGET), $(addprefix ".", $(notdir $(basename $@))))"
-
-all:
+install:
 	@$(info $(BANNER))
-	@$(MAKE) Brewfile
-	@$(MAKE) $(DOTFILES_SYMLINKS)
-	@$(MAKE) $(HOME)/.tool-versions
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME asdf
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME git
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME gnupg
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME k9s
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME postgres
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME ruby
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME zsh

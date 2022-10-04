@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-brew update
-brew upgrade
-brew tap Homebrew/bundle
-brew bundle
-brew cleanup
-brew services list
