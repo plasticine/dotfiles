@@ -1,0 +1,49 @@
+plugin:
+  # https://github.com/derailed/k9s/blob/master/plugins/log_stern.yml
+  # Leverage stern (https://github.com/wercker/stern) to output logs.
+  # stern:
+  #   shortCut: Ctrl-L
+  #   confirm: false
+  #   description: "Logs (Stern)"
+  #   scopes:
+  #     - pods
+  #   command: stern
+  #   background: false
+  #   args:
+  #     - --tail
+  #     - 50
+  #     - $FILTER
+  #     - -n
+  #     - $NAMESPACE
+  #     - --context
+  #     - $CONTEXT
+
+  stern:
+    shortCut: Ctrl-L
+    confirm: false
+    description: "Logs (Stern)"
+    scopes:
+      - deployments
+    command: stern
+    background: false
+    args:
+      - --tail
+      - 50
+      - $FILTER
+      - -n
+      - $NAMESPACE
+      - --context
+      - $CONTEXT
+
+  # https://github.com/derailed/k9s/blob/master/plugins/watch_events.yml
+  watch-events:
+    shortCut: Shift-E
+    confirm: false
+    description: Get Events
+    scopes:
+      - all
+    command: sh
+    background: false
+    args:
+      - -c
+      - "watch -n 5 kubectl get events --context $CONTEXT --namespace $NAMESPACE --field-selector involvedObject.name=$NAME"

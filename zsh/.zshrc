@@ -15,18 +15,18 @@ __dotfiles::main() {
 	config_files=($(find -L "$ZSH_CONFIG_ROOT" -name "*.zsh" -maxdepth 3))
 
 	# This all looks a bit wild but makes sense...
-	# 
-	# Basically out of all the config files we found we want to source them 
+	#
+	# Basically out of all the config files we found we want to source them
 	# in roughly the following order;
-	# 
+	#
 	# 1. Files named `path.zsh` that mess with PATH, do this early to prevent missing binaries.
 	# 2. Everything that is not an include or completion
 	# 3. Includes but not completions
 	# 4. All completions (after initializing autocomplete)
-	# 
+	#
 	# We do this in a pretty janky way just by filtering the paths using param expansion,
 	# more details on that here;
-	# 
+	#
 	# - https://zsh.sourceforge.io/Doc/Release/Expansion.html#Parameter-Expansion
 
 	# Load any path stuff first...

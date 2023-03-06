@@ -2,16 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AppleAntiAliasingThreshold</key>
-	<integer>1</integer>
-	<key>ApplePressAndHoldEnabled</key>
-	<false/>
-	<key>AppleScrollAnimationEnabled</key>
-	<integer>0</integer>
-	<key>AppleSmoothFixedFontsSizeThreshold</key>
-	<integer>1</integer>
-	<key>AppleWindowTabbingMode</key>
-	<string>manual</string>
+	<key>AllowClipboardAccess</key>
+	<true/>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>CheckTestRelease</key>
 	<true/>
 	<key>Default Bookmark Guid</key>
@@ -144,6 +138,8 @@
 		</dict>
 	</dict>
 	<key>HapticFeedbackForEsc</key>
+	<false/>
+	<key>HideTab</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
@@ -936,7 +932,7 @@
 			<key>Cursor Boost (Dark)</key>
 			<integer>0</integer>
 			<key>Cursor Boost (Light)</key>
-			<integer>0</integer>
+			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -968,13 +964,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.49419534206390381</real>
+				<real>0.13965687155723572</real>
 				<key>Color Space</key>
 				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.8273809552192688</real>
+				<real>0.26404127478599548</real>
 				<key>Red Component</key>
-				<real>0.97129529714584351</real>
+				<real>0.31897130608558655</real>
 			</dict>
 			<key>Cursor Guide Color</key>
 			<dict>
@@ -1007,13 +1003,13 @@
 				<key>Alpha Component</key>
 				<real>0.03961181640625</real>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>0.28084757924079895</real>
 				<key>Color Space</key>
-				<string>sRGB</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.9268307089805603</real>
+				<real>0.2744373083114624</real>
 				<key>Red Component</key>
-				<real>0.70213186740875244</real>
+				<real>0.26149821281433105</real>
 			</dict>
 			<key>Cursor Text Color</key>
 			<dict>
@@ -1044,15 +1040,15 @@
 			<key>Cursor Text Color (Light)</key>
 			<dict>
 				<key>Alpha Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Color Space</key>
-				<string>sRGB</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>0.99999994039535522</real>
 			</dict>
 			<key>Cursor Type</key>
 			<integer>1</integer>
@@ -1530,13 +1526,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.97856277227401733</real>
+				<real>0.41462188959121704</real>
 				<key>Color Space</key>
 				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.99636906385421753</real>
+				<real>0.41142600774765015</real>
 				<key>Red Component</key>
-				<real>0.99933403730392456</real>
+				<real>0.17967817187309265</real>
 			</dict>
 			<key>Selection Color</key>
 			<dict>
@@ -1569,13 +1565,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.94204670190811157</real>
+				<real>0.99153202772140503</real>
 				<key>Color Space</key>
 				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.72152262926101685</real>
+				<real>0.936134934425354</real>
 				<key>Red Component</key>
-				<real>0.5059857964515686</real>
+				<real>0.72574609518051147</real>
 			</dict>
 			<key>Semantic History</key>
 			<dict>
@@ -2418,10 +2414,45 @@
 			<string>/Users/justin</string>
 		</dict>
 	</array>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
+	<key>PointerActions</key>
+	<dict>
+		<key>Button,1,1,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kContextMenuPointerAction</string>
+		</dict>
+		<key>Button,2,1,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPasteFromClipboardPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeDown,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPrevWindowPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeLeft,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPrevTabPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeRight,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kNextTabPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeUp,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kNextWindowPointerAction</string>
+		</dict>
+	</dict>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.097616049757281539</real>
+	<real>0.14624943112864078</real>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>findMode_iTerm</key>

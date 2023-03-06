@@ -1,0 +1,157 @@
+k9s:
+  refreshRate: 1
+  maxConnRetry: 10
+  enableMouse: false
+  headless: false
+  logoless: false
+  crumbsless: false
+  readOnly: false
+  noExitOnCtrlC: false
+  noIcons: false
+  logger:
+    tail: 100
+    buffer: 5000
+    sinceSeconds: 60
+    fullScreenLogs: false
+    textWrap: false
+    showTime: false
+  currentContext: up-production-486e
+  currentCluster: gke_up-production-486e_australia-southeast1_core-486e
+  clusters:
+    gke_up-operations-ca08_australia-southeast1-a_operations-ca08:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-production-486e_australia-southeast1_core-486e:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - automation
+        - deploy
+        - web
+        - app
+        - all
+        - default
+      view:
+        active: deploy
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-qa-9440_australia-southeast1-a_core-9440:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - app
+        - all
+        - default
+      view:
+        active: deploy
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-staging-2e6d_australia-southeast1_core-2e6d:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - app
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-util-production-1cb1_australia-southeast1_util-1cb1:
+      namespace:
+        active: default
+        lockFavorites: false
+        favorites:
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-workshop-7e2b_australia-southeast1-a_core-7e2b:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - config
+        - maintenance
+        - app
+        - deploy
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+  thresholds:
+    cpu:
+      critical: 90
+      warn: 70
+    memory:
+      critical: 90
+      warn: 70
+  screenDumpDir: /var/folders/hp/210k5ymn0_jcq1ykzzj12c8c0000gp/T/k9s-screens-justin

@@ -6,8 +6,10 @@ typeset -F SECONDS
 
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
-export LC_ALL=en_AU.UTF-8
-export LANG="en_AU.UTF-8"
+export LC_ALL=en_US.UTF-8
+export LANG="en_US.UTF-8"
+
+export XDG_CONFIG_HOME="$HOME/.config"
 
 if [[ -n "$SSH_CONNECTION" ]] ;then
   export EDITOR="vi"
