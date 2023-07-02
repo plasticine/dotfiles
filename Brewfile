@@ -34,10 +34,10 @@ brew "terraform"
 brew "tree"
 brew "zplug"
 brew "zsh"
+brew "atuin"
 
 brew "openssl"
 brew "unzip"
-
 
 brew "gcc"
 brew "readline"
