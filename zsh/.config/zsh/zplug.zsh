@@ -1,4 +1,4 @@
-export ZPLUG_HOME="/opt/homebrew/opt/zplug"
+export ZPLUG_HOME="$(brew --prefix zplug)"
 source "$ZPLUG_HOME/init.zsh"
 
 zplug "zsh-users/zsh-syntax-highlighting", defer:2  # Should be loaded 2nd last.
