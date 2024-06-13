@@ -17,7 +17,7 @@ endef
 
 install:
 	@$(info $(BANNER))
-	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME asdf
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME mise
 	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME git
 	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME gnupg
 	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME k9s

@@ -15,9 +15,133 @@ k9s:
     fullScreenLogs: false
     textWrap: false
     showTime: false
-  currentContext: up-production-486e
-  currentCluster: gke_up-production-486e_australia-southeast1_core-486e
+  currentContext: colima
+  currentCluster: colima
   clusters:
+    arn:aws:eks:ap-southeast-2:560290711840:cluster/newmix-prod:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - default
+      view:
+        active: ctx
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    arn:aws:eks:ap-southeast-2:754078126010:cluster/updigitalbank-nonprod:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    colima:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - all
+        - default
+      view:
+        active: ctx
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_ferocia-integration-c5e3_asia-east1-a_integration-c5e3:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - integration-proxy
+        - integration-garbo
+        - all
+        - default
+      view:
+        active: pods
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_playground-d2ec_australia-southeast1-a_playground-d2ec:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - kube-system
+        - llama
+        - zapgpt
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-db-production-e550_australia-southeast1_db:
+      namespace:
+        active: pgbouncer
+        lockFavorites: false
+        favorites:
+        - pgbouncer
+        - all
+        - default
+      view:
+        active: pods
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
     gke_up-operations-ca08_australia-southeast1-a_operations-ca08:
       namespace:
         active: all
@@ -38,19 +162,40 @@ k9s:
           cpu: 100m
           memory: 100Mi
       portForwardAddress: localhost
+    gke_up-production-8e24_australia-southeast1_runtime:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - read
+        - app
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
     gke_up-production-486e_australia-southeast1_core-486e:
       namespace:
         active: all
         lockFavorites: false
         favorites:
-        - automation
         - deploy
         - web
         - app
         - all
         - default
       view:
-        active: deploy
+        active: pod
       featureGates:
         nodeShell: false
       shellPod:
@@ -132,6 +277,48 @@ k9s:
         - maintenance
         - app
         - deploy
+        - all
+        - default
+      view:
+        active: pod
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    gke_up-workshop-8018_australia-southeast1-a_runtime:
+      namespace:
+        active: app
+        lockFavorites: false
+        favorites:
+        - app
+        - all
+        - default
+      view:
+        active: pods
+      featureGates:
+        nodeShell: false
+      shellPod:
+        image: busybox:1.35.0
+        command: []
+        args: []
+        namespace: default
+        limits:
+          cpu: 100m
+          memory: 100Mi
+      portForwardAddress: localhost
+    orbstack:
+      namespace:
+        active: all
+        lockFavorites: false
+        favorites:
+        - graph-dos
         - all
         - default
       view:

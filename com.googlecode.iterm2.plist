@@ -7,6 +7,10 @@
 Here is some information about the environment: \(uname)
 Respond with one or more commands. Do not include any explanation or additional text besides the commands.Request: \(ai.prompt)
 </string>
+	<key>AiMaxTokens</key>
+	<integer>4096</integer>
+	<key>AiModel</key>
+	<string>gpt-3.5-turbo</string>
 	<key>AllowClipboardAccess</key>
 	<true/>
 	<key>AlternateMouseScroll</key>
@@ -17,6 +21,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<string>D60392F7-6FB5-491D-8BD4-1DE83BFAE590</string>
 	<key>DimBackgroundWindows</key>
 	<false/>
+	<key>DimInactiveSplitPanes</key>
+	<true/>
 	<key>DimOnlyText</key>
 	<false/>
 	<key>GlobalKeyMap</key>
@@ -142,6 +148,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<string></string>
 		</dict>
 	</dict>
+	<key>HTMLTabTitles</key>
+	<true/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideTab</key>
@@ -150,6 +158,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<true/>
 	<key>IRMemory</key>
 	<integer>4</integer>
+	<key>LeftTabBarWidth</key>
+	<real>287</real>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2461,7 +2471,15 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.14624943112864078</real>
+	<real>0.047919827063106796</real>
+	<key>StatusBarPosition</key>
+	<integer>1</integer>
+	<key>TabStyleWithAutomaticOption</key>
+	<integer>5</integer>
+	<key>TabViewType</key>
+	<integer>0</integer>
+	<key>UseBorder</key>
+	<true/>
 	<key>UseLionStyleFullscreen</key>
 	<true/>
 	<key>VisualIndicatorForEsc</key>
