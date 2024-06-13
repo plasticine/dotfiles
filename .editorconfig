@@ -11,6 +11,6 @@ indent_size = 2
 indent_style = tab
 indent_size = 4
 
-[{*.zsh,*.sh,*.bash}]
+[{.zshrc,.zprofile,*.zsh,*.sh,*.bash}]
 indent_style = tab
 indent_size = 4

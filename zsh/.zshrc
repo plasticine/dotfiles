@@ -55,3 +55,6 @@ __dotfiles::main() {
 }
 
 __dotfiles::main
+
+# Anything added after here was added by a tool appending to the file...
+# --------------------------------------------------------------------------------------------------
