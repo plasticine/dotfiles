@@ -1491,7 +1491,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>HackNerdFontCompleteM-Regular 13</string>
+			<string>HackNFM-Regular 16</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Open Toolbelt</key>
