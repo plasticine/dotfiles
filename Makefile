@@ -24,3 +24,4 @@ install:
 	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME postgres
 	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME ruby
 	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME zsh
+	@stow --verbose --ignore='.DS_Store' --restow --target $$HOME jj

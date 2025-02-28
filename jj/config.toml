@@ -1,0 +1,13 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Justin Morris"
+email = "justin@mrrs.au"
+
+[signing]
+sign-all = true
+backend = "gpg"
+key = "9690366C"
+
+[git]
+auto-local-bookmark = true
