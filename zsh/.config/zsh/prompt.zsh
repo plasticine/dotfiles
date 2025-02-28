@@ -1,49 +1,48 @@
-# # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
-# DEFAULT_PROMPT="%f%B%F{yellow}%M%f%b${SSH_NOTICE}%F{white} %3~%f "
-# DEFAULT_RPROMPT=""
+# https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
+# https://vincent.bernat.ch/en/blog/2021-zsh-transient-prompt
+# https://github.com/romkatv/powerlevel10k/issues/888
 
-# set_terminal_title() {
-# 	if [[ $LC_TERMINAL = iTerm2 ]]; then
-# 		print -P "\033]0; %3~ \007"
-# 	fi
-# }
+DEFAULT_PROMPT="%f%B%F{yellow}%M%f%b${SSH_NOTICE}%F{white} %3~%f "
+DEFAULT_RPROMPT=""
 
-# async_prompt() {
-# 	prompt_complete() {
-# 		RPROMPT="${RPROMPT}${3}"
-# 		zle reset-prompt
-# 		async_stop_worker prompt -n
-# 	}
+set_terminal_title() {
+	if [[ $LC_TERMINAL = iTerm2 ]]; then
+		print -P "\033]0; %3~ \007"
+	fi
+}
 
-# 	async_init
-# 	async_start_worker prompt -n
-# 	async_register_callback prompt prompt_complete
-# 	async_job prompt async_prompt_job
-# }
+async_prompt() {
+	prompt_complete() {
+		RPROMPT="${RPROMPT}${3}"
+		zle reset-prompt
+		async_stop_worker prompt -n
+	}
 
-# async_prompt_job() {
-# 	echo "$(git_prompt) $(k8s_prompt)$(vpn_prompt)"
-# }
+	async_init
+	async_start_worker prompt -n
+	async_register_callback prompt prompt_complete
+	async_job prompt async_prompt_job
+}
 
-# prompt() {
-# 	local last_command_exit="$?"
+async_prompt_job() {
+	echo "$(git_prompt) $(k8s_prompt)$(vpn_prompt)"
+}
 
-# 	PROMPT="$DEFAULT_PROMPT"
-# 	RPROMPT="$DEFAULT_RPROMPT"
+prompt() {
+	local last_command_exit="$?"
 
-# 	[[ "x${last_command_exit:-}" != "x0" ]] && PROMPT="${PROMPT}%K{red}%B%F{white} ${last_command_exit} %b%f%k "
-# 	unset last_command_exit
+	PROMPT="$DEFAULT_PROMPT"
+	RPROMPT="$DEFAULT_RPROMPT"
 
-# 	PROMPT="$PROMPT❯❯ "
+	[[ "x${last_command_exit:-}" != "x0" ]] && PROMPT="${PROMPT}%K{red}%B%F{white} ${last_command_exit} %b%f%k "
+	unset last_command_exit
 
-# 	set_terminal_title
+	PROMPT="$PROMPT❯❯ "
 
-# 	zle && zle reset-prompt
-# 	async_prompt
-# }
+	set_terminal_title
 
-# precmd_functions+=(prompt)
+	zle && zle reset-prompt
+	async_prompt
+}
 
-if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-	eval "$(oh-my-posh --config "~/.config/oh-my-posh/config.yaml" init zsh)"
-fi
+precmd_functions+=(prompt)
