@@ -1,7 +1,7 @@
 alias ls="ll"
-alias l="exa -lAh"
-alias ll="exa -l --git"
-alias la='exa -A'
+alias l="eza -lAh"
+alias ll="eza -l --git"
+alias la='eza -A'
 
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'

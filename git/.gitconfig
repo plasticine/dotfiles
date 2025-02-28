@@ -98,15 +98,18 @@
 
 [interactive]
     diffFilter = delta --color-only
+
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/local/bin/gh auth git-credential
+
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/usr/local/bin/gh auth git-credential
+
 [rebase]
 	autosquash = true
-[pull]
 	rebase = true
+
 [init]
 	defaultBranch = main
