@@ -1,5 +1,6 @@
 # Configure hombrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -f /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[[ -f /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
 
 # Configure mise for non-weirdos...
 command -v mise && eval "$(mise activate zsh --shims)"

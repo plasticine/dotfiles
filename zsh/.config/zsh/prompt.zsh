@@ -1,8 +1,12 @@
 # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
 # https://vincent.bernat.ch/en/blog/2021-zsh-transient-prompt
 # https://github.com/romkatv/powerlevel10k/issues/888
+# https://robotmoon.com/zsh-prompt-generator/
 
-DEFAULT_PROMPT="%f%B%F{yellow}%M%f%b${SSH_NOTICE}%F{white} %3~%f "
+
+DEFAULT_PROMPT="%{%B%F{39}%}%n%{%F{81}%}@%{%F{77}%}%m%b %{%F{247}%}%3~ %{%f%}"
+
+# DEFAULT_PROMPT="%f%B%F{yellow}%M%f%b${SSH_NOTICE}%F{grey} %3~%f "
 DEFAULT_RPROMPT=""
 
 set_terminal_title() {
