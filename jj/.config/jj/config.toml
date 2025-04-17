@@ -1,13 +1,18 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
+[ui]
+default-command = "log"
+editor = "subl -n -w"
+
 [user]
-name = "Justin Morris"
 email = "desk@pixelbloom.com"
+name = "Justin Morris"
 
 [signing]
-sign-all = true
+behavior = "own"
 backend = "gpg"
 key = "9690366C"
 
 [git]
+sign-on-push = true
 auto-local-bookmark = true
