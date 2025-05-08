@@ -38,9 +38,9 @@ diff() {
 		local inserted; inserted="${$(echo "$diff" | awk '{print $4}'):-0}"
 		local deleted; deleted="${$(echo "$diff" | awk '{print $6}'):-0}"
 
-		[[ $changed != 0 ]] && changed="%F{blue}∆${changed}%f" || changed="∆${changed}"
-		[[ $inserted != 0 ]] && inserted="%F{green}+${inserted}%f" || inserted="+${inserted}"
-		[[ $deleted != 0 ]] && deleted="%F{red}-${deleted}%f" || deleted="-${deleted}"
+		[[ $changed != 0 ]] && changed="%{%F{33}%}∆${changed}%f" || changed="∆${changed}"
+		[[ $inserted != 0 ]] && inserted="%{%F{77}%}+${inserted}%f" || inserted="+${inserted}"
+		[[ $deleted != 0 ]] && deleted="%{%F{202}%}-${deleted}%f" || deleted="-${deleted}"
 
 		declare -a stats
 
@@ -58,7 +58,7 @@ main() {
 	if in_repo; then
 		autoload -U colors && colors
 
-		echo -ne "%F{white}$(branch_raw)@$(commit) $(remote_commits_ahead):$(remote_commits_behind)$(diff)%f%k"
+		echo -ne "%{%F{247}%}$(branch_raw)%{%F{252}%}@%{%F{247}%}$(commit) $(remote_commits_ahead):$(remote_commits_behind)$(diff)%f%k"
 	fi
 }
 
