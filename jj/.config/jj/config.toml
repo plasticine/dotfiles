@@ -21,4 +21,12 @@ private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
 push-bookmark-prefix = "plasticine/push-"
 
 [merge-tools.ksdiff]
-merge-args = ["--merge", "--output", "$output", "--base", "$base", "$left", "$right"]
+merge-args = [
+  "--merge",
+  "--output",
+  "$output",
+  "--base",
+  "$base",
+  "$left",
+  "$right",
+]
