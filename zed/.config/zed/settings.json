@@ -1,0 +1,69 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Macchiato"
+  },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Macchiato"
+  },
+  "base_keymap": "SublimeText",
+  "telemetry": {
+    "metrics": false,
+    "diagnostics": false
+  },
+  "features": {
+    "copilot": true
+  },
+  "remove_trailing_whitespace_on_save": true,
+  "extend_comment_on_newline": true,
+  "ensure_final_newline_on_save": true,
+  "show_call_status_icon": false,
+  "ui_font_family": "Hack",
+  "ui_font_size": 14,
+  "ui_font_weight": 500,
+  "buffer_font_size": 15,
+  "buffer_font_family": "Hack",
+  "buffer_font_weight": 500,
+  "buffer_line_height": "comfortable",
+  "buffer_font_features": {
+    "no_round": true,
+    "dlig": true
+  },
+  "agent_font_size": 16,
+  "agent": {
+    "version": "2",
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-3-7-sonnet"
+    }
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "languages": {
+    "Ruby": {
+      "language_servers": ["ruby-lsp", "!rubocop", "!solargraph", "..."]
+    }
+  },
+  "lsp": {
+    "ruby-lsp": {
+      "initialization_options": {
+        "enabledFeatures": {
+          "diagnostics": false
+        }
+      }
+    }
+  }
+}
