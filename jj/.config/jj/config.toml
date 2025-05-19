@@ -2,7 +2,7 @@
 
 [ui]
 default-command = "log"
-editor = "subl -n -w"
+editor = "zed --wait"
 
 [user]
 email = "desk@pixelbloom.com"
