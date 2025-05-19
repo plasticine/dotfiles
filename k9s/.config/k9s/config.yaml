@@ -1,10 +1,10 @@
 k9s:
   liveViewAutoRefresh: false
   screenDumpDir: /Users/justin/Library/Application Support/k9s/screen-dumps
-  refreshRate: 2
-  maxConnRetry: 5
+  refreshRate: 1
+  maxConnRetry: 10
   readOnly: false
-  noExitOnCtrlC: false
+  noExitOnCtrlC: true
   ui:
     enableMouse: false
     headless: false
@@ -12,7 +12,9 @@ k9s:
     crumbsless: false
     reactive: false
     noIcons: false
-    defaultsToFullScreen: false
+    defaultsToFullScreen: true
+    skin: catppuccin-mocha-transparent
+    # skin: catppuccin-latte-transparent
   skipLatestRevCheck: false
   disablePodCounting: false
   shellPod:
