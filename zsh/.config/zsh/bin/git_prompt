@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+jj_repo() {
+  jj root --quiet &> /dev/null
+}
+
 in_repo() {
 	[[ $(git rev-parse --is-inside-work-tree) == true ]]
 }
@@ -54,10 +58,41 @@ diff() {
 	fi
 }
 
-main() {
-	if in_repo; then
-		autoload -U colors && colors
+jj_status() {
+  jj log --ignore-working-copy --no-graph --color never -r @ -T '
+      separate(
+          " ",
+          bookmarks.join(", "),
+          coalesce(
+              surround(
+                  "\"",
+                  "\"",
+                  if(
+                      description.first_line().substr(0, 24).starts_with(description.first_line()),
+                      description.first_line().substr(0, 24),
+                      description.first_line().substr(0, 23) ++ "…"
+                  )
+              ),
+              label(if(empty, "empty"), description_placeholder)
+          ),
+          change_id.shortest(),
+          commit_id.shortest(),
+          if(conflict, label("conflict", "(conflict)")),
+          if(empty, label("empty", "(empty)")),
+          if(divergent, "(divergent)"),
+          if(hidden, "(hidden)"),
+      )
+  '
+}
 
+main() {
+  autoload -U colors && colors
+
+  if jj_repo; then
+    echo -ne "$(jj_status)" && return
+  fi
+
+	if in_repo; then
 		echo -ne "%{%F{247}%}$(branch_raw)%{%F{252}%}@%{%F{247}%}$(commit) $(remote_commits_ahead):$(remote_commits_behind)$(diff)%f%k"
 	fi
 }

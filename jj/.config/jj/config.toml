@@ -1,8 +1,8 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
 [ui]
-default-command = "log"
-editor = "zed --wait"
+default-command = "log-recent"
+editor = "zed -w"
 
 [user]
 email = "desk@pixelbloom.com"
@@ -15,10 +15,11 @@ key = "9690366C"
 
 [git]
 sign-on-push = true
-auto-local-bookmark = true
 # Prevent pushing work in progress or anything explicitly labeled "private"
-private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
+private-commits = "description(glob:'wip') | description(glob:'wip:*') | description(glob:'private:*')"
 push-bookmark-prefix = "plasticine/push-"
+# don’t need to specify --allow-new when pushing a new bookmark
+push-new-bookmarks = true
 
 [merge-tools.ksdiff]
 merge-args = [
@@ -30,3 +31,39 @@ merge-args = [
   "$left",
   "$right",
 ]
+
+[templates]
+draft_commit_description = '''
+concat(
+  coalesce(description, default_commit_description, "\n"),
+  surround(
+    "\nJJ: This commit contains the following changes:\n", "",
+    indent("JJ:     ", diff.stat(72)),
+  ),
+  "\nJJ: ignore-rest\n",
+  diff.git(),
+)
+'''
+
+[template-aliases]
+'format_short_change_id(id)' = 'id.shortest()'
+
+[revset-aliases]
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'
+'recent()' = 'committer_date(after:"3 months ago")'
+
+[aliases]
+# Moves the nearest bookmark up to @-
+#
+# See here https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches
+tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
+
+log-recent = ["log", "-r", "all() & recent()"]
+
+# Rebase against trunk()
+rebase-trunk = ["rebase", "-d", "trunk()"]
+
+# Git shortcuts.
+fetch = ["git", "fetch"]
+push = ["git", "push"]
+"push!" = ["git", "push", "-r", "@", "--allow-new", "--remote origin"]

@@ -3,7 +3,6 @@
 # https://github.com/romkatv/powerlevel10k/issues/888
 # https://robotmoon.com/zsh-prompt-generator/
 
-
 DEFAULT_PROMPT="%{%B%F{39}%}%n%{%F{81}%}@%{%F{77}%}%m%b %{%F{247}%}%3~ %{%f%}"
 
 # DEFAULT_PROMPT="%f%B%F{yellow}%M%f%b${SSH_NOTICE}%F{grey} %3~%f "

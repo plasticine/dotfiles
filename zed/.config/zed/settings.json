@@ -25,14 +25,23 @@
   "features": {
     "copilot": true
   },
+  "terminal": {
+    "font_size": 13,
+    "font_family": "Hack",
+    "font_weight": 500,
+    "line_height": "comfortable"
+  },
   "remove_trailing_whitespace_on_save": true,
   "extend_comment_on_newline": true,
   "ensure_final_newline_on_save": true,
   "show_call_status_icon": false,
   "ui_font_family": "Hack",
-  "ui_font_size": 14,
+  "ui_font_size": 16,
+  "ui_font_weight": 400,
+  "buffer_font_size": 16,
+  "ui_font_size": 16,
   "ui_font_weight": 500,
-  "buffer_font_size": 15,
+  "buffer_font_size": 16,
   "buffer_font_family": "Hack",
   "buffer_font_weight": 500,
   "buffer_line_height": "comfortable",
@@ -40,29 +49,67 @@
     "no_round": true,
     "dlig": true
   },
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.7
+  },
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.8,
+    "border_size": 1
+  },
+  "unnecessary_code_fade": 0.5,
   "agent_font_size": 16,
   "agent": {
-    "version": "2",
+    "dock": "right",
+    "play_sound_when_agent_done": true,
+    "notify_when_agent_waiting": "primary_screen",
+    "inline_assistant_model": {
+      "provider": "google",
+      "model": "gemini-2.5-flash"
+    },
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-3-7-sonnet"
+      "provider": "google",
+      "model": "gemini-2.5-flash"
     }
+  },
+  "wrap_guides": [80, 120],
+  "show_wrap_guides": true,
+  "auto_install_extensions": {
+    "catppuccin": true,
+    "catppuccin-icons": true,
+    "dockerfile": true,
+    "elixir": true,
+    "graphql": true,
+    "html": true,
+    "just": true,
+    "ruby": true,
+    "terraform": true,
+    "toml": true,
+    "zig": true
   },
   "tabs": {
     "file_icons": true,
     "git_status": true
   },
-  "languages": {
-    "Ruby": {
-      "language_servers": ["ruby-lsp", "!rubocop", "!solargraph", "..."]
-    }
+  "minimap": {
+    "current_line_highlight": "all",
+    "display_in": "active_editor",
+    "show": "auto",
+    "thumb_border": "full"
   },
-  "lsp": {
-    "ruby-lsp": {
-      "initialization_options": {
-        "enabledFeatures": {
-          "diagnostics": false
-        }
+  "languages": {
+    "Python": {
+      "indent_guides": {
+        "enabled": true,
+        "coloring": "indent_aware",
+        "background_coloring": "indent_aware"
+      }
+    },
+    "Shell Script": {
+      "show_whitespaces": "all",
+      "tab_size": 2,
+      "hard_tabs": true,
+      "indent_guides": {
+        "enabled": true
       }
     }
   }

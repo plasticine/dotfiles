@@ -7,3 +7,6 @@ command -v mise && eval "$(mise activate zsh --shims)"
 
 # Work does a dumb thing where they manage mise in a weird opinionated way.
 [[ -f $HOME/.local/bin/mise ]] && eval "$($HOME/.local/bin/mise activate zsh)"
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
