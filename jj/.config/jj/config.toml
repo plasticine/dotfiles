@@ -1,7 +1,7 @@
 "$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
 
 [ui]
-default-command = "log-recent"
+default-command = "log-all"
 editor = "zed -w"
 
 [user]
@@ -9,15 +9,15 @@ email = "desk@pixelbloom.com"
 name = "Justin Morris"
 
 [signing]
-behavior = "own"
+behavior = "drop"
 backend = "gpg"
 key = "9690366C"
 
 [git]
+# Batch up signing commits to only occur when pushing them to a remote. Much faster and more convenient.
 sign-on-push = true
-# Prevent pushing work in progress or anything explicitly labeled "private"
+# Prevent pushing work in progress or anything explicitly labeled "private" or "work in progress"
 private-commits = "description(glob:'wip') | description(glob:'wip:*') | description(glob:'private:*')"
-push-bookmark-prefix = "plasticine/push-"
 # don’t need to specify --allow-new when pushing a new bookmark
 push-new-bookmarks = true
 
@@ -33,6 +33,7 @@ merge-args = [
 ]
 
 [templates]
+git_push_bookmark = '"plasticine/push-" ++ change_id.short()'
 draft_commit_description = '''
 concat(
   coalesce(description, default_commit_description, "\n"),
@@ -54,11 +55,11 @@ concat(
 
 [aliases]
 # Moves the nearest bookmark up to @-
-#
 # See here https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 
 log-recent = ["log", "-r", "all() & recent()"]
+log-all = ["log", "-r", "all()"]
 
 # Rebase against trunk()
 rebase-trunk = ["rebase", "-d", "trunk()"]
