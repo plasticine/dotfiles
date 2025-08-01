@@ -58,13 +58,16 @@ concat(
 # See here https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
 
+# Show only recent items in the log
 log-recent = ["log", "-r", "all() & recent()"]
+
+# Log all the things!
 log-all = ["log", "-r", "all()"]
 
 # Rebase against trunk()
 rebase-trunk = ["rebase", "-d", "trunk()"]
 
-# Git shortcuts.
+# Git shortcuts
 fetch = ["git", "fetch"]
 push = ["git", "push"]
 "push!" = ["git", "push", "-r", "@", "--allow-new", "--remote origin"]
