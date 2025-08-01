@@ -71,12 +71,12 @@ build_prompt() {
 	RPROMPT="$DEFAULT_RPROMPT"
 
 	# Add a trailing space to `cmd_time` but only if it’s actually set...
-	cmd_time=${cmd_time:+"${cmd_time} "}
+	cmd_time=${cmd_time:+" ${cmd_time}"}
 
 	if [[ "x${last_command_exit:-}" != "x0" ]]; then
-		ICON=$'%K{#ed8796}%F{#f0c6c6} \ueefe '"${last_command_exit} ${cmd_time}"$'%f%k%F{#ed8796}\ue0b0%f'
+		ICON=$'%K{#ed8796}%F{#f0c6c6} '"${last_command_exit}${cmd_time}"$' \ueefe %f%k%F{#ed8796}\ue0b0%f'
 	else
-		ICON=$'%K{0}%F{7} \ueefe '"${cmd_time}"$'%f%k%F{0}\ue0b0%f'
+		ICON=$'%K{0}%F{7}'"${cmd_time}"$' \ueefe %f%k%F{0}\ue0b0%f'
 	fi
 
 	PROMPT="${NEWLINE}${PROMPT}${NEWLINE}${ICON}${WHITESPACE}"
