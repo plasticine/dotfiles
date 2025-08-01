@@ -11,11 +11,14 @@ export LANG="en_US.UTF-8"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
-if [[ -n "$SSH_CONNECTION" ]] ;then
-  export EDITOR="vi"
+if [[ -n "$SSH_CONNECTION" ]]; then
+	export EDITOR="vi"
 else
-  export EDITOR="subl --wait --new-window"
+	export EDITOR="subl --wait --new-window"
 fi
+
+# Use floating point numbers for time.
+typeset -F SECONDS
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000
@@ -24,21 +27,21 @@ SAVEHIST=1000000
 setopt NO_BG_NICE # Don't nice background tasks
 setopt NO_HUP
 setopt NO_LIST_BEEP
-setopt LOCAL_OPTIONS # Allow functions to have local options
-setopt LOCAL_TRAPS # Allow functions to have local traps
-setopt SHARE_HISTORY # Share history between sessions ???
+setopt LOCAL_OPTIONS    # Allow functions to have local options
+setopt LOCAL_TRAPS      # Allow functions to have local traps
+setopt SHARE_HISTORY    # Share history between sessions ???
 setopt EXTENDED_HISTORY # Add timestamps to history
 setopt PROMPT_SUBST
 setopt PROMPT_PERCENT
 setopt CORRECT
 setopt COMPLETE_IN_WORD
 setopt IGNORE_EOF
-setopt APPEND_HISTORY # Adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # Adds history incrementally and share it across sessions
+setopt APPEND_HISTORY                   # Adds history
+setopt INC_APPEND_HISTORY SHARE_HISTORY # Adds history incrementally and share it across sessions
 setopt HIST_VERIFY
-setopt HIST_IGNORE_ALL_DUPS  # Don't record dupes in history
+setopt HIST_IGNORE_ALL_DUPS # Don't record dupes in history
 setopt HIST_REDUCE_BLANKS
-setopt HIST_IGNORE_SPACE  # Ignore commands with leading spaces
+setopt HIST_IGNORE_SPACE # Ignore commands with leading spaces
 
 # Awesome cd movements from zshkit
 setopt autocd autopushd pushdminus pushdsilent pushdtohome cdablevars

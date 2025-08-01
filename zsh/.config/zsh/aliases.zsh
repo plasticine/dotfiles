@@ -12,3 +12,12 @@ alias jest='nocorrect jest'
 alias flow='nocorrect flow'
 
 alias unknow='ssh-keygen -R $argv'
+
+# Jujutsu aliases
+alias j='jj'
+alias js='jj status'
+alias jt='jj tug'
+alias jc='jj commit'
+alias jci='jj commit --interactive'
+alias jf='jj fetch'
+alias jp='jj push'
