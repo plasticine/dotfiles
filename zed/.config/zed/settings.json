@@ -50,7 +50,7 @@
   "unnecessary_code_fade": 0.5,
   "agent_font_size": 16,
   "agent": {
-    "default_profile": "ask",
+    "default_profile": "write",
     "dock": "right",
     "play_sound_when_agent_done": true,
     "notify_when_agent_waiting": "primary_screen",
