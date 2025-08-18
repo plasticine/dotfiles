@@ -14,10 +14,12 @@ backend = "gpg"
 key = "9690366C"
 
 [git]
+colocate = true
+subprocess = true
 # Batch up signing commits to only occur when pushing them to a remote. Much faster and more convenient.
 sign-on-push = true
 # Prevent pushing work in progress or anything explicitly labeled "private" or "work in progress"
-private-commits = "description(glob:'wip') | description(glob:'wip:*') | description(glob:'private:*')"
+private-commits = 'private() | wip()'
 # don’t need to specify --allow-new when pushing a new bookmark
 push-new-bookmarks = true
 
@@ -31,6 +33,18 @@ merge-args = [
   "$left",
   "$right",
 ]
+conflict-marker-style = "git"
+
+[merge-tools.mergiraf]
+program = "mergiraf"
+merge-args = ["merge", "$base", "$left", "$right", "-o", "$output", "--fast"]
+merge-conflict-exit-codes = [1]
+conflict-marker-style = "git"
+
+[colors]
+"diff token" = { underline = false }
+"diff removed token" = { bg = "#221111" }
+"diff added token" = { bg = "#002200" }
 
 [templates]
 git_push_bookmark = '"plasticine/push-" ++ change_id.short()'
@@ -45,15 +59,60 @@ concat(
   diff.git(),
 )
 '''
+log_node = '''
+if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
+  "◇",
+  builtin_log_node
+)
+'''
 
 [template-aliases]
 'format_short_change_id(id)' = 'id.shortest()'
+'in_branch(commit)' = 'commit.contained_in("immutable_heads()..bookmarks()")'
 
 [revset-aliases]
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
 'recent()' = 'committer_date(after:"3 months ago")'
 
+# Private and WIP commits that should never be pushed anywhere. Often part of
+# work-in-progress merge stacks.
+'wip()' = 'description(glob:"wip:*")'
+'private()' = 'description(glob:"private:*")'
+
+# stack(x, n) is the set of mutable commits reachable from 'x', with 'n'
+# parents. 'n' is often useful to customize the display and return set for
+# certain operations. 'x' can be used to target the set of 'roots' to traverse,
+# e.g. @ is the current stack.
+'stack()' = 'ancestors(reachable(@, mutable()), 2)'
+'stack(x)' = 'ancestors(reachable(x, mutable()), 2)'
+'stack(x, n)' = 'ancestors(reachable(x, mutable()), n)'
+
+# The current set of "open" works. It is defined as:
+#
+# - given the set of commits not in trunk, that are written by me,
+# - calculate the given stack() for each of those commits
+#
+# n = 1, meaning that nothing from `trunk()` is included, so all resulting
+# commits are mutable by definition.
+'open()' = 'stack(trunk().. & mine(), 1)'
+
+# the set of 'ready()' commits. defined as the set of open commits, but nothing
+# that is blacklisted or any of their children.
+#
+# often used with gerrit, which you can use to submit whole stacks at once:
+#
+# - jj gerrit send -r 'ready()' --dry-run
+'ready()' = 'open() ~ blacklist()::'
+
+# Get the current stack of work between trunk and @.
+'current()' = 'stack(trunk()..@ & mine(), 1)'
+
 [aliases]
+n = ["new"]
+d = ["diff"]
+s = ["show"]
+ll = ["log", "-T", "builtin_log_detailed"]
+
 # Moves the nearest bookmark up to @-
 # See here https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches
 tug = ["bookmark", "move", "--from", "closest_bookmark(@-)", "--to", "@-"]
@@ -64,8 +123,28 @@ log-recent = ["log", "-r", "all() & recent()"]
 # Log all the things!
 log-all = ["log", "-r", "all()"]
 
-# Rebase against trunk()
-rebase-trunk = ["rebase", "-d", "trunk()"]
+# Retrunk a series. Typically used as `jj retrunk -s ...`, and notably can be
+# used with open:
+# - jj retrunk -s 'all:roots(open())'
+retrunk = ["rebase", "-d", "trunk()"]
+
+# Retrunk the current stack of work.
+reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]
+
+# Take content from any change, and move it into @.
+# - jj consume xyz path/to/file`
+consume = ["squash", "--into", "@", "--from"]
+
+# Eject content from @ into any other change.
+# - jj eject xyz --interactive
+eject = ["squash", "--from", "@", "--into"]
+
+# Get a diff of only changes betwwn the current commit and the fork point to trunk().
+# This is distinct from just diffing directly from trunk() as that would include
+# both additions in the bookmark as well as changes in trunk() as deletion in the
+# bookmark (because those changes are not present in the bookmark!)
+diff-trunk = ["diff", "--from", "'fork_point(trunk() | @)'"]
+dt = ["diff-trunk"]
 
 # Git shortcuts
 fetch = ["git", "fetch"]
