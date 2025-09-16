@@ -43,6 +43,12 @@
     "no_round": true,
     "dlig": true
   },
+  "file_finder": {
+    "file_icons": true,
+    "git_status": true,
+    "include_ignored": null,
+    "modal_max_width": "medium"
+  },
   "active_pane_modifiers": {
     "inactive_opacity": 0.8,
     "border_size": 1
@@ -62,6 +68,9 @@
       "provider": "copilot_chat",
       "model": "claude-sonnet-4"
     }
+  },
+  "status_bar": {
+    "active_language_button": true
   },
   "wrap_guides": [80, 120],
   "show_wrap_guides": true,
