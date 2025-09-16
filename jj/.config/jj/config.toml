@@ -3,6 +3,8 @@
 [ui]
 default-command = "log-all"
 editor = "zed -w"
+diff-formatter = ":git"
+diff-editor = ":builtin"
 
 [user]
 email = "desk@pixelbloom.com"
@@ -24,6 +26,8 @@ private-commits = 'private() | wip()'
 push-new-bookmarks = true
 
 [merge-tools.ksdiff]
+diff-args = ["--partial-changeset", "$left", "$right"]
+diff-invocation-mode = "file-by-file"
 merge-args = [
   "--merge",
   "--output",
@@ -69,6 +73,8 @@ if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
 [template-aliases]
 'format_short_change_id(id)' = 'id.shortest()'
 'in_branch(commit)' = 'commit.contained_in("immutable_heads()..bookmarks()")'
+# Relative timestamp rendered as "x days/hours/seconds ago"
+'format_timestamp(timestamp)' = 'timestamp.ago()'
 
 [revset-aliases]
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
@@ -112,6 +118,9 @@ n = ["new"]
 d = ["diff"]
 s = ["show"]
 ll = ["log", "-T", "builtin_log_detailed"]
+lc = ["log", "-r", "current()"]
+lo = ["log", "-r", "open()"]
+lr = ["log", "-r", "ready()"]
 
 # Moves the nearest bookmark up to @-
 # See here https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches
@@ -138,6 +147,9 @@ consume = ["squash", "--into", "@", "--from"]
 # Eject content from @ into any other change.
 # - jj eject xyz --interactive
 eject = ["squash", "--from", "@", "--into"]
+
+# Recent bookmarks that are mine
+# mine = ["bookmark", "list", "--sort", "author-date", "-r", "mine()", "-T"]
 
 # Get a diff of only changes betwwn the current commit and the fork point to trunk().
 # This is distinct from just diffing directly from trunk() as that would include
