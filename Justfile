@@ -11,3 +11,4 @@ install:
     @stow --verbose --ignore='.DS_Store' --restow --target $HOME zed
     @stow --verbose --ignore='.DS_Store' --restow --target $HOME zsh
     @stow --verbose --ignore='.DS_Store' --restow --target $HOME nushell
+    @stow --verbose --ignore='.DS_Store' --restow --target $HOME nix
