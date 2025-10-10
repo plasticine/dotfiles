@@ -84,6 +84,7 @@ if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
 # work-in-progress merge stacks.
 'wip()' = 'description(glob:"wip:*")'
 'private()' = 'description(glob:"private:*")'
+'blacklist()' = 'wip() | private()'
 
 # stack(x, n) is the set of mutable commits reachable from 'x', with 'n'
 # parents. 'n' is often useful to customize the display and return set for
@@ -102,14 +103,6 @@ if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
 # commits are mutable by definition.
 'open()' = 'stack(trunk().. & mine(), 1)'
 
-# the set of 'ready()' commits. defined as the set of open commits, but nothing
-# that is blacklisted or any of their children.
-#
-# often used with gerrit, which you can use to submit whole stacks at once:
-#
-# - jj gerrit send -r 'ready()' --dry-run
-'ready()' = 'open() ~ blacklist()::'
-
 # Get the current stack of work between trunk and @.
 'current()' = 'stack(trunk()..@ & mine(), 1)'
 
@@ -117,10 +110,12 @@ if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
 n = ["new"]
 d = ["diff"]
 s = ["show"]
-ll = ["log", "-T", "builtin_log_detailed"]
-lc = ["log", "-r", "current()"]
-lo = ["log", "-r", "open()"]
-lr = ["log", "-r", "ready()"]
+
+# Workflow helpers — see above for definitions.
+open = ["log", "-r", "open()"]
+current = ["log", "-r", "current()"]
+
+log-detailed = ["log", "-T", "builtin_log_detailed"]
 
 # Moves the nearest bookmark up to @-
 # See here https://zerowidth.com/2025/jj-tips-and-tricks/#bookmarks-and-branches
