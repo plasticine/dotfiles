@@ -20,28 +20,31 @@
 
 source ./themes/catppuccin_latte.nu
 
+# use ($nu.default-config-dir | path join "prompt.nu") *
+
+use /Users/justin/Workspace/plasticine/dotfiles/nushell/.config/nushell/prompt.nu *
+
+
 $env.config.buffer_editor = "zed"
 $env.config.table.mode = "rounded"
 
-
-# Prompt configuration
-#
-# https://www.nushell.sh/book/configuration.html#prompt-configuration
-
 # The prompt itself
-$env.PROMPT_COMMAND = {||}
+$env.PROMPT_COMMAND = { render_left }
 
 # A prompt which can appear on the right side of the terminal
 $env.PROMPT_COMMAND_RIGHT = {||}
 
-# Emacs mode indicator
-$env.PROMPT_INDICATOR = {||}
+# The prompt itself after the commandline has been executed
+$env.TRANSIENT_PROMPT_COMMAND_RIGHT = {||}
 
-# Vi-normal mode indicator
-$env.PROMPT_INDICATOR_VI_NORMAL = {||}
+# A prompt which can appear on the right side of the terminal
+$env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = null
 
-# Vi-insert mode indicator
-$env.PROMPT_INDICATOR_VI_INSERT = {||}
-
-# The multi-line indicator
-$env.PROMPT_MULTILINE_INDICATOR = {||}
+$env.config.hooks = {
+    pre_prompt: [
+      pre_prompt
+    ]
+    pre_execution: [
+      pre_execution
+    ]
+}
