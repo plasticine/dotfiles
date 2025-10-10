@@ -56,7 +56,7 @@
   "unnecessary_code_fade": 0.5,
   "agent_font_size": 16,
   "agent": {
-    "default_profile": "write",
+    "default_profile": "ask",
     "dock": "right",
     "play_sound_when_agent_done": true,
     "notify_when_agent_waiting": "primary_screen",
@@ -112,6 +112,16 @@
       "hard_tabs": true,
       "indent_guides": {
         "enabled": true
+      }
+    },
+    "Nix": {
+      "language_servers": ["nixd", "nil"],
+      "formatter": {
+          "external": {
+            "command": "alejandra",
+            "arguments": ["--quiet", "--"]
+          }
+        }
       }
     }
   },
