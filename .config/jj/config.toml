@@ -75,6 +75,11 @@ if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
 'in_branch(commit)' = 'commit.contained_in("immutable_heads()..bookmarks()")'
 # Relative timestamp rendered as "x days/hours/seconds ago"
 'format_timestamp(timestamp)' = 'timestamp.ago()'
+# Colour helpers...
+'hex(hex, x)' = '''surround('%F{' ++ hex ++ '}', '%f', x)'''
+'color(index, x)' = '''surround('%F{ ++ index ++ }', '%f', x)'''
+'bold(x)' = '''surround('%B', '%b', x)'''
+'dim(x)' = '''color('2', x)'''
 
 [revset-aliases]
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'

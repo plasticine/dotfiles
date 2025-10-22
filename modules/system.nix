@@ -29,7 +29,7 @@
         ShowRemovableMediaOnDesktop = true;
         ShowMountedServersOnDesktop = true;
         NewWindowTarget = "Home";
-        FXPreferredViewStyle = "Nlsv"; # default to list view
+        FXPreferredViewStyle = "clmv"; # default to column view
         _FXShowPosixPathInTitle = true; # full path in window title
       };
 

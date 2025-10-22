@@ -58,8 +58,7 @@ async_prompt() {
 }
 
 async_prompt_job() {
-	# echo "$(git_prompt) $(k8s_prompt)"
-	echo "$(git_prompt)"
+	echo "$(vcs-prompt)"
 }
 
 build_prompt() {

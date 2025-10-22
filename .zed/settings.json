@@ -1,0 +1,63 @@
+{
+  "languages": {
+    "Nix": {
+      "language_servers": ["nil", "nixd"]
+    }
+  }
+  // NOTE: These don’t seem to actually really *work* properly.
+  // I think it’s probably an issue with the nix zed extension not passing the config
+  // along correctly, because neither LSP server seems to pick up config correctly.
+  //
+  // Dunno. Will maybe revisit later?
+  //
+  // "lsp": {
+  //   // https://github.com/zed-extensions/nix
+  //   // https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
+  //   "nixd": {
+  //     "binary": {
+  //       "path": "/Users/justin/.nix-profile/bin/nixd",
+  //       "arguments": ["--log=verbose"]
+  //     },
+  //     "settings": {
+  //       "nixd": {
+  //         "diagnostic": {
+  //           "suppress": ["sema-unused-def-let"]
+  //         },
+  //         "nixpkgs": {
+  //           "expr": "(builtins.getFlake (builtins.toString ./.)).nixpkgs { }"
+  //         },
+  //         "options": {
+  //           "nix-darwin": {
+  //             "expr": "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.fer-nespresso.options"
+  //           }
+  //           // "home-manager": {
+  //           //   "expr": "(builtins.getFlake (builtins.toString ./.)).editorHomeManagerConfiguration.options"
+  //           // }
+  //         }
+  //       }
+  //     }
+  //   },
+
+  //   "nil": {
+  //     "binary": {
+  //       "path": "/Users/justin/.nix-profile/bin/nil"
+  //     },
+  //     "settings": {
+  //       "diagnostics": {
+  //         "ignored": ["unused_binding"]
+  //       },
+  //       "nil": {
+  //         "diagnostics": {
+  //           "ignored": ["unused_binding"]
+  //         },
+  //         "nix": {
+  //           "flake": {
+  //             "autoArchive": true,
+  //             "autoEvalInputs": true
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+}

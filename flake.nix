@@ -1,5 +1,5 @@
 {
-  description = "Example nix-darwin system flake";
+  description = "@plasticine flavoured dotfiles";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -19,8 +19,12 @@
     configuration = {pkgs, ...}: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
-      environment.systemPackages = [
-        pkgs.vim
+      environment.systemPackages = with pkgs; [
+        vim
+
+        # nix tooling
+        nil
+        nixd
       ];
 
       # Necessary for using flakes on this system.
@@ -38,9 +42,15 @@
 
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
+
+      # Allow stuff with unfree licenses.
+      nixpkgs.config.allowUnfree = true;
+
+      # When a conflicting file is in the way move it using this extension.
+      home-manager.backupFileExtension = "home-manager-backup";
     };
 
-    workLaptop = nix-darwin.lib.darwinSystem {
+    defaultSystem = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {inherit inputs;};
       modules = [
@@ -62,18 +72,18 @@
           # Hey, that’s me!
           users.users.justin.name = "justin";
           users.users.justin.home = "/Users/justin";
-          home-manager.users.justin = import ./home;
+          home-manager.users.justin = import ./home-manager;
         }
       ];
     };
   in {
     # Build darwin flake using:
     #
-    # darwin-rebuild build --flake .#fer-nespresso
+    #   darwin-rebuild build --flake .#fer-nespresso
     #
     darwinConfigurations = {
-      fer-nespresso = workLaptop;
-      fer-cortado = workLaptop;
+      fer-nespresso = defaultSystem;
+      fer-cortado = defaultSystem;
     };
   };
 }

@@ -1,0 +1,110 @@
+#!/usr/bin/env zsh
+#
+# Render a nice VCS prompt output. Designed to be used as an RPROMPT in zsh.
+# Supports Git and Jujutsu.
+
+set -euo pipefail
+
+is_jj_repo() {
+  jj root --quiet &> /dev/null
+}
+
+is_git_repo() {
+	[[ $(git rev-parse --is-inside-work-tree) == true ]]
+}
+
+branch() {
+	(git symbolic-ref -q HEAD || git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
+}
+
+commit() {
+	git rev-parse --short HEAD 2> /dev/null || echo "NONE"
+}
+
+remote_commits_ahead() {
+	local commits_ahead; commits_ahead="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
+	echo -ne "${commits_ahead:-0}A"
+}
+
+remote_commits_behind() {
+	local commits_behind; commits_behind="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
+	echo -ne "${commits_behind:-0}B"
+}
+
+diff() {
+	git log --oneline @{u}.. &> /dev/null
+
+	if [[ x$? == x0 ]]; then
+		local IFS=" "
+		local diff; diff="$(git diff --cached --shortstat origin/master)"
+		local changed; changed="${$(echo "$diff" | awk '{print $1}'):-0}"
+		local inserted; inserted="${$(echo "$diff" | awk '{print $4}'):-0}"
+		local deleted; deleted="${$(echo "$diff" | awk '{print $6}'):-0}"
+
+		[[ $changed != 0 ]] && changed="%{%F{33}%}∆${changed}%f" || changed="∆${changed}"
+		[[ $inserted != 0 ]] && inserted="%{%F{77}%}+${inserted}%f" || inserted="+${inserted}"
+		[[ $deleted != 0 ]] && deleted="%{%F{202}%}-${deleted}%f" || deleted="-${deleted}"
+
+		declare -a stats
+
+		stats+=( $changed )
+		stats+=( $inserted )
+		stats+=( $deleted )
+
+		# echo " %F{blue}${changed:-0}%f %F{green}${inserted:-0}%f %F{red}${deleted:-0}%f"
+
+		echo " $stats"
+	fi
+}
+
+jj_prompt() {
+  echo -ne "$(
+    jj log \
+      --ignore-working-copy \
+      --no-graph \
+      --color always \
+      --revisions @ \
+      --template "
+        separate(
+          ' ',
+          coalesce(
+            dim(surround(
+              '\"',
+              '\"',
+              truncate_end(24, description.first_line(), '…')
+            )),
+            label(if(empty, 'empty'), bold(color('11', description_placeholder)))
+          ),
+          hex('#a6da95', '+') ++ hex('#a6da95', self.diff().stat().total_added()),
+          hex('#ed8796', '-') ++ hex('#ed8796', self.diff().stat().total_removed()),
+          hex('#c6a0f6', bold(change_id.shortest(4).prefix())) ++ hex('#5b6078', change_id.shortest(4).rest()),
+          hex('#7dc4e4', bold(commit_id.shortest(8).prefix())) ++ hex('#5b6078', commit_id.shortest(8).rest()),
+          hex('#f0c6c6', bookmarks.join(' ')),
+          if(git_head, label('git_head', hex('#8bd5ca', 'git head'))),
+          if(conflict, label('conflict', hex('#ed8796', '(conflict)'))),
+          if(empty, label('empty', '(empty)')),
+          if(immutable, '(immutable)'),
+          if(divergent, '(divergent)'),
+          if(hidden, '(hidden)'),
+        )
+      "
+  )"
+}
+
+git_prompt() {
+  echo -ne "%{%F{247}%}$(branch_raw)%{%F{252}%}@%{%F{247}%}$(commit) $(remote_commits_ahead):$(remote_commits_behind)$(diff)%f%k"
+}
+
+main() {
+  if is_jj_repo; then
+    jj_prompt
+    return
+  fi
+
+	if is_git_repo; then
+		git_prompt
+		return
+	fi
+}
+
+main

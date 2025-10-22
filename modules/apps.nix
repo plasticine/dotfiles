@@ -3,9 +3,9 @@
   # pkgs,
   ...
 }: {
-  # Work mac comes with brew
+  # Work mac comes with brew.
   homebrew = {
-    enable = true;
+    enable = false;
 
     onActivation = {
       autoUpdate = false; # annoying
