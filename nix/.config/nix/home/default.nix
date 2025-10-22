@@ -63,7 +63,8 @@
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    EDITOR = "zed";
+    EDITOR = "subl";
+    PAGER = "less -FXR"; # nix-darwin defaults this to `less -R` which sucks.
   };
 
   # Let Home Manager install and manage itself.
