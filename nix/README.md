@@ -1,12 +1,13 @@
 # Nix Dotfiles
 
+Repeatable machines with Nix, Nix Darwin, and Home Manager.
+
 ## Installation
 
 > [!NOTE]
-> These steps assume that nix is already installed on the machine.
+> These steps assume that nix is already installed on the machine. If that’s not the case then go do that first!
 
-
-Initial run of `nix-darwin`
+Perform the initial run of `nix-darwin`
 
 ```shell
 sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/nix

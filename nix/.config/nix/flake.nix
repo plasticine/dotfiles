@@ -39,65 +39,41 @@
       # The platform the configuration will be used on.
       nixpkgs.hostPlatform = "aarch64-darwin";
     };
+
+    workLaptop = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      specialArgs = {inherit inputs;};
+      modules = [
+        configuration
+        ./modules/system.nix
+        ./modules/apps.nix
+        home-manager.darwinModules.home-manager
+        {
+          # When enabled, Home Manager will use pkgs from the system configuration
+          # rather than creating a separate instance. This saves memory and ensures
+          # package versions are consistent between system and home configurations.
+          home-manager.useGlobalPkgs = true;
+
+          # When enabled, Home Manager will install user packages to the user's profile
+          # at /etc/profiles/per-user/$USER instead of ~/.nix-profile. This is useful
+          # for nix-darwin integration as it allows the system to manage user packages.
+          home-manager.useUserPackages = true;
+
+          # Hey, that’s me!
+          users.users.justin.name = "justin";
+          users.users.justin.home = "/Users/justin";
+          home-manager.users.justin = import ./home;
+        }
+      ];
+    };
   in {
     # Build darwin flake using:
     #
     # darwin-rebuild build --flake .#fer-nespresso
     #
     darwinConfigurations = {
-      fer-nespresso = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {inherit inputs;};
-        modules = [
-          configuration
-          ./modules/system.nix
-          ./modules/apps.nix
-          home-manager.darwinModules.home-manager
-          {
-            # When enabled, Home Manager will use pkgs from the system configuration
-            # rather than creating a separate instance. This saves memory and ensures
-            # package versions are consistent between system and home configurations.
-            home-manager.useGlobalPkgs = true;
-
-            # When enabled, Home Manager will install user packages to the user's profile
-            # at /etc/profiles/per-user/$USER instead of ~/.nix-profile. This is useful
-            # for nix-darwin integration as it allows the system to manage user packages.
-            home-manager.useUserPackages = true;
-
-            # Hey, that’s me!
-            users.users.justin.name = "justin";
-            users.users.justin.home = "/Users/justin";
-            home-manager.users.justin = import ./home;
-          }
-        ];
-      };
-
-      # fer-cortado = nix-darwin.lib.darwinSystem {
-      #   system = "aarch64-darwin";
-      #   specialArgs = {inherit inputs;};
-      #   modules = [
-      #     configuration
-      #     ./modules/system.nix
-      #     ./modules/apps.nix
-      #     home-manager.darwinModules.home-manager
-      #     {
-      #       # When enabled, Home Manager will use pkgs from the system configuration
-      #       # rather than creating a separate instance. This saves memory and ensures
-      #       # package versions are consistent between system and home configurations.
-      #       home-manager.useGlobalPkgs = true;
-
-      #       # When enabled, Home Manager will install user packages to the user's profile
-      #       # at /etc/profiles/per-user/$USER instead of ~/.nix-profile. This is useful
-      #       # for nix-darwin integration as it allows the system to manage user packages.
-      #       home-manager.useUserPackages = true;
-
-      #       # Hey, that’s me!
-      #       users.users.justin.name = "justin";
-      #       users.users.justin.home = "/Users/justin";
-      #       home-manager.users.justin = import ./home;
-      #     }
-      #   ];
-      # };
+      fer-nespresso = workLaptop;
+      fer-cortado = workLaptop;
     };
   };
 }
