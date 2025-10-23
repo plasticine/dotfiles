@@ -51,7 +51,7 @@
     gh
     jujutsu
     git
-    git-delta
+    delta
     gnupg
     pinentry
     # pinentry_mac
