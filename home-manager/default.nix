@@ -19,14 +19,17 @@
   # environment.
   home.packages = with pkgs; [
     # System stuff
+    awk
+    make
+    doggo
     coreutils
 
     # Shells
-    nushell
-    fish
     zsh
-    zplug
+    fish
     bash
+    zplug
+    nushell
 
     # HTTP and networking
     curl
@@ -36,17 +39,21 @@
     # Utilities
     jq
     fzf
-    just
     eza
-    ssh-copy-id
-    atuin
+    just
     mise
+    ncdu
+    atuin
     direnv
+    yt-dlp
+    ffmpeg
+    ssh-copy-id
 
     # VCS stuff
     gh
     jujutsu
     git
+    git-delta
     gnupg
     pinentry_mac
 
@@ -92,10 +99,6 @@
       source = config.lib.file.mkOutOfStoreSymlink ../.config/zed;
       recursive = true;
     };
-    # zsh = {
-    #   source = config.lib.file.mkOutOfStoreSymlink ../.config/zsh;
-    #   recursive = true;
-    # };
   };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

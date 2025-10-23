@@ -5,7 +5,7 @@
 }: {
   # Work mac comes with brew.
   homebrew = {
-    enable = false;
+    enable = true;
 
     onActivation = {
       autoUpdate = false; # annoying

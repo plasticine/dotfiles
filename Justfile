@@ -6,3 +6,6 @@ deploy:
 
 rollback:
     exit 1
+
+repl:
+    nix repl
