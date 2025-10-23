@@ -1,14 +1,8 @@
 install:
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME ghostty
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME git
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME gnupg
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME jj
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME k9s
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME mise
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME nushell
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME postgres
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME ruby
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME zed
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME zsh
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME nushell
-    @stow --verbose --ignore='.DS_Store' --restow --target $HOME nix
+    sudo nix --extra-experimental-features nix-command --extra-experimental-features flakes run nix-darwin/master#darwin-rebuild -- switch --flake .
+
+deploy:
+    sudo darwin-rebuild switch --flake .
+
+rollback:
+    exit 1
