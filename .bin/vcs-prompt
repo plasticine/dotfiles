@@ -58,11 +58,37 @@ diff() {
 }
 
 jj_prompt() {
+  local workspace
+  local closest_bookmark;
+  local closest_bookmark_distance
+
+  # workspace=$(jj workspace root 2>/dev/null) || return
+
+  # closest_bookmark=$(jj log --repository "$workspace" --ignore-working-copy \
+  #   --no-graph --limit 1 --color always \
+  #   -r "closest_bookmark(@)" -T 'bookmarks.join(" ")' 2>/dev/null)
+
+  # closest_bookmark_distance=$(jj log --repository "$workspace" --ignore-working-copy \
+  #   --no-graph --color never \
+  #   -r "closest_bookmark(@)..@" \
+  #   -T 'change_id ++ "\n"' 2>/dev/null | wc -l | tr -d ' ')
+
+  # revision=$(jj log --repository "$workspace" --ignore-working-copy \
+  #   --no-graph --limit 1 --color always \
+  #   --revisions @ -T 'separate(" ",
+  #     format_short_change_id_with_hidden_and_divergent_info(self),
+  #     format_short_commit_id(commit_id),
+  #     if(empty, label("empty", "(empty)"), ""),
+  #     if(description == "", label("description placeholder", "(no description)"), ""),
+  #     if(conflict, label("conflict", "(conflict)"), "")
+  #   )')
+
+
   echo -ne "$(
     jj log \
       --ignore-working-copy \
       --no-graph \
-      --color never \
+      --color always \
       --revisions @ \
       --template "
         separate(
@@ -88,7 +114,7 @@ jj_prompt() {
           if(hidden, '(hidden)'),
         )
       "
-  )"
+  )" | sed 's/\x1b\[[0-9;]*m/%{&%}/g'
 }
 
 git_prompt() {
