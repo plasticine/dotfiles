@@ -19,8 +19,6 @@
   # environment.
   home.packages = with pkgs; [
     # System stuff
-    awk
-    make
     doggo
     coreutils
 
@@ -55,7 +53,8 @@
     git
     git-delta
     gnupg
-    pinentry_mac
+    pinentry
+    # pinentry_mac
 
     # Monitoring
     htop
