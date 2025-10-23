@@ -53,8 +53,7 @@
     git
     delta
     gnupg
-    pinentry
-    # pinentry_mac
+    pinentry_mac
 
     # Monitoring
     htop
@@ -254,6 +253,7 @@
       enable = true;
       defaultCacheTtl = 1800;
       enableSshSupport = true;
+      enableZshIntegration = true;
     };
   };
 }
