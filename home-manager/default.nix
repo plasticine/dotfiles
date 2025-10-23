@@ -47,6 +47,7 @@
     gh
     jujutsu
     git
+    gnupg
     pinentry_mac
 
     # Monitoring
@@ -224,6 +225,12 @@
           }
         ];
       };
+    };
+  services = {
+    gpg-agent = {
+      enable = true;
+      defaultCacheTtl = 1800;
+      enableSshSupport = true;
     };
   };
 }
