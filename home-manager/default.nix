@@ -236,6 +236,12 @@
       enableZshIntegration = true;
     };
 
+    # https://github.com/nix-community/home-manager/blob/master/modules/programs/zoxide.nix
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     # https://github.com/nix-community/home-manager/blob/master/modules/programs/atuin.nix
     atuin = {
       enable = true;
