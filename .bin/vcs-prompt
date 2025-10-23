@@ -62,7 +62,7 @@ jj_prompt() {
     jj log \
       --ignore-working-copy \
       --no-graph \
-      --color always \
+      --color never \
       --revisions @ \
       --template "
         separate(

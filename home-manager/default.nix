@@ -55,6 +55,7 @@
 
     # Tools
     google-cloud-sdk
+    xcodes
     k9s
 
     # Fonts
