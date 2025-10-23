@@ -230,6 +230,12 @@
       };
     };
 
+    # https://github.com/nix-community/home-manager/blob/master/modules/programs/mise.nix
+    mise = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     # https://github.com/nix-community/home-manager/blob/master/modules/programs/atuin.nix
     atuin = {
       enable = true;
