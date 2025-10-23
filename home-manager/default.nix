@@ -151,7 +151,7 @@
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
-    # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.enable
+    # https://github.com/nix-community/home-manager/blob/master/modules/programs/zsh/default.nix
     zsh = {
       enable = true;
       dotDir = "${config.xdg.dataHome}/zsh";
@@ -226,6 +226,15 @@
         ];
       };
     };
+
+    # https://github.com/nix-community/home-manager/blob/master/modules/programs/atuin.nix
+    atuin = {
+      enable = true;
+      enableZshIntegration = true;
+      flags = ["--disable-up-arrow"];
+    };
+  };
+
   services = {
     gpg-agent = {
       enable = true;
