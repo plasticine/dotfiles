@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
 
@@ -46,6 +47,7 @@
     yt-dlp
     ffmpeg
     ssh-copy-id
+    ripgrep
 
     # VCS stuff
     gh
@@ -65,6 +67,10 @@
     k9s
 
     # Fonts
+    hack-font
+    ia-writer-duospace
+    ia-writer-mono
+    ia-writer-quattro
     nerd-fonts.hack
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
@@ -74,27 +80,27 @@
   # Manage XDG config files.
   xdg.configFile = {
     atuin = {
-      source = config.lib.file.mkOutOfStoreSymlink ../.config/atuin;
+      source = config.lib.file.mkOutOfStoreSymlink ../../.config/atuin;
       recursive = true;
     };
     ghostty = {
-      source = config.lib.file.mkOutOfStoreSymlink ../.config/ghostty;
+      source = config.lib.file.mkOutOfStoreSymlink ../../.config/ghostty;
       recursive = true;
     };
     jj = {
-      source = config.lib.file.mkOutOfStoreSymlink ../.config/jj;
+      source = config.lib.file.mkOutOfStoreSymlink ../../.config/jj;
       recursive = true;
     };
     k9s = {
-      source = config.lib.file.mkOutOfStoreSymlink ../.config/k9s;
+      source = config.lib.file.mkOutOfStoreSymlink ../../.config/k9s;
       recursive = true;
     };
     nushell = {
-      source = config.lib.file.mkOutOfStoreSymlink ../.config/nushell;
+      source = config.lib.file.mkOutOfStoreSymlink ../../.config/nushell;
       recursive = true;
     };
     zed = {
-      source = config.lib.file.mkOutOfStoreSymlink ../.config/zed;
+      source = config.lib.file.mkOutOfStoreSymlink ../../.config/zed;
       recursive = true;
     };
   };
@@ -109,7 +115,7 @@
   # This technique is described in more detail here: https://seroperson.me/2024/01/16/managing-dotfiles-with-nix/
   home.file = {
     ".bin" = {
-      source = ../.bin;
+      source = ../../.bin;
       recursive = true;
     };
 
@@ -152,6 +158,54 @@
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
+    eza = {
+      enable = true;
+      icons = "auto";
+      git = true;
+      extraOptions = [ "--group-directories-first" ];
+    };
+
+    firefox = {
+      enable = true;
+      package = null; # Don’t actually manage the installation, just assume it’s there and configure it.
+
+      # https://discourse.nixos.org/t/combining-best-of-system-firefox-and-home-manager-firefox-settings/37721/3
+      profiles = {
+        default = {
+          id = 0;
+          name = "default";
+          isDefault = true;
+          settings = {
+            "extensions.pocket.enabled" = false;
+            "extensions.screenshots.disabled" = true;
+
+            "browser.contentblocking.category" = "strict";
+            "browser.aboutConfig.showWarning" = false;
+            "browser.urlbar.ctrlCanonizesURLs" = false; # Allow command+enter to open tabs
+          };
+          search = {
+            force = true;
+            default = "Kagi";
+            engines = {
+              "Kagi" = {
+                urls = [
+                  {
+                    template = "https://kagi.com/search?";
+                    params = [
+                      {
+                        name = "q";
+                        value = "{searchTerms}";
+                      }
+                    ];
+                  }
+                ];
+              };
+            };
+          };
+        };
+      };
+    };
+
     # https://github.com/nix-community/home-manager/blob/master/modules/programs/zsh/default.nix
     zsh = {
       enable = true;
@@ -161,14 +215,14 @@
       # zprof.enable = true;
 
       # Environment variables that will be set for zsh session.
-      sessionVariables = {};
+      sessionVariables = { };
 
       # Plugins to load in.
       plugins = [
         {
           name = "prompt";
           file = "prompt.zsh";
-          src = ../zsh/.config/zsh;
+          src = ../../zsh/.config/zsh;
         }
       ];
 
@@ -206,23 +260,23 @@
         plugins = [
           {
             name = "zsh-users/zsh-syntax-highlighting";
-            tags = ["defer:2"];
+            tags = [ "defer:2" ];
           }
           {
             name = "zsh-users/zsh-history-substring-search";
-            tags = ["defer:3"];
+            tags = [ "defer:3" ];
           }
           {
             name = "zsh-users/zsh-autosuggestions";
-            tags = [];
+            tags = [ ];
           }
           {
             name = "zsh-users/zsh-completions";
-            tags = [];
+            tags = [ ];
           }
           {
             name = "mafredri/zsh-async";
-            tags = ["defer:0"];
+            tags = [ "defer:0" ];
           }
         ];
       };
@@ -244,7 +298,7 @@
     atuin = {
       enable = true;
       enableZshIntegration = true;
-      flags = ["--disable-up-arrow"];
+      flags = [ "--disable-up-arrow" ];
     };
   };
 

@@ -1,5 +1,9 @@
-{...}: rec {
+{ ... }:
+rec {
   time.timeZone = "Australia/Melbourne";
+
+  # Allow sudo via TouchId
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   system = {
     primaryUser = "justin";
