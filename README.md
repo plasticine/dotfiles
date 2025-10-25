@@ -12,10 +12,25 @@
 
 # plasticine flavoured dotfiles
 
-<img width="1226" alt="screen shot 2017-03-11 at 10 27 32 am" src="https://cloud.githubusercontent.com/assets/18076/23817210/7694b3e4-0645-11e7-866e-b548a2b8dae7.png">
+Repeatable systems with Nix, Nix Darwin, and Home Manager.
 
-# Installing
+## Installation
 
-These dotfiles are managed using [GNU Stow](https://www.gnu.org/software/stow/) wrapped in [Just](https://github.com/casey/just).
+> [!NOTE]
+> These steps assume that nix is already installed on the machine. If that’s not the case then go do that first!
 
-With both these things installed you can simply run `just install` to start dotfiling heaps good.
+Perform the initial run of `nix-darwin`:
+
+```shell
+nix run nixpkgs#just install
+```
+
+Subsequent rebuilds can be achieved using:
+
+```shell
+# Deploy new changes
+nix run nixpkgs#just deploy
+
+# Rollback to a previous generation
+nix run nixpkgs#just rollback
+```

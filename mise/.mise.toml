@@ -1,7 +1,0 @@
-[tools]
-elixir = "1.18.2-otp-27"
-node = "20.12.2"
-"pipx:llm" = "latest"
-"ubi:finnvoor/yap" = "1.0.4"
-"ubi:sveinbjornt/hear" = "latest"
-"ubi:uutils/coreutils" = "latest"
