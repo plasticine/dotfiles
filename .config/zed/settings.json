@@ -54,19 +54,21 @@
     "border_size": 1
   },
   "unnecessary_code_fade": 0.5,
-  "agent_font_size": 16,
+  "agent_ui_font_size": 12.0,
+  "agent_buffer_font_size": 16.0,
   "agent": {
-    "default_profile": "ask",
+    "always_allow_tool_actions": true,
+    "default_profile": "write",
     "dock": "right",
     "play_sound_when_agent_done": true,
     "notify_when_agent_waiting": "primary_screen",
     "inline_assistant_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4"
+      "model": "claude-sonnet-4.5"
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4"
+      "model": "claude-sonnet-4.5"
     }
   },
   "status_bar": {
@@ -85,7 +87,8 @@
     "ruby": true,
     "terraform": true,
     "toml": true,
-    "zig": true
+    "zig": true,
+    "nix": true
   },
   "tabs": {
     "file_icons": true,
@@ -98,6 +101,9 @@
     "show": "auto",
     "thumb_border": "full"
   },
+  "file_types": {
+    "Diff": ["*.jjdescription"]
+  },
   "languages": {
     "Python": {
       "indent_guides": {
@@ -106,6 +112,9 @@
         "background_coloring": "indent_aware"
       }
     },
+    "Nix": {
+      "language_servers": ["nixd", "!nil"]
+    },
     "Shell Script": {
       "show_whitespaces": "all",
       "tab_size": 2,
@@ -113,19 +122,6 @@
       "indent_guides": {
         "enabled": true
       }
-    },
-    "Nix": {
-      "language_servers": ["nixd", "nil"],
-      "formatter": {
-          "external": {
-            "command": "alejandra",
-            "arguments": ["--quiet", "--"]
-          }
-        }
-      }
     }
-  },
-  "file_types": {
-    "Diff": ["*.jjdescription"]
   }
 }
