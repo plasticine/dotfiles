@@ -37,6 +37,35 @@ rec {
         _FXShowPosixPathInTitle = true; # full path in window title
       };
 
+      dock = {
+        orientation = "bottom";
+        mineffect = "scale";
+        mru-spaces = false; # Whether to automatically rearrange spaces based on most recent use.
+        scroll-to-open = true; # Scroll up on a Dock icon to show all Space's opened windows for an app, or open stack.
+        show-recents = false;
+        persistent-apps = [
+          { app = "/System/Applications/Utilities/Activity Monitor.app"; }
+          { app = "/Applications/Pastebot.app"; }
+          { app = "/System/Applications/Mail.app"; }
+          { app = "/System/Applications/Calendar.app"; }
+          { app = "/Applications/Ghostty.app"; }
+          { app = "/Applications/Zed.app"; }
+          { app = "/Applications/Sublime Text.app"; }
+          { app = "/Applications/Sketch.app"; }
+          { app = "/Applications/Firefox.app"; }
+        ];
+        persistent-others = [
+          "/Users/justin/Library/Mobile Documents/com~apple~CloudDocs/Documents" # iCloud Documents folder
+          "/Users/justin/Downloads"
+        ];
+
+        # Disable hot corners.
+        wvous-tl-corner = 1;
+        wvous-tr-corner = 1;
+        wvous-bl-corner = 1;
+        wvous-br-corner = 1;
+      };
+
       # https://github.com/nix-darwin/nix-darwin/blob/master/modules/system/defaults/SoftwareUpdate.nix
       SoftwareUpdate = {
         AutomaticallyInstallMacOSUpdates = false;

@@ -4,8 +4,7 @@
   ...
 }:
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+  # https://nix-community.github.io/home-manager/options.xhtm
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -15,6 +14,8 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
+
+  home.preferXdgDirectories = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -134,8 +135,11 @@
   };
 
   # Manage our session PATH.
+  #
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-home.sessionPath
   home.sessionPath = [
     "${config.home.homeDirectory}/.bin"
+    "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
   ];
 
   # You can also manage environment variables but you will have to manually
@@ -149,7 +153,7 @@
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    EDITOR = "subl";
+    EDITOR = "subl -w";
     PAGER = "less -FXR"; # nix-darwin defaults this to `less -R` which sucks.
   };
 
@@ -215,7 +219,9 @@
       # zprof.enable = true;
 
       # Environment variables that will be set for zsh session.
-      sessionVariables = { };
+      sessionVariables = {
+        PATH = "/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH";
+      };
 
       # Plugins to load in.
       plugins = [

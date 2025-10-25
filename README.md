@@ -22,15 +22,15 @@ Repeatable systems with Nix, Nix Darwin, and Home Manager.
 Perform the initial run of `nix-darwin`:
 
 ```shell
-nix run nixpkgs#just install
+nix-shell -p just gum --run 'just install'
 ```
 
 Subsequent rebuilds can be achieved using:
 
 ```shell
 # Deploy new changes
-nix run nixpkgs#just deploy
+just deploy
 
 # Rollback to a previous generation
-nix run nixpkgs#just rollback
+just rollback
 ```

@@ -15,27 +15,30 @@
 
     brews = [ ];
     casks = [
-      "firefox"
-      "google-chrome"
-      "ghostty"
-      "nightfall"
-      "keepingyouawake"
-      "pika"
-      "little-snitch"
       "cleanshot"
-      "sublime-text"
-      "zed"
+      "firefox"
+      "ghostty"
+      "google-chrome"
       "kaleidoscope@3"
+      "keepingyouawake"
+      "little-snitch"
+      "nightfall"
       "obsidian"
       "orbstack"
+      "pika"
+      "sketch"
+      "sublime-text"
+      "vlc"
       "xcodes"
+      "zed"
     ];
     masApps = {
-      "Wireguard" = 1451685025;
-      "Velja" = 1607635845;
+      "Folder Quick Look" = 6753110395;
       "Pastebot" = 1179623856;
       "Soulver 3" = 1508732804;
-      "Folder Quick Look" = 6753110395;
+      "Velja" = 1607635845;
+      "Wireguard" = 1451685025;
+      "iA Writer" = 775737590;
     };
   };
 }
