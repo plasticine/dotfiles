@@ -1,0 +1,95 @@
+// Settings in here override those in "Default/Preferences.sublime-settings",
+// and are overridden in turn by syntax-specific settings.
+{
+  "color_scheme": "auto",
+  "theme": "auto",
+
+  "light_color_scheme": "Packages/ayu/ayu-light.sublime-color-scheme",
+  "light_theme": "ayu-light.sublime-theme",
+  "dark_color_scheme": "Packages/ayu/ayu-mirage.sublime-color-scheme",
+  "dark_theme": "ayu-mirage.sublime-theme",
+
+  "adaptive_dividers": true,
+
+  "shell_environment": true,
+
+  "auto_complete_delay": 20,
+  "auto_complete_triggers": [
+    {
+      "characters": "<",
+      "selector": "text.html",
+    },
+    {
+      "characters": ".",
+      "selector": "source.js",
+    },
+    {
+      "characters": ".",
+      "selector": "source.ts",
+    },
+    {
+      "characters": ".",
+      "selector": "source.go",
+    },
+  ],
+  "bold_folder_labels": false,
+  "ensure_newline_at_eof_on_save": true,
+  "folder_exclude_patterns": [
+    ".svn",
+    ".git",
+    ".hg",
+    "CVS",
+    "_build",
+    ".gometalinter-*",
+    ".elixir_ls",
+  ],
+  "index_exclude_patterns": ["*.log"],
+
+  "font_size": 15,
+  "font_face": "Hack Nerd Font Mono",
+  "font_options": ["no_round", "dlig"],
+
+  "hardware_acceleration": "opengl",
+
+  "highlight_gutter": true,
+  "highlight_line": true,
+
+  "margin": 4,
+  "rulers": [100],
+
+  /*"ruler_style": "stippled",*/
+
+  "scroll_past_end": true,
+
+  "translate_tabs_to_spaces": true,
+
+  "show_syntax": true,
+  "show_indentation": true,
+  "show_definitions": true,
+  "show_errors_inline": true,
+
+  "remember_full_screen": true,
+  "remember_layout": true,
+  "remember_workspace": true,
+  "update_system_recent_files": false,
+
+  "ui_native_titlebar": true,
+  "ui_separator": true,
+  "ui_wide_scrollbars": true,
+
+  "trim_trailing_white_space_on_save": "all",
+  "trim_automatic_white_space": true,
+  "trim_only_modified_white_space": true,
+
+  /*"auto_hide_menu": true,*/
+  /*"auto_hide_tabs": true,*/
+  /*"auto_hide_status_bar": false,*/
+  /*"reveal_tabs_with_timeout": true,*/
+
+  /*"highlight_modified_tabs": true,*/
+
+  "update_check": true,
+  "animation_enabled": true,
+  "ignored_packages": [],
+  "index_files": false,
+}

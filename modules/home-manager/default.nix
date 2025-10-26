@@ -4,7 +4,7 @@
   ...
 }:
 {
-  # https://nix-community.github.io/home-manager/options.xhtm
+  # https://nix-community.github.io/home-manager/options.xhtml
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -15,6 +15,7 @@
   # release notes.
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
+  # NFI what this does but it sounds good.
   home.preferXdgDirectories = true;
 
   # The home.packages option allows you to install Nix packages into your
@@ -103,6 +104,20 @@
     zed = {
       source = config.lib.file.mkOutOfStoreSymlink ../../.config/zed;
       recursive = true;
+    };
+    sublime = {
+      source = config.lib.file.mkOutOfStoreSymlink ../../.config/sublime;
+      recursive = true;
+      onChange = ''
+        DESTINATION="${config.home.homeDirectory}/Library/Application Support/Sublime Text/Packages/User"
+        SOURCE="${config.xdg.configHome}/sublime"
+
+        if ! [ -L "$DESTINATION" ]; then
+            ln -sv "$SOURCE" "$DESTINATION" # Link does not exist, so create it...
+        else
+            echo "Symbolic link already exists at $DESTINATION."
+        fi
+      '';
     };
   };
 
