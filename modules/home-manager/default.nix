@@ -3,8 +3,14 @@
   config,
   ...
 }:
+let
+  # TODO(juz): is there a nice way to extract this?
+  dotfiles = "/Users/justin/Code/plasticine/dotfiles";
+in
 {
   # https://nix-community.github.io/home-manager/options.xhtml
+  home.username = "justin";
+  home.homeDirectory = "/Users/justin";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -22,41 +28,48 @@
   # environment.
   home.packages = with pkgs; [
     # System stuff
-    doggo
     coreutils
+    python3
 
     # Shells
-    zsh
-    fish
     bash
-    zplug
+    fish
     nushell
+    shellcheck
+    shfmt
+    zplug
+    zsh
+    starship
+    spaceship-prompt
 
     # HTTP and networking
     curl
-    wget
     httpie
+    k6
+    wget
 
     # Utilities
-    jq
-    fzf
+    atuin
+    bat
+    direnv
+    doggo
     eza
+    ffmpeg
+    fzf
+    jq
     just
     mise
     ncdu
-    atuin
-    direnv
-    yt-dlp
-    ffmpeg
-    ssh-copy-id
     ripgrep
+    ssh-copy-id
+    yt-dlp
 
     # VCS stuff
-    gh
-    jujutsu
-    git
     delta
+    gh
+    git
     gnupg
+    jujutsu
     pinentry_mac
 
     # Monitoring
@@ -64,7 +77,11 @@
     btop
 
     # Tools
-    google-cloud-sdk
+    (google-cloud-sdk.withExtraComponents [
+      google-cloud-sdk.components.alpha
+      google-cloud-sdk.components.beta
+      google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ])
     xcodes
     k9s
 
@@ -82,31 +99,43 @@
   # Manage XDG config files.
   xdg.configFile = {
     atuin = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../.config/atuin;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/atuin";
+      recursive = true;
+    };
+    gh = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/gh";
+      recursive = true;
+    };
+    git = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/git";
       recursive = true;
     };
     ghostty = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../.config/ghostty;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/ghostty";
       recursive = true;
     };
     jj = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../.config/jj;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/jj";
       recursive = true;
     };
     k9s = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../.config/k9s;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/k9s";
       recursive = true;
     };
     nushell = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../.config/nushell;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/nushell";
       recursive = true;
     };
     zed = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../.config/zed;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/zed";
+      recursive = true;
+    };
+    spaceship = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/spaceship";
       recursive = true;
     };
     sublime = {
-      source = config.lib.file.mkOutOfStoreSymlink ../../.config/sublime;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/sublime";
       recursive = true;
       onChange = ''
         DESTINATION="${config.home.homeDirectory}/Library/Application Support/Sublime Text/Packages/User"
@@ -130,23 +159,15 @@
   #
   # This technique is described in more detail here: https://seroperson.me/2024/01/16/managing-dotfiles-with-nix/
   home.file = {
-    ".bin" = {
-      source = ../../.bin;
-      recursive = true;
-    };
-
-    # ".bin/git_prompt" = ../../zsh/bin/git_prompt;
+    # ".bin" = {
+    #   source = ../../.bin;
+    #   recursive = true;
+    # };
 
     # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-
-    # Ghostty
-    # ".config/ghostty".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/.config/zsh/.zshenv";
-
-    # ".config/ghostty/config/themes/Catppuccin-Latte".text = /ghostty/.config/ghostty/config/themes/Catppuccin-Latte;
-    # ".config/ghostty/config/themes/Catppuccin-Macchiato".text = /ghostty/.config/ghostty/config/themes/Catppuccin-Macchiato;
   };
 
   # Manage our session PATH.
@@ -179,9 +200,13 @@
 
     eza = {
       enable = true;
-      icons = "auto";
       git = true;
+      icons = "never";
       extraOptions = [ "--group-directories-first" ];
+      theme = builtins.fetchurl {
+        url = "https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin.yml";
+        sha256 = "191mabxxhic6bcbs888wz369xhln5r6dxx32nspczn4q95326jb6";
+      };
     };
 
     firefox = {
@@ -238,14 +263,10 @@
         PATH = "/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH";
       };
 
-      # Plugins to load in.
-      plugins = [
-        {
-          name = "prompt";
-          file = "prompt.zsh";
-          src = ../../zsh/.config/zsh;
-        }
-      ];
+      initContent = ''
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        # eval "$(starship init zsh)"
+      '';
 
       shellAliases = {
         ls = "ll";
@@ -297,7 +318,18 @@
           }
           {
             name = "mafredri/zsh-async";
-            tags = [ "defer:0" ];
+            tags = [
+              "from:github"
+              "use:async.zsh"
+            ];
+          }
+          {
+            name = "spaceship-prompt/spaceship-prompt";
+            tags = [
+              "from:github"
+              "use:spaceship.zsh"
+              "as:theme"
+            ];
           }
         ];
       };
@@ -307,6 +339,12 @@
     mise = {
       enable = true;
       enableZshIntegration = true;
+    };
+
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+      configPath = ".config/starship/starship.toml";
     };
 
     # https://github.com/nix-community/home-manager/blob/master/modules/programs/zoxide.nix
@@ -320,6 +358,13 @@
       enable = true;
       enableZshIntegration = true;
       flags = [ "--disable-up-arrow" ];
+    };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      mise.enable = true;
+      silent = false;
     };
   };
 

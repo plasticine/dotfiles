@@ -33,7 +33,7 @@
   "ensure_final_newline_on_save": true,
   "show_call_status_icon": false,
   "ui_font_family": "Hack",
-  "ui_font_size": 15,
+  "ui_font_size": 16,
   "ui_font_weight": 400,
   "buffer_font_size": 16,
   "buffer_font_family": "Hack",
@@ -46,7 +46,7 @@
   "file_finder": {
     "file_icons": true,
     "git_status": true,
-    "include_ignored": null,
+    "include_ignored": "smart",
     "modal_max_width": "medium"
   },
   "active_pane_modifiers": {
@@ -54,7 +54,7 @@
     "border_size": 1
   },
   "unnecessary_code_fade": 0.5,
-  "agent_ui_font_size": 12.0,
+  "agent_ui_font_size": 16.0,
   "agent_buffer_font_size": 16.0,
   "agent": {
     "always_allow_tool_actions": true,
@@ -72,7 +72,8 @@
     }
   },
   "status_bar": {
-    "active_language_button": true
+    "active_language_button": true,
+    "line_endings_button": true
   },
   "wrap_guides": [80, 120],
   "show_wrap_guides": true,
@@ -102,9 +103,28 @@
     "thumb_border": "full"
   },
   "file_types": {
-    "Diff": ["*.jjdescription"]
+    "Diff": ["*.jjdescription"],
+    "Shell Script": ["*.sh", "*.bash", "*.zsh"]
   },
   "languages": {
+    "Elixir": {
+      "language_servers": [
+        "expert",
+        "!elixir-ls",
+        "!next-ls",
+        "!lexical",
+        "..."
+      ]
+    },
+    "HEEX": {
+      "language_servers": [
+        "expert",
+        "!elixir-ls",
+        "!next-ls",
+        "!lexical",
+        "..."
+      ]
+    },
     "Python": {
       "indent_guides": {
         "enabled": true,
@@ -113,12 +133,19 @@
       }
     },
     "Nix": {
-      "language_servers": ["nixd", "!nil"]
+      "language_servers": ["nixd", "nil"]
     },
     "Shell Script": {
       "show_whitespaces": "all",
       "tab_size": 2,
       "hard_tabs": true,
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "shfmt",
+          "arguments": ["--filename", "{buffer_path}", "--indent", "0"]
+        }
+      },
       "indent_guides": {
         "enabled": true
       }

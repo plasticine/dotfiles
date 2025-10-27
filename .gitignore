@@ -1,3 +1,9 @@
+.DS_Store
 gnupg/.gnupg
 Brewfile.lock.json
-.DS_Store
+
+# Some weird db files that zed writes
+.config/zed/prompts/*
+
+.config/sublime/*.user-ca-bundle
+.config/sublime/Terminus*

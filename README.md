@@ -34,3 +34,8 @@ just deploy
 # Rollback to a previous generation
 just rollback
 ```
+
+## Useful references
+
+- https://searchix.ovh/options/darwin/search
+- https://searchix.ovh/options/home-manager/search

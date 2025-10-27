@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+#
+# Accepts an input string and slugifies it by replacing anything non-alphanumeric
+# with a dash.
+#
+# Example;
+#
+#   $ slugify "foo bar hello/world"
+#   > foo-bar-hello-world
+#
+#   $ echo "foo bar hello/world" | slugify
+#   > foo-bar-hello-world
+#
+
+args=$*
+
+[[ -p /dev/stdin ]] && {
+	mapfile -t
+	set -- "${MAPFILE[@]}"
+	set -- "$@" "$args"
+}
+
+echo -n "$*" | awk -f <(
+	cat - <<-'AWK'
+		  {
+		    gsub("^[ \t-]+", "");
+		    gsub("[ \t-]+$", "");
+		    gsub("[^a-zA-Z0-9]+", "-");
+		    print tolower($0)
+		  }
+	AWK
+)

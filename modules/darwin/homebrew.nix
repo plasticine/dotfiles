@@ -13,7 +13,26 @@
       # cleanup = "zap"; # `zap` uninstalls all formulae(and related files) not listed here.
     };
 
-    brews = [ ];
+    taps = [
+      # This requires the gh CLI to have been authed before it will work...
+      {
+        name = "ferocia/tfshell";
+        clone_target = "https://github.com/ferocia/tfshell";
+        force_auto_update = true;
+      }
+      # https://container-use.com
+      {
+        name = "dagger/tap";
+        clone_target = "https://github.com/dagger/tap";
+        force_auto_update = true;
+      }
+    ];
+
+    brews = [
+      "ferocia/tfshell/tfshell"
+      # "dagger/tap/container-use"
+    ];
+
     casks = [
       "cleanshot"
       "firefox"
@@ -27,6 +46,7 @@
       "obsidian"
       "orbstack"
       "pika"
+      "postico"
       "sketch"
       "sketch@beta"
       "sublime-text"
@@ -34,15 +54,17 @@
       "xcodes-app"
       "zed"
     ];
+
     masApps = {
-      "Velja" = 1607635845;
-      "Things" = 904280696;
-      "Pastebot" = 1179623856;
-      "iA Writer" = 775737590;
-      "Soulver 3" = 1508732804;
-      "Wireguard" = 1451685025;
       "Folder Quick Look" = 6753110395;
+      "Meeting Bar App" = 1532419400;
+      "Pastebot" = 1179623856;
       "Reeder" = 1529448980;
+      "Soulver 3" = 1508732804;
+      "Things" = 904280696;
+      "Velja" = 1607635845;
+      "Wireguard" = 1451685025;
+      "iA Writer" = 775737590;
     };
   };
 }

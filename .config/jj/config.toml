@@ -99,13 +99,14 @@ if(self && !current_working_copy && !immutable && !conflict && in_branch(self),
 'stack(x)' = 'ancestors(reachable(x, mutable()), 2)'
 'stack(x, n)' = 'ancestors(reachable(x, mutable()), n)'
 
-# The current set of "open" works. It is defined as:
+# The current set of "open" works, defined as:
 #
 # - given the set of commits not in trunk, that are written by me,
 # - calculate the given stack() for each of those commits
 #
 # n = 1, meaning that nothing from `trunk()` is included, so all resulting
 # commits are mutable by definition.
+#
 'open()' = 'stack(trunk().. & mine(), 1)'
 
 # Get the current stack of work between trunk and @.
@@ -132,20 +133,29 @@ log-recent = ["log", "-r", "all() & recent()"]
 # Log all the things!
 log-all = ["log", "-r", "all()"]
 
-# Retrunk a series. Typically used as `jj retrunk -s ...`, and notably can be
-# used with open:
-# - jj retrunk -s 'all:roots(open())'
+# Retrunk a series.
+#
+# Typically used as `jj retrunk -s ...`, and notably can be used with open:
+#
+#   jj retrunk -s 'all:roots(open())'
+#
+# This would rebase all all open work against `trunk()`
+#
 retrunk = ["rebase", "-d", "trunk()"]
 
 # Retrunk the current stack of work.
 reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]
 
 # Take content from any change, and move it into @.
-# - jj consume xyz path/to/file`
+#
+#   jj consume xyz path/to/file`
+#
 consume = ["squash", "--into", "@", "--from"]
 
 # Eject content from @ into any other change.
-# - jj eject xyz --interactive
+#
+#   jj eject xyz --interactive
+#
 eject = ["squash", "--from", "@", "--into"]
 
 # Recent bookmarks that are mine

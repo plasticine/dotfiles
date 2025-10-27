@@ -4,6 +4,7 @@
       "language_servers": ["nil", "nixd"]
     }
   }
+
   // NOTE: These don’t seem to actually really *work* properly.
   // I think it’s probably an issue with the nix zed extension not passing the config
   // along correctly, because neither LSP server seems to pick up config correctly.

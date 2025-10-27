@@ -90,6 +90,7 @@
 
   "update_check": true,
   "animation_enabled": true,
-  "ignored_packages": [],
+  "ignored_packages": [
+  ],
   "index_files": false,
 }
