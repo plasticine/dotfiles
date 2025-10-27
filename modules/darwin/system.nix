@@ -45,7 +45,9 @@ rec {
         show-recents = false;
         persistent-apps = [
           { app = "/System/Applications/Utilities/Activity Monitor.app"; }
-          { app = "/Applications/Pastebot.app"; }
+          { app = "/Applications/Reeder.app"; }
+          { app = "/Applications/Obsidian.app"; }
+          { app = "/Applications/Things3.app"; }
           { app = "/System/Applications/Mail.app"; }
           { app = "/System/Applications/Calendar.app"; }
           { app = "/Applications/Ghostty.app"; }

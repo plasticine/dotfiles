@@ -23,22 +23,26 @@
       "keepingyouawake"
       "little-snitch"
       "nightfall"
+      "nvidia-geforce-now"
       "obsidian"
       "orbstack"
       "pika"
       "sketch"
+      "sketch@beta"
       "sublime-text"
       "vlc"
-      "xcodes"
+      "xcodes-app"
       "zed"
     ];
     masApps = {
-      "Folder Quick Look" = 6753110395;
-      "Pastebot" = 1179623856;
-      "Soulver 3" = 1508732804;
       "Velja" = 1607635845;
-      "Wireguard" = 1451685025;
+      "Things" = 904280696;
+      "Pastebot" = 1179623856;
       "iA Writer" = 775737590;
+      "Soulver 3" = 1508732804;
+      "Wireguard" = 1451685025;
+      "Folder Quick Look" = 6753110395;
+      "Reeder" = 1529448980;
     };
   };
 }
