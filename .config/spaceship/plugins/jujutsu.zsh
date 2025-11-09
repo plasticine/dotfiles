@@ -12,21 +12,20 @@ spaceship_jujutsu() {
 	local workspace
 	workspace=$(jj workspace root 2>/dev/null) || return
 
+	# Force jj to refresh status, without this stats can be out of whack...
+	jj status --repository "$workspace" 2>/dev/null
+
 	local content revision bookmark distance
 	revision=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --limit 1 --color always --revisions @ -T "
 		separate(
 		    ' ',
 		    if(git_head, label('git_head', hex('#8bd5ca', 'git head'))),
 		    if(empty, label('empty', '(empty)'), ''),
-		    if(description == '', label('description placeholder', '(no description)'), ''),
-
-		    coalesce(
-		        dim(truncate_end(46, description.first_line(), '…')),
-		        label(if(empty, 'empty'), bold(color('11', description_placeholder)))
-		    ),
 		    if(immutable, label('conflict', '(immutable)'), ''),
 		    if(divergent, label('conflict', '(divergent)'), ''),
 		    if(conflict, label('conflict', '(conflict)'), ''),
+		    if(description == '', label('description placeholder', '(no description set)'), ''),
+		    dim(truncate_end(46, description.first_line(), '…')),
 
 		    hex('#c6a0f6', bold(change_id.shortest(4).prefix())) ++ hex('#5b6078', change_id.shortest(4).rest()),
 		    hex('#7dc4e4', bold(commit_id.shortest(8).prefix())) ++ hex('#5b6078', commit_id.shortest(6).rest()),
@@ -50,7 +49,7 @@ spaceship_jujutsu() {
 	')
 
 	# Build section output.
-	content="${revision} ${file_status} @+$distance…${bookmark}"
+	content="${revision} ${file_status} ${bookmark}+${distance}"
 
 	# Sanitize output...
 	content="$(sed 's/\x1b\[[0-9;]*m/%{&%}/g' <<<$content)"
