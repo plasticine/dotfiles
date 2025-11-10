@@ -1,9 +1,21 @@
-{ ... }:
-rec {
+{pkgs, ...}: rec {
   time.timeZone = "Australia/Melbourne";
 
   # Allow sudo via TouchId
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  services = {
+    # scutil --dns
+    # dns-sd -G v4 scribe.hack
+    dnsmasq = {
+      enable = true;
+      bind = "127.0.0.1";
+      port = 53;
+      addresses = {
+        ".hack" = "127.0.0.1"; # Point the entire `.hack` zone to localhost.
+      };
+    };
+  };
 
   system = {
     primaryUser = "justin";
@@ -44,17 +56,17 @@ rec {
         scroll-to-open = true; # Scroll up on a Dock icon to show all Space's opened windows for an app, or open stack.
         show-recents = false;
         persistent-apps = [
-          { app = "/System/Applications/Utilities/Activity Monitor.app"; }
-          { app = "/Applications/Reeder.app"; }
-          { app = "/Applications/Obsidian.app"; }
-          { app = "/Applications/Things3.app"; }
-          { app = "/System/Applications/Mail.app"; }
-          { app = "/System/Applications/Calendar.app"; }
-          { app = "/Applications/Ghostty.app"; }
-          { app = "/Applications/Zed.app"; }
-          { app = "/Applications/Sublime Text.app"; }
-          { app = "/Applications/Sketch.app"; }
-          { app = "/Applications/Firefox.app"; }
+          {app = "/System/Applications/Utilities/Activity Monitor.app";}
+          {app = "/Applications/Reeder.app";}
+          {app = "/Applications/Obsidian.app";}
+          {app = "/Applications/Things3.app";}
+          {app = "/System/Applications/Mail.app";}
+          {app = "/System/Applications/Calendar.app";}
+          {app = "/Applications/Ghostty.app";}
+          {app = "/Applications/Zed.app";}
+          {app = "/Applications/Sublime Text.app";}
+          {app = "/Applications/Sketch.app";}
+          {app = "/Applications/Firefox.app";}
         ];
         persistent-others = [
           "/Users/justin/Library/Mobile Documents/com~apple~CloudDocs/Documents" # iCloud Documents folder

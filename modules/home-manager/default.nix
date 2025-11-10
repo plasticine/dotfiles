@@ -2,12 +2,10 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   # TODO(juz): is there a nice way to extract this?
   dotfiles = "/Users/justin/Code/plasticine/dotfiles";
-in
-{
+in {
   # https://nix-community.github.io/home-manager/options.xhtml
   home.username = "justin";
   home.homeDirectory = "/Users/justin";
@@ -42,6 +40,10 @@ in
     starship
     spaceship-prompt
 
+    # Slops
+    gemini-cli
+    claude-code
+
     # HTTP and networking
     curl
     httpie
@@ -75,6 +77,7 @@ in
     # Monitoring
     htop
     btop
+    asitop
 
     # Tools
     (google-cloud-sdk.withExtraComponents [
@@ -99,42 +102,52 @@ in
   # Manage XDG config files.
   xdg.configFile = {
     atuin = {
+      target = "atuin";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/atuin";
       recursive = true;
     };
     gh = {
+      target = "gh";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/gh";
       recursive = true;
     };
     git = {
+      target = "git";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/git";
       recursive = true;
     };
     ghostty = {
+      target = "ghostty";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/ghostty";
       recursive = true;
     };
     jj = {
+      target = "jj";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/jj";
       recursive = true;
     };
     k9s = {
+      target = "k9s";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/k9s";
       recursive = true;
     };
     nushell = {
+      target = "nushell";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/nushell";
       recursive = true;
     };
     zed = {
+      target = "zed";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/zed";
       recursive = true;
     };
     spaceship = {
+      target = "spaceship";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/spaceship";
       recursive = true;
     };
     sublime = {
+      target = "sublime";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/sublime";
       recursive = true;
       onChange = ''
@@ -174,7 +187,10 @@ in
   #
   # https://nix-community.github.io/home-manager/options.xhtml#opt-home.sessionPath
   home.sessionPath = [
+    # Local home dir binaries
     "${config.home.homeDirectory}/.bin"
+
+    # Sublime text helper
     "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
   ];
 
@@ -191,6 +207,9 @@ in
   home.sessionVariables = {
     EDITOR = "subl -w";
     PAGER = "less -FXR"; # nix-darwin defaults this to `less -R` which sucks.
+
+    # k9s has a silly default, we need to explicitly set this to have to load from our XDG config dir.
+    K9S_CONFIG_DIR = "$HOME/.config/k9s";
   };
 
   # https://github.com/nix-community/home-manager/tree/master/modules/programs
@@ -202,7 +221,7 @@ in
       enable = true;
       git = true;
       icons = "never";
-      extraOptions = [ "--group-directories-first" ];
+      extraOptions = ["--group-directories-first"];
       theme = builtins.fetchurl {
         url = "https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin.yml";
         sha256 = "191mabxxhic6bcbs888wz369xhln5r6dxx32nspczn4q95326jb6";
@@ -264,7 +283,11 @@ in
       };
 
       initContent = ''
+        # Turn on homebrew
+        export HOMEBREW_NO_AUTO_UPDATE=1; # Very annoying, no thanks.
         eval "$(/opt/homebrew/bin/brew shellenv)"
+
+        # Disabled, spaceship-prompt seems to be working ok right now...
         # eval "$(starship init zsh)"
       '';
 
@@ -302,19 +325,19 @@ in
         plugins = [
           {
             name = "zsh-users/zsh-syntax-highlighting";
-            tags = [ "defer:2" ];
+            tags = ["defer:2"];
           }
           {
             name = "zsh-users/zsh-history-substring-search";
-            tags = [ "defer:3" ];
+            tags = ["defer:3"];
           }
           {
             name = "zsh-users/zsh-autosuggestions";
-            tags = [ ];
+            tags = [];
           }
           {
             name = "zsh-users/zsh-completions";
-            tags = [ ];
+            tags = [];
           }
           {
             name = "mafredri/zsh-async";
@@ -357,7 +380,7 @@ in
     atuin = {
       enable = true;
       enableZshIntegration = true;
-      flags = [ "--disable-up-arrow" ];
+      flags = ["--disable-up-arrow"];
     };
 
     direnv = {

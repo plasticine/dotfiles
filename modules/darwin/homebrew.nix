@@ -2,8 +2,7 @@
   # inputs,
   # pkgs,
   ...
-}:
-{
+}: {
   # Work mac comes with brew.
   homebrew = {
     enable = true;
@@ -29,8 +28,9 @@
     ];
 
     brews = [
-      "ferocia/tfshell/tfshell"
-      # "dagger/tap/container-use"
+      {
+        name = "ferocia/tfshell/tfshell";
+      }
     ];
 
     casks = [
