@@ -100,12 +100,12 @@
     diffFilter = delta --color-only
 
 [credential "https://github.com"]
-	helper =
-	helper = !/usr/local/bin/gh auth git-credential
+	helper = 
+	helper = !/etc/profiles/per-user/justin/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper =
-	helper = !/usr/local/bin/gh auth git-credential
+	helper = 
+	helper = !/etc/profiles/per-user/justin/bin/gh auth git-credential
 
 [rebase]
 	autosquash = true

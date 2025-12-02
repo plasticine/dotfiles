@@ -35,6 +35,7 @@
 
     casks = [
       "cleanshot"
+      "dash"
       "firefox"
       "ghostty"
       "google-chrome"

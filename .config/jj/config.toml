@@ -25,6 +25,10 @@ private-commits = 'private() | wip()'
 # don’t need to specify --allow-new when pushing a new bookmark
 push-new-bookmarks = true
 
+# Use ksdiff for diffs and merges.
+#
+#   jj diff --tool ksdiff
+#
 [merge-tools.ksdiff]
 diff-args = ["--partial-changeset", "$left", "$right"]
 diff-invocation-mode = "file-by-file"
@@ -140,8 +144,8 @@ log-all = ["log", "-r", "all()"]
 #   jj retrunk -s 'all:roots(open())'
 #
 # This would rebase all all open work against `trunk()`
-#
 retrunk = ["rebase", "-d", "trunk()"]
+"retrunk!" = ["retrunk", "--ignore-immutable"]
 
 # Retrunk the current stack of work.
 reheat = ["rebase", "-d", "trunk()", "-s", "all:roots(trunk()..stack(@))"]
@@ -165,7 +169,7 @@ eject = ["squash", "--from", "@", "--into"]
 # This is distinct from just diffing directly from trunk() as that would include
 # both additions in the bookmark as well as changes in trunk() as deletion in the
 # bookmark (because those changes are not present in the bookmark!)
-diff-trunk = ["diff", "--from", "'fork_point(trunk() | @)'"]
+diff-trunk = ["diff", "--from", "fork_point(trunk() | @)"]
 dt = ["diff-trunk"]
 
 # Git shortcuts

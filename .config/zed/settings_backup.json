@@ -7,41 +7,33 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "agent": {
-    "always_allow_tool_actions": true,
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
-    },
-    "model_parameters": []
-  },
   "show_edit_predictions": false,
   "edit_predictions": {
-    "mode": "subtle",
+    "mode": "subtle"
   },
   "features": {
-    "edit_prediction_provider": "copilot",
+    "edit_prediction_provider": "copilot"
   },
   "theme": {
     "mode": "system",
     "light": "Ayu Light",
-    "dark": "Ayu Dark",
+    "dark": "Ayu Dark"
   },
   "icon_theme": {
     "mode": "system",
     "light": "Catppuccin Latte",
-    "dark": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
   },
   "base_keymap": "SublimeText",
   "telemetry": {
     "metrics": false,
-    "diagnostics": false,
+    "diagnostics": false
   },
   "terminal": {
     "font_size": 16,
     "font_family": "Hack Nerd Font Mono",
     "font_weight": 500,
-    "line_height": "comfortable",
+    "line_height": "comfortable"
   },
   "remove_trailing_whitespace_on_save": true,
   "extend_comment_on_newline": true,
@@ -57,24 +49,24 @@
   "buffer_line_height": "comfortable",
   "buffer_font_features": {
     "no_round": true,
-    "dlig": true,
+    "dlig": true
   },
   "file_finder": {
     "file_icons": true,
     "git_status": true,
     "include_ignored": "smart",
-    "modal_max_width": "medium",
+    "modal_max_width": "medium"
   },
   "active_pane_modifiers": {
     "inactive_opacity": 0.8,
-    "border_size": 1,
+    "border_size": 1
   },
   "unnecessary_code_fade": 0.5,
   "agent_ui_font_size": 16.0,
   "agent_buffer_font_size": 16.0,
   "status_bar": {
     "active_language_button": true,
-    "line_endings_button": true,
+    "line_endings_button": true
   },
   "wrap_guides": [80, 120],
   "show_wrap_guides": true,
@@ -90,26 +82,26 @@
     "terraform": true,
     "toml": true,
     "zig": true,
-    "nix": true,
+    "nix": true
   },
   "tabs": {
     "file_icons": true,
     "git_status": true,
-    "show_diagnostics": "all",
+    "show_diagnostics": "all"
   },
   "minimap": {
     "current_line_highlight": "all",
     "display_in": "active_editor",
     "show": "auto",
-    "thumb_border": "full",
+    "thumb_border": "full"
   },
   "file_types": {
     "Diff": ["*.jjdescription"],
-    "Shell Script": ["*.sh", "*.bash", "*.zsh"],
+    "Shell Script": ["*.sh", "*.bash", "*.zsh"]
   },
   "languages": {
     "JavaScript": {
-      "show_edit_predictions": true,
+      "show_edit_predictions": true
     },
     "Elixir": {
       "preferred_line_length": 120,
@@ -117,16 +109,16 @@
       "formatter": {
         "external": {
           "command": "mix",
-          "arguments": ["format", "--stdin-filename", "{buffer_path}", "-"],
-        },
+          "arguments": ["format", "--stdin-filename", "{buffer_path}", "-"]
+        }
       },
       "language_servers": [
         "elixir-ls",
         "!expert",
         "!next-ls",
         "!lexical",
-        "...",
-      ],
+        "..."
+      ]
     },
     "HEEX": {
       "language_servers": [
@@ -134,24 +126,24 @@
         "!expert",
         "!next-ls",
         "!lexical",
-        "...",
-      ],
+        "..."
+      ]
     },
     "Python": {
       "indent_guides": {
         "enabled": true,
         "coloring": "indent_aware",
-        "background_coloring": "indent_aware",
-      },
+        "background_coloring": "indent_aware"
+      }
     },
     "Nix": {
       "language_servers": ["nixd", "nil"],
       "formatter": {
         "external": {
           "command": "alejandra", // or "nixfmt"
-          "arguments": ["--quiet", "--"],
-        },
-      },
+          "arguments": ["--quiet", "--"]
+        }
+      }
     },
     "Shell Script": {
       "show_edit_predictions": true,
@@ -167,86 +159,87 @@
             "{buffer_path}",
             "--indent",
             "0",
-            "--space-redirects",
-          ],
-        },
+            "--space-redirects"
+          ]
+        }
       },
       "indent_guides": {
-        "enabled": true,
-      },
-    },
+        "enabled": true
+      }
+    }
   },
 
   // Configure context servers for agents to use.
-  // "context_servers": {
-  //   "container-use": {
-  //     "enabled": true,
-  //     "command": "mise",
-  //     "args": [
-  //       "exec",
-  //       "aqua:dagger/container-use",
-  //       "--",
-  //       "container-use",
-  //       "stdio"
-  //     ],
-  //     "env": {
-  //       "HUSKY": "0"
-  //     }
-  //   }
-  // },
+  "context_servers": {
+    "container-use": {
+      "enabled": true,
+      "source": "custom",
+      "command": "mise",
+      "args": [
+        "exec",
+        "aqua:dagger/container-use",
+        "--",
+        "container-use",
+        "stdio"
+      ],
+      "env": {
+        "HUSKY": "0"
+      }
+    }
+  },
 
-  // "agent": {
-  //   "always_allow_tool_actions": true,
-  //   "play_sound_when_agent_done": true,
-  //   "enable_feedback": false,
-  //   "default_view": "text_thread",
-  //   "default_profile": "write",
-  //   "default_model": {
-  //     "model": "claude-sonnet-4.5",
-  //     "provider": "copilot_chat"
-  //   },
-  //   "profiles": {
-  //     "foreground": {
-  //       "name": "Foreground"
-  //     },
-  //     "container-use": {
-  //       "name": "Background",
-  //       "tools": {
-  //         "fetch": true,
-  //         "thinking": true,
-  //         "copy_path": false,
-  //         "find_path": false,
-  //         "delete_path": false,
-  //         "create_directory": false,
-  //         "list_directory": false,
-  //         "diagnostics": false,
-  //         "read_file": false,
-  //         "open": false,
-  //         "move_path": false,
-  //         "grep": false,
-  //         "edit_file": false,
-  //         "terminal": false
-  //       },
-  //       "enable_all_context_servers": false,
-  //       "context_servers": {
-  //         "container-use": {
-  //           "tools": {
-  //             "environment_add_service": true,
-  //             "environment_checkpoint": true,
-  //             "environment_config": true,
-  //             "environment_create": true,
-  //             "environment_file_delete": true,
-  //             "environment_file_edit": true,
-  //             "environment_file_list": true,
-  //             "environment_file_read": true,
-  //             "environment_file_write": true,
-  //             "environment_open": true,
-  //             "environment_run_cmd": true,
-  //             "environment_update_metadata": true
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+  "agent": {
+    "always_allow_tool_actions": true,
+    "play_sound_when_agent_done": true,
+    "enable_feedback": false,
+    "default_view": "text_thread",
+    "default_profile": "write",
+    "default_model": {
+      "model": "claude-sonnet-4.5",
+      "provider": "copilot_chat"
+    },
+    "profiles": {
+      "foreground": {
+        "name": "Foreground"
+      },
+      "container-use": {
+        "name": "Background",
+        "tools": {
+          "fetch": true,
+          "thinking": true,
+          "copy_path": false,
+          "find_path": false,
+          "delete_path": false,
+          "create_directory": false,
+          "list_directory": false,
+          "diagnostics": false,
+          "read_file": false,
+          "open": false,
+          "move_path": false,
+          "grep": false,
+          "edit_file": false,
+          "terminal": false
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {
+          "container-use": {
+            "tools": {
+              "environment_add_service": true,
+              "environment_checkpoint": true,
+              "environment_config": true,
+              "environment_create": true,
+              "environment_file_delete": true,
+              "environment_file_edit": true,
+              "environment_file_list": true,
+              "environment_file_read": true,
+              "environment_file_write": true,
+              "environment_open": true,
+              "environment_run_cmd": true,
+              "environment_update_metadata": true
+            }
+          }
+        }
+      }
+    }
+  }
 }

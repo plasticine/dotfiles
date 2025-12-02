@@ -1,4 +1,4 @@
-theme = dark:Catppuccin-Macchiato, light:Catppuccin-Latte
+theme = dark:catppuccin-macchiato, light:catppuccin-latte
 
 font-family = "Hack Nerd Font Mono"
 font-thicken = true
@@ -21,3 +21,7 @@ unfocused-split-opacity = 0.9
 
 shell-integration = detect
 shell-integration-features = no-cursor, sudo, title, ssh-env, ssh-terminfo
+
+link-previews = true
+
+scrollback-limit = 4294967295

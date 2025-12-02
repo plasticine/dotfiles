@@ -10,12 +10,23 @@ spaceship_jujutsu() {
 	spaceship::exists jj || return
 
 	local workspace
-	workspace=$(jj workspace root 2>/dev/null) || return
+	workspace=$(jj workspace root 2> /dev/null) || return
 
 	# Force jj to refresh status, without this stats can be out of whack...
-	jj status --repository "$workspace" 2>/dev/null
+	jj status --repository "$workspace" 2> /dev/null
 
-	local content revision bookmark distance
+	local content revision closest_bookmark closest_bookmark_distance
+	closest_bookmark=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --limit 1 --color always -r "closest_bookmark(@)" -T 'bookmarks.join(" ")' 2> /dev/null)
+	closest_bookmark_distance=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --color never -r "closest_bookmark(@)..@-" -T 'change_id ++ "\n"' 2> /dev/null | wc -l | tr -d ' ')
+	file_status=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --color never --revisions @ -T 'self.diff().files().map(|f| f.status()).join("\n")' 2> /dev/null |
+		sort | uniq -c | awk '
+		    /modified/ { parts[++i] = "%F{cyan}" $1 "M%f" }
+		    /added/ { parts[++i] = "%F{green}" $1 "A%f" }
+		    /removed/ { parts[++i] = "%F{red}" $1 "D%f" }
+		    /copied/ { parts[++i] = "%F{yellow}" $1 "C%f" }
+		    /renamed/ { parts[++i] = "%F{magenta}" $1 "R%f" }
+		    END { for (j=1; j<=i; j++) printf "%s%s", parts[j], (j<i ? " " : "") }
+	')
 	revision=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --limit 1 --color always --revisions @ -T "
 		separate(
 		    ' ',
@@ -32,27 +43,14 @@ spaceship_jujutsu() {
 
 		    if(self.diff().stat().total_added() > 0, hex('#a6da95', '+') ++ hex('#a6da95', self.diff().stat().total_added())),
 		    if(self.diff().stat().total_removed() > 0, hex('#ed8796', '-') ++ hex('#ed8796', self.diff().stat().total_removed())),
-
-		    hex('#f0c6c6', bookmarks.join(' '))
-		)
+		) ++ ' '
 	")
-	bookmark=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --limit 1 --color always -r "closest_bookmark(@)" -T 'bookmarks.join(" ")' 2>/dev/null)
-	distance=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --color never -r "closest_bookmark(@)..@-" -T 'change_id ++ "\n"' 2>/dev/null | wc -l | tr -d ' ')
-	file_status=$(jj log --repository "$workspace" --ignore-working-copy --no-graph --color never --revisions @ -T 'self.diff().files().map(|f| f.status()).join("\n")' 2>/dev/null |
-		sort | uniq -c | awk '
-			/modified/ { parts[++i] = "%F{cyan}" $1 "M%f" }
-			/added/ { parts[++i] = "%F{green}" $1 "A%f" }
-			/removed/ { parts[++i] = "%F{red}" $1 "D%f" }
-			/copied/ { parts[++i] = "%F{yellow}" $1 "C%f" }
-			/renamed/ { parts[++i] = "%F{magenta}" $1 "R%f" }
-			END { for (j=1; j<=i; j++) printf "%s%s", parts[j], (j<i ? " " : "") }
-	')
 
 	# Build section output.
-	content="${revision} ${file_status} ${bookmark}+${distance}"
+	content="${revision}${file_status} ${closest_bookmark}+${closest_bookmark_distance}"
 
 	# Sanitize output...
-	content="$(sed 's/\x1b\[[0-9;]*m/%{&%}/g' <<<$content)"
+	content="$(sed 's/\x1b\[[0-9;]*m/%{&%}/g' <<< $content)"
 
 	spaceship::section::v4 \
 		--color "$SPACESHIP_JUJUTSU_COLOR" \

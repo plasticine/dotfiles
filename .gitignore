@@ -7,3 +7,5 @@ Brewfile.lock.json
 
 .config/sublime/*.user-ca-bundle
 .config/sublime/Terminus*
+
+.config/k9s/clusters

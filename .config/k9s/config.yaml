@@ -5,6 +5,7 @@ k9s:
   maxConnRetry: 10
   readOnly: false
   noExitOnCtrlC: true
+  defaultView: "context"
   ui:
     enableMouse: false
     headless: false
