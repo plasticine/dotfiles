@@ -31,9 +31,6 @@
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
-      # Enable alternative shell support in nix-darwin.
-      # programs.fish.enable = true;
-
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
 
@@ -41,11 +38,11 @@
       # $ darwin-rebuild changelog
       system.stateVersion = 6;
 
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
-
       # Allow stuff with unfree licenses.
       nixpkgs.config.allowUnfree = true;
+
+      # TODO: This is only required for x86, should make it opt in
+      nixpkgs.config.allowBroken = true;
 
       # When a conflicting file is in the way move it using this extension.
       home-manager.backupFileExtension = "home-manager-backup";
@@ -54,9 +51,11 @@
       home-manager.verbose = true;
     };
 
-    defaultSystem = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      specialArgs = {inherit inputs;};
+    mkDarwinSystem = system: nix-darwin.lib.darwinSystem {
+      inherit system;
+
+      specialArgs = { inherit inputs; };
+
       modules = [
         configuration
         ./modules/darwin
@@ -79,14 +78,16 @@
         }
       ];
     };
-  in {
+  in
+  {
     # Build darwin flake using:
     #
     #   darwin-rebuild build --flake .#fer-nespresso
     #
     darwinConfigurations = {
-      fer-nespresso = defaultSystem;
-      fer-cortado = defaultSystem;
+      fer-nespresso = mkDarwinSystem "aarch64-darwin";
+      fer-cortado = mkDarwinSystem "aarch64-darwin";
+      Bean = mkDarwinSystem "x86_64-darwin";
     };
   };
 }

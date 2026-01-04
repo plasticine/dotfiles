@@ -41,8 +41,8 @@ in {
     spaceship-prompt
 
     # Slops
-    gemini-cli
-    claude-code
+    # gemini-cli
+    # claude-code
 
     # HTTP and networking
     curl
@@ -79,7 +79,6 @@ in {
     # Monitoring
     htop
     btop
-    asitop
 
     # Tools
     (google-cloud-sdk.withExtraComponents [
@@ -99,6 +98,8 @@ in {
     nerd-fonts.jetbrains-mono
     nerd-fonts.fira-code
     nerd-fonts.droid-sans-mono
+  ] ++ lib.optional pkgs.stdenv.hostPlatform.isAarch64 [
+    pkgs.macpm
   ];
 
   # Manage XDG config files.
@@ -225,8 +226,8 @@ in {
       icons = "never";
       extraOptions = ["--group-directories-first"];
       theme = builtins.fetchurl {
-        url = "https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin.yml";
-        sha256 = "191mabxxhic6bcbs888wz369xhln5r6dxx32nspczn4q95326jb6";
+        url = "https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin-macchiato.yml";
+        sha256 = "1xmbrsvgh5n306z71zk2sa19ramj8nzr4nwxd2r0fjcp21v0fa1l";
       };
     };
 
@@ -287,7 +288,7 @@ in {
       initContent = ''
         # Turn on homebrew
         export HOMEBREW_NO_AUTO_UPDATE=1; # Very annoying, no thanks.
-        eval "$(/opt/homebrew/bin/brew shellenv)"
+        eval "$($(brew --prefix)/bin/brew shellenv)"
 
         # Disabled, spaceship-prompt seems to be working ok right now...
         # eval "$(starship init zsh)"
