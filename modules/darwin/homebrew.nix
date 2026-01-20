@@ -19,12 +19,6 @@
         clone_target = "https://github.com/ferocia/tfshell";
         force_auto_update = true;
       }
-      # https://container-use.com
-      {
-        name = "dagger/tap";
-        clone_target = "https://github.com/dagger/tap";
-        force_auto_update = true;
-      }
     ];
 
     brews = [

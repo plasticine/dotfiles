@@ -1,12 +1,15 @@
-{pkgs, ...}: rec {
+{...}: rec {
   time.timeZone = "Australia/Melbourne";
 
   # Allow sudo via TouchId
   security.pam.services.sudo_local.touchIdAuth = true;
 
   services = {
-    # scutil --dns
-    # dns-sd -G v4 scribe.hack
+    # Enable local dnsmasq server for resolving local hosts.
+    #
+    # Useful debugging commands;
+    # - scutil --dns
+    # - dns-sd -G v4 scribe.hack
     dnsmasq = {
       enable = true;
       bind = "127.0.0.1";

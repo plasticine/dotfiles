@@ -2,7 +2,6 @@
 
 [ui]
 default-command = "log-all"
-editor = "zed -w"
 diff-formatter = ":git"
 diff-editor = ":builtin"
 

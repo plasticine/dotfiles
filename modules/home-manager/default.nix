@@ -65,6 +65,8 @@ in {
     ripgrep
     ssh-copy-id
     yt-dlp
+    age
+    sops
 
     # VCS stuff
     delta
@@ -205,7 +207,7 @@ in {
   #
   # if you don't want to manage your shell through Home Manager.
   home.sessionVariables = {
-    EDITOR = "subl -w";
+    EDITOR = "$([[ -n \"$SSH_CONNECTION\" ]] && echo -n \"vi\" || echo -n \"zed -w\")";
     PAGER = "less -FXR"; # nix-darwin defaults this to `less -R` which sucks.
 
     # k9s has a silly default, we need to explicitly set this to have to load from our XDG config dir.
@@ -289,6 +291,8 @@ in {
 
         # Disabled, spaceship-prompt seems to be working ok right now...
         # eval "$(starship init zsh)"
+
+        echo "SSH_AUTH_SOCK: $SSH_AUTH_SOCK"
       '';
 
       shellAliases = {
@@ -394,9 +398,16 @@ in {
   services = {
     gpg-agent = {
       enable = true;
-      defaultCacheTtl = 1800;
+      defaultCacheTtl = 3600;
+      defaultCacheTtlSsh = 3600;
+      maxCacheTtl = 7200;
+      maxCacheTtlSsh = 7200;
       enableSshSupport = true;
+      enableExtraSocket = true;
       enableZshIntegration = true;
+      pinentry = {
+        package = pkgs.pinentry-curses;
+      };
     };
   };
 }

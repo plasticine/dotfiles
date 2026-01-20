@@ -11,9 +11,9 @@
     "always_allow_tool_actions": true,
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
+      "model": "claude-sonnet-4.5",
     },
-    "model_parameters": []
+    "model_parameters": [],
   },
   "show_edit_predictions": false,
   "edit_predictions": {
@@ -24,8 +24,8 @@
   },
   "theme": {
     "mode": "system",
-    "light": "Ayu Light",
-    "dark": "Ayu Dark",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Mocha",
   },
   "icon_theme": {
     "mode": "system",
@@ -112,6 +112,7 @@
       "show_edit_predictions": true,
     },
     "Elixir": {
+      "show_edit_predictions": false,
       "preferred_line_length": 120,
       "format_on_save": "on",
       "formatter": {
