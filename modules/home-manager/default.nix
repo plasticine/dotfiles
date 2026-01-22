@@ -1,11 +1,14 @@
 {
   pkgs,
   config,
+  lib,
   ...
-}: let
+}:
+let
   # TODO(juz): is there a nice way to extract this?
   dotfiles = "/Users/justin/Code/plasticine/dotfiles";
-in {
+in
+{
   # https://nix-community.github.io/home-manager/options.xhtml
   home.username = "justin";
   home.homeDirectory = "/Users/justin";
@@ -24,83 +27,86 @@ in {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
-    # System stuff
-    coreutils
-    python3
+  home.packages =
+    with pkgs;
+    [
+      # System stuff
+      coreutils
+      python3
 
-    # Shells
-    bash
-    fish
-    nushell
-    shellcheck
-    shfmt
-    zplug
-    zsh
-    starship
-    spaceship-prompt
+      # Shells
+      bash
+      fish
+      nushell
+      shellcheck
+      shfmt
+      zplug
+      zsh
+      starship
+      spaceship-prompt
 
-    # Slops
-    # gemini-cli
-    # claude-code
+      # Slops
+      # gemini-cli
+      # claude-code
 
-    # HTTP and networking
-    curl
-    httpie
-    k6
-    wget
+      # HTTP and networking
+      curl
+      httpie
+      k6
+      wget
 
-    # Utilities
-    atuin
-    bat
-    direnv
-    doggo
-    eza
-    ffmpeg
-    fzf
-    jq
-    just
-    mise
-    ncdu
-    ripgrep
-    ssh-copy-id
-    yt-dlp
-    age
-    sops
+      # Utilities
+      atuin
+      bat
+      direnv
+      doggo
+      eza
+      ffmpeg
+      fzf
+      jq
+      just
+      mise
+      ncdu
+      ripgrep
+      ssh-copy-id
+      yt-dlp
+      age
+      sops
 
-    # VCS stuff
-    delta
-    gh
-    git
-    gnupg
-    jujutsu
-    pinentry_mac
+      # VCS stuff
+      delta
+      gh
+      git
+      gnupg
+      jujutsu
+      pinentry_mac
 
-    # Monitoring
-    htop
-    btop
+      # Monitoring
+      htop
+      btop
 
-    # Tools
-    (google-cloud-sdk.withExtraComponents [
-      google-cloud-sdk.components.alpha
-      google-cloud-sdk.components.beta
-      google-cloud-sdk.components.gke-gcloud-auth-plugin
-    ])
-    xcodes
-    k9s
+      # Tools
+      (google-cloud-sdk.withExtraComponents [
+        google-cloud-sdk.components.alpha
+        google-cloud-sdk.components.beta
+        google-cloud-sdk.components.gke-gcloud-auth-plugin
+      ])
+      xcodes
+      k9s
 
-    # Fonts
-    hack-font
-    ia-writer-duospace
-    ia-writer-mono
-    ia-writer-quattro
-    nerd-fonts.hack
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.fira-code
-    nerd-fonts.droid-sans-mono
-  ] ++ lib.optional pkgs.stdenv.hostPlatform.isAarch64 [
-    pkgs.macpm
-  ];
+      # Fonts
+      hack-font
+      ia-writer-duospace
+      ia-writer-mono
+      ia-writer-quattro
+      nerd-fonts.hack
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+    ]
+    ++ lib.optional pkgs.stdenv.hostPlatform.isAarch64 [
+      pkgs.macpm
+    ];
 
   # Manage XDG config files.
   xdg.configFile = {
@@ -224,7 +230,7 @@ in {
       enable = true;
       git = true;
       icons = "never";
-      extraOptions = ["--group-directories-first"];
+      extraOptions = [ "--group-directories-first" ];
       theme = builtins.fetchurl {
         url = "https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin-macchiato.yml";
         sha256 = "1xmbrsvgh5n306z71zk2sa19ramj8nzr4nwxd2r0fjcp21v0fa1l";
@@ -283,18 +289,33 @@ in {
       # Environment variables that will be set for zsh session.
       sessionVariables = {
         PATH = "/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH";
+        HOMEBREW_NO_AUTO_UPDATE = "1"; # Very annoying, no thanks.
       };
 
-      initContent = ''
-        # Turn on homebrew
-        export HOMEBREW_NO_AUTO_UPDATE=1; # Very annoying, no thanks.
-        eval "$($(brew --prefix)/bin/brew shellenv)"
+      initContent =
+        let
+          # Turn on homebrew...
+          enableHomebrew = lib.mkOrder 1000 ''eval "$($(brew --prefix)/bin/brew shellenv)"'';
 
-        # Disabled, spaceship-prompt seems to be working ok right now...
-        # eval "$(starship init zsh)"
+          # Ensure that we’re always updating which tty the pinentry is going to try and use.
+          #
+          # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/gpg-agent/gpg-agent.plugin.zsh
+          gpgAgentUpdateStartupTTY = lib.mkOrder 1000 ''
+            export GPG_TTY=$TTY
 
-        echo "SSH_AUTH_SOCK: $SSH_AUTH_SOCK"
-      '';
+            function __gpg_agent_update_tty_preexec {
+              gpg-connect-agent updatestartuptty /bye &>/dev/null
+            }
+
+            add-zsh-hook preexec __gpg_agent_update_tty_preexec
+          '';
+        in
+        lib.mkMerge [
+          enableHomebrew
+          gpgAgentUpdateStartupTTY
+        ];
+
+      setOptions = [ ];
 
       shellAliases = {
         ls = "ll";
@@ -330,19 +351,19 @@ in {
         plugins = [
           {
             name = "zsh-users/zsh-syntax-highlighting";
-            tags = ["defer:2"];
+            tags = [ "defer:2" ];
           }
           {
             name = "zsh-users/zsh-history-substring-search";
-            tags = ["defer:3"];
+            tags = [ "defer:3" ];
           }
           {
             name = "zsh-users/zsh-autosuggestions";
-            tags = [];
+            tags = [ ];
           }
           {
             name = "zsh-users/zsh-completions";
-            tags = [];
+            tags = [ ];
           }
           {
             name = "mafredri/zsh-async";
@@ -385,7 +406,7 @@ in {
     atuin = {
       enable = true;
       enableZshIntegration = true;
-      flags = ["--disable-up-arrow"];
+      flags = [ "--disable-up-arrow" ];
     };
 
     direnv = {
