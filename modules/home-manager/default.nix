@@ -55,10 +55,14 @@ in
       k6
       wget
 
+      # Development tools
+      mise
+      devenv
+      direnv
+
       # Utilities
       atuin
       bat
-      direnv
       doggo
       eza
       ffmpeg
