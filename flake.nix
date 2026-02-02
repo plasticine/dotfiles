@@ -24,6 +24,7 @@
         # nix tooling
         nil
         nixd
+        alejandra
 
         dnsmasq
       ];
