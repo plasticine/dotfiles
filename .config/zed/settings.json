@@ -8,10 +8,24 @@
 // from the command palette or from `Zed` application menu.
 {
   "agent": {
+    "inline_assistant_model": {
+      "provider": "google",
+      "model": "gemini-3-pro-preview"
+    },
+    "favorite_models": [
+      {
+        "provider": "google",
+        "model": "gemini-3-pro-preview"
+      },
+      {
+        "provider": "google",
+        "model": "gemini-3-flash-preview"
+      }
+    ],
     "always_allow_tool_actions": true,
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5",
+      "provider": "google",
+      "model": "gemini-3-pro-preview",
     },
     "model_parameters": [],
   },
