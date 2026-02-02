@@ -3,12 +3,10 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   # TODO(juz): is there a nice way to extract this?
   dotfiles = "/Users/justin/Code/plasticine/dotfiles";
-in
-{
+in {
   # https://nix-community.github.io/home-manager/options.xhtml
   home.username = "justin";
   home.homeDirectory = "/Users/justin";
@@ -27,8 +25,7 @@ in
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages =
-    with pkgs;
+  home.packages = with pkgs;
     [
       # System stuff
       coreutils
@@ -46,8 +43,8 @@ in
       spaceship-prompt
 
       # Slops
-      # gemini-cli
-      # claude-code
+      gemini-cli
+      claude-code
 
       # HTTP and networking
       curl
@@ -95,7 +92,6 @@ in
         google-cloud-sdk.components.beta
         google-cloud-sdk.components.gke-gcloud-auth-plugin
       ])
-      xcodes
       k9s
 
       # Fonts
@@ -234,7 +230,7 @@ in
       enable = true;
       git = true;
       icons = "never";
-      extraOptions = [ "--group-directories-first" ];
+      extraOptions = ["--group-directories-first"];
       theme = builtins.fetchurl {
         url = "https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin-macchiato.yml";
         sha256 = "1xmbrsvgh5n306z71zk2sa19ramj8nzr4nwxd2r0fjcp21v0fa1l";
@@ -296,30 +292,29 @@ in
         HOMEBREW_NO_AUTO_UPDATE = "1"; # Very annoying, no thanks.
       };
 
-      initContent =
-        let
-          # Turn on homebrew...
-          enableHomebrew = lib.mkOrder 1000 ''eval "$($(brew --prefix)/bin/brew shellenv)"'';
+      initContent = let
+        # Turn on homebrew...
+        enableHomebrew = lib.mkOrder 1000 ''eval "$($(brew --prefix)/bin/brew shellenv)"'';
 
-          # Ensure that we’re always updating which tty the pinentry is going to try and use.
-          #
-          # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/gpg-agent/gpg-agent.plugin.zsh
-          gpgAgentUpdateStartupTTY = lib.mkOrder 1000 ''
-            export GPG_TTY=$TTY
+        # Ensure that we’re always updating which tty the pinentry is going to try and use.
+        #
+        # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/gpg-agent/gpg-agent.plugin.zsh
+        gpgAgentUpdateStartupTTY = lib.mkOrder 1000 ''
+          export GPG_TTY=$TTY
 
-            function __gpg_agent_update_tty_preexec {
-              gpg-connect-agent updatestartuptty /bye &>/dev/null
-            }
+          function __gpg_agent_update_tty_preexec {
+            gpg-connect-agent updatestartuptty /bye &>/dev/null
+          }
 
-            add-zsh-hook preexec __gpg_agent_update_tty_preexec
-          '';
-        in
+          add-zsh-hook preexec __gpg_agent_update_tty_preexec
+        '';
+      in
         lib.mkMerge [
           enableHomebrew
           gpgAgentUpdateStartupTTY
         ];
 
-      setOptions = [ ];
+      setOptions = [];
 
       shellAliases = {
         ls = "ll";
@@ -355,19 +350,19 @@ in
         plugins = [
           {
             name = "zsh-users/zsh-syntax-highlighting";
-            tags = [ "defer:2" ];
+            tags = ["defer:2"];
           }
           {
             name = "zsh-users/zsh-history-substring-search";
-            tags = [ "defer:3" ];
+            tags = ["defer:3"];
           }
           {
             name = "zsh-users/zsh-autosuggestions";
-            tags = [ ];
+            tags = [];
           }
           {
             name = "zsh-users/zsh-completions";
-            tags = [ ];
+            tags = [];
           }
           {
             name = "mafredri/zsh-async";
@@ -410,7 +405,7 @@ in
     atuin = {
       enable = true;
       enableZshIntegration = true;
-      flags = [ "--disable-up-arrow" ];
+      flags = ["--disable-up-arrow"];
     };
 
     direnv = {
@@ -424,10 +419,10 @@ in
   services = {
     gpg-agent = {
       enable = true;
-      defaultCacheTtl = 3600;
-      defaultCacheTtlSsh = 3600;
-      maxCacheTtl = 7200;
-      maxCacheTtlSsh = 7200;
+      defaultCacheTtl = 86400;
+      defaultCacheTtlSsh = 86400;
+      maxCacheTtl = 86400;
+      maxCacheTtlSsh = 86400;
       enableSshSupport = true;
       enableExtraSocket = true;
       enableZshIntegration = true;
