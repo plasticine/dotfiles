@@ -48,8 +48,22 @@
         ShowRemovableMediaOnDesktop = true;
         ShowMountedServersOnDesktop = true;
         NewWindowTarget = "Home";
+        FXDefaultSearchScope = "SCcf"; # `SCcf` is “current folder”
         FXPreferredViewStyle = "clmv"; # default to column view
         _FXShowPosixPathInTitle = true; # full path in window title
+      };
+
+      screensaver = {
+        askForPassword = true;
+        askForPasswordDelay = 5; # seconds
+      };
+
+      spaces = {
+        spans-displays = false;
+      };
+
+      loginwindow = {
+        GuestEnabled = false;
       };
 
       dock = {
@@ -100,6 +114,7 @@
         KeyRepeat = 1;
         InitialKeyRepeat = 15;
 
+        "com.apple.mouse.tapBehavior" = 1; # Enable tap-to-click on the trackpad.
         "com.apple.trackpad.enableSecondaryClick" = true; # Whether to enable trackpad secondary click.
         "com.apple.trackpad.trackpadCornerClickBehavior" = 1; # Enables right click.
         "com.apple.swipescrolldirection" = false; # Turn off “natural” scrolling.
@@ -109,7 +124,16 @@
         AppleShowScrollBars = "Always";
         AppleScrollerPagingBehavior = true; # Jump to the spot that's clicked on the scroll bar.
 
+        AppleShowAllExtensions = true;
+
         NSAutomaticCapitalizationEnabled = false;
+
+        NSDocumentSaveNewDocumentsToCloud = false;
+        NSNavPanelExpandedStateForSaveMode2 = true;
+
+        NSTableViewDefaultSizeMode = 2; # Medium sized finder sidebar icons
+
+        NSWindowResizeTime = 0.1;
       };
 
       ActivityMonitor = {
