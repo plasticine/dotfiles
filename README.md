@@ -18,11 +18,13 @@ Repeatable systems with Nix, Nix Darwin, and Home Manager.
 
 > [!NOTE]
 > These steps assume that nix is already installed on the machine. If that’s not the case then go do that first!
+>
+> `curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install`
 
 Perform the initial run of `nix-darwin`:
 
 ```shell
-nix-shell -p just gum --run 'just install'
+nix-shell -p just --run 'just install'
 ```
 
 Subsequent rebuilds can be achieved using:

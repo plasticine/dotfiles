@@ -1,8 +1,21 @@
-{...}: rec {
+{pkgs, ...}: rec {
   time.timeZone = "Australia/Melbourne";
 
   # Allow sudo via TouchId
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  fonts = {
+    packages = with pkgs; [
+      hack-font
+      ia-writer-duospace
+      ia-writer-mono
+      ia-writer-quattro
+      nerd-fonts.hack
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+    ];
+  };
 
   services = {
     # Enable local dnsmasq server for resolving local hosts.

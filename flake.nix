@@ -29,6 +29,9 @@
         dnsmasq
       ];
 
+      # Turn off nix-darwin’s management of the Nix installation. This is required for determinate nix.
+      nix.enable = false;
+
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
 
@@ -86,9 +89,8 @@
     #   darwin-rebuild build --flake .#fer-nespresso
     #
     darwinConfigurations = {
-      fer-nespresso = mkDarwinSystem "aarch64-darwin";
-      fer-cortado = mkDarwinSystem "aarch64-darwin";
       Bean = mkDarwinSystem "x86_64-darwin";
+      ristretto = mkDarwinSystem "aarch64-darwin";
     };
   };
 }

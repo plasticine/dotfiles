@@ -25,88 +25,74 @@ in {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs;
-    [
-      # System stuff
-      coreutils
-      python3
+  home.packages = with pkgs; [
+    # System stuff
+    coreutils
+    python3
 
-      # Shells
-      bash
-      fish
-      nushell
-      shellcheck
-      shfmt
-      zplug
-      zsh
-      starship
-      spaceship-prompt
+    # Shells
+    bash
+    fish
+    nushell
+    shellcheck
+    shfmt
+    zplug
+    zsh
+    starship
+    spaceship-prompt
 
-      # Slops
-      gemini-cli
-      claude-code
+    # Slops
+    gemini-cli
+    claude-code
 
-      # HTTP and networking
-      curl
-      httpie
-      k6
-      wget
+    # HTTP and networking
+    curl
+    httpie
+    k6
+    wget
 
-      # Development tools
-      mise
-      devenv
-      direnv
+    # Development tools
+    mise
+    devenv
+    direnv
 
-      # Utilities
-      atuin
-      bat
-      doggo
-      eza
-      ffmpeg
-      fzf
-      jq
-      just
-      mise
-      ncdu
-      ripgrep
-      ssh-copy-id
-      yt-dlp
-      age
-      sops
+    # Utilities
+    atuin
+    bat
+    doggo
+    eza
+    ffmpeg
+    fzf
+    jq
+    just
+    mise
+    ncdu
+    ripgrep
+    ssh-copy-id
+    yt-dlp
+    age
+    sops
 
-      # VCS stuff
-      delta
-      gh
-      git
-      gnupg
-      jujutsu
-      pinentry_mac
+    # VCS stuff
+    delta
+    gh
+    git
+    gnupg
+    jujutsu
+    pinentry_mac
 
-      # Monitoring
-      htop
-      btop
+    # Monitoring
+    htop
+    btop
 
-      # Tools
-      (google-cloud-sdk.withExtraComponents [
-        google-cloud-sdk.components.alpha
-        google-cloud-sdk.components.beta
-        google-cloud-sdk.components.gke-gcloud-auth-plugin
-      ])
-      k9s
-
-      # Fonts
-      hack-font
-      ia-writer-duospace
-      ia-writer-mono
-      ia-writer-quattro
-      nerd-fonts.hack
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.fira-code
-      nerd-fonts.droid-sans-mono
-    ]
-    ++ lib.optional pkgs.stdenv.hostPlatform.isAarch64 [
-      pkgs.macpm
-    ];
+    # Tools
+    (google-cloud-sdk.withExtraComponents [
+      google-cloud-sdk.components.alpha
+      google-cloud-sdk.components.beta
+      google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ])
+    k9s
+  ];
 
   # Manage XDG config files.
   xdg.configFile = {
@@ -164,6 +150,7 @@ in {
         SOURCE="${config.xdg.configHome}/sublime"
 
         if ! [ -L "$DESTINATION" ]; then
+            mkdir -p "$(dirname "$DESTINATION")"
             ln -sv "$SOURCE" "$DESTINATION" # Link does not exist, so create it...
         else
             echo "Symbolic link already exists at $DESTINATION."
@@ -196,6 +183,8 @@ in {
   #
   # https://nix-community.github.io/home-manager/options.xhtml#opt-home.sessionPath
   home.sessionPath = [
+    "/opt/homebrew/bin"
+
     # Local home dir binaries
     "${config.home.homeDirectory}/.bin"
 
@@ -219,6 +208,9 @@ in {
 
     # k9s has a silly default, we need to explicitly set this to have to load from our XDG config dir.
     K9S_CONFIG_DIR = "$HOME/.config/k9s";
+
+    HOMEBREW_NO_AUTO_UPDATE = "1"; # Very annoying, no thanks.
+    HOMEBREW_NO_ANALYTICS = "1"; # Nah.
   };
 
   # https://github.com/nix-community/home-manager/tree/master/modules/programs
@@ -233,7 +225,7 @@ in {
       extraOptions = ["--group-directories-first"];
       theme = builtins.fetchurl {
         url = "https://github.com/eza-community/eza-themes/blob/main/themes/catppuccin-macchiato.yml";
-        sha256 = "1xmbrsvgh5n306z71zk2sa19ramj8nzr4nwxd2r0fjcp21v0fa1l";
+        sha256 = "1ddmv8r57wkhasgkf06wzp1z0jpc56k53x91jbi45fnm2dxaw5gm";
       };
     };
 
@@ -286,15 +278,9 @@ in {
       # Useful for debugging startup performance.
       # zprof.enable = true;
 
-      # Environment variables that will be set for zsh session.
-      sessionVariables = {
-        PATH = "/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH";
-        HOMEBREW_NO_AUTO_UPDATE = "1"; # Very annoying, no thanks.
-      };
-
       initContent = let
         # Turn on homebrew...
-        enableHomebrew = lib.mkOrder 1000 ''eval "$($(brew --prefix)/bin/brew shellenv)"'';
+        enableHomebrew = lib.mkOrder 1000 ''eval "$(brew shellenv)"'';
 
         # Ensure that we’re always updating which tty the pinentry is going to try and use.
         #

@@ -1,8 +1,4 @@
-{
-  # inputs,
-  # pkgs,
-  ...
-}: {
+{...}: {
   # Work mac comes with brew.
   homebrew = {
     enable = true;
@@ -12,20 +8,9 @@
       # cleanup = "zap"; # `zap` uninstalls all formulae(and related files) not listed here.
     };
 
-    taps = [
-      # This requires the gh CLI to have been authed before it will work...
-      {
-        name = "ferocia/tfshell";
-        clone_target = "https://github.com/ferocia/tfshell";
-        force_auto_update = true;
-      }
-    ];
+    taps = [];
 
-    brews = [
-      {
-        name = "ferocia/tfshell/tfshell";
-      }
-    ];
+    brews = [];
 
     casks = [
       "cleanshot"

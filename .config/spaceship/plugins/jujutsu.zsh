@@ -47,7 +47,7 @@ spaceship_jujutsu() {
 	")
 
 	# Build section output.
-	content="${revision}${file_status} ${closest_bookmark}+${closest_bookmark_distance}"
+	content="${revision}${file_status}${closest_bookmark}+${closest_bookmark_distance}"
 
 	# Sanitize output...
 	content="$(sed 's/\x1b\[[0-9;]*m/%{&%}/g' <<< $content)"
