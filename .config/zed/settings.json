@@ -7,20 +7,25 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent_servers": {
+    "claude": {
+      "default_model": "sonnet"
+    }
+  },
   "agent": {
     "inline_assistant_model": {
       "provider": "google",
-      "model": "gemini-3-pro-preview"
+      "model": "gemini-3-pro-preview",
     },
     "favorite_models": [
       {
         "provider": "google",
-        "model": "gemini-3-pro-preview"
+        "model": "gemini-3-pro-preview",
       },
       {
         "provider": "google",
-        "model": "gemini-3-flash-preview"
-      }
+        "model": "gemini-3-flash-preview",
+      },
     ],
     "always_allow_tool_actions": true,
     "default_model": {
@@ -32,9 +37,6 @@
   "show_edit_predictions": false,
   "edit_predictions": {
     "mode": "subtle",
-  },
-  "features": {
-    "edit_prediction_provider": "copilot",
   },
   "theme": {
     "mode": "system",
@@ -124,6 +126,9 @@
   "languages": {
     "JavaScript": {
       "show_edit_predictions": true,
+    },
+    "Ruby": {
+      "language_servers": ["!solargraph"],
     },
     "Elixir": {
       "show_edit_predictions": false,

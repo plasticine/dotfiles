@@ -28,6 +28,7 @@ in {
   home.packages = with pkgs; [
     # System stuff
     coreutils
+    procps
     python3
 
     # Shells
@@ -322,6 +323,8 @@ in {
 
         # Jujutsu aliases
         j = "jj";
+        jo = "jj open";
+        jcu = "jj current";
         js = "jj status";
         jt = "jj tug";
         jc = "jj commit";
