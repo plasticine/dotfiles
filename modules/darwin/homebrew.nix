@@ -16,6 +16,7 @@
       "cleanshot"
       # "dash"
       "firefox"
+      "claudebar"
       "ghostty"
       "google-chrome"
       "kaleidoscope@3"

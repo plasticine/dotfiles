@@ -141,6 +141,15 @@ in {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/spaceship";
       recursive = true;
     };
+    claude = {
+      target = "claude";
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/claude";
+      recursive = true;
+      onChange = ''
+        mkdir -p "${config.home.homeDirectory}/.claude"
+        ln -sfv "${config.xdg.configHome}/claude/settings.json" "${config.home.homeDirectory}/.claude/settings.json"
+      '';
+    };
     sublime = {
       target = "sublime";
       source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/.config/sublime";
