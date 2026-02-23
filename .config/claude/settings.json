@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git rebase * --continue)",
+      "Bash(git rebase * --abort)",
+      "Bash(git rebase * --skip)",
+      "WebSearch",
+      "WebFetch(domain:zeropath.com)",
+      "WebFetch(domain:paraxial.io)",
+      "WebFetch(domain:semaphore.io)",
+      "WebFetch(domain:github.blog)",
+      "WebFetch(domain:www.curiosum.com)",
+      "WebFetch(domain:hexdocs.pm)",
+      "WebFetch(domain:phoenixframework.org)",
+      "WebFetch(domain:elixir-lang.org)",
+      "Bash(git push:*)",
+      "mcp__acp__Bash",
+      "mcp__acp__Write",
+      "Bash(jj log:*)",
+      "Bash(jj branch:*)",
+      "Bash(jj bookmark:*)",
+      "Bash(jj:*)",
+      "Bash(mix compile:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(gh pr checks:*)",
+      "WebFetch(domain:buildkite.com)",
+      "Bash(mix deps.get:*)",
+      "Bash(mix credo:*)",
+      "Bash(mix precommit:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh api:*)",
+      "Skill(jj-vcs)"
+    ],
+    "defaultMode": "default"
+  },
+  "outputStyle": "Learning",
+  "alwaysThinkingEnabled": true,
+  "autoUpdatesChannel": "stable"
+}
