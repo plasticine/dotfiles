@@ -1,3 +1,5 @@
+# auto-update-channel = tip
+
 theme = dark:catppuccin-macchiato, light:catppuccin-latte
 
 font-family = "Hack Nerd Font Mono"
